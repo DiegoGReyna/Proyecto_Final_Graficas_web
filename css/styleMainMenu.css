@@ -109,6 +109,7 @@ body {
 .BtnClasic:hover {
     color: var(--celeste);
     transform: rotate(10deg);
+
 }
 
 .BtnExit {
