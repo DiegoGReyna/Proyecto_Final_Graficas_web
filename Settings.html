@@ -26,14 +26,22 @@
             <label for="InpVolume">Volume</label>
             <div class="Box_Volume">
                 <div class="BoxInputVolume">
-                    <input type="range" name="" id="InpVolume" min="0" max="100" value="0">
+
+                    <input class="range" type="range" name="" id="InpVolume" min="0" max="100" value="0"
+                        onchange="rangeSlide(this.value)" onmousemove="rangeSlide(this.value)">
+                    <span class="VolumeLevel" id="rangeVolume">0</span>
                 </div>
-                <div class="LevelVolue">100</div>
+                <script type="text/javascript">
+                    function rangeSlide(value) {
+                        document.getElementById('rangeVolume').innerHTML = value;
+                    }
+                </script>
+
             </div>
             <div class="TwoButtons">
                 <input class="ButtonSubmit" type="submit" value="Confirm settings">
                 <!-- <input class="NormalButton" type="button" value="Create an account"> -->
-                <a class="NormalLink" href="CreateAccount.html">Cancel</a>
+                <a class="NormalLink" href="MainMenu.html">Cancel</a>
             </div>
         </form>
 

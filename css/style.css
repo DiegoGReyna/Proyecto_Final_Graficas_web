@@ -239,17 +239,11 @@
  }
 
  .Container_Settigs label {
-     padding: 1rem;
      color: var(--Blanco);
      font-family: 'Pacifico';
-
      font-weight: 400;
-     font-size: 2.5rem;
-     text-shadow:
-         -1px -1px 0 #000,
-         1px -1px 0 #000,
-         -1px 1px 0 #000,
-         1px 1px 0 #000;
+     font-size: 4rem;
+     text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
  }
 
 
@@ -270,30 +264,40 @@
 
  .BoxInputVolume {
      width: 100%;
+     display: flex;
+     flex-direction: row;
+
+     align-items: center;
  }
 
- .BoxInputVolume input {
-     height: 1.5rem;
-
-
+ .range {
+     -webkit-appearance: none;
+     outline: none;
+     overflow: hidden;
+     box-shadow: inset 0 0 5px rgba(0, 0, 0, 1);
+     background: var(--Blanco);
+     border-radius: 15px;
      width: 80%;
 
-     border-radius: 5px;
-     outline: none;
  }
 
+ .range::-webkit-slider-thumb {
+     -webkit-appearance: none;
+     width: 15px;
+     height: 15px;
+     border-radius: 50%;
+     background-color: var(--AzulClaro);
+     cursor: pointer;
+     box-shadow: -407px 0 0 400px #056EC2;
+ }
 
-
- .Box_Volume .LevelVolue {
-     font-weight: 400;
-     font-size: 4.5rem;
-     font-family: 'Pacifico';
-
-     text-shadow:
-         -1px -1px 0 #000,
-         1px -1px 0 #000,
-         -1px 1px 0 #000,
-         1px 1px 0 #000;
+ .VolumeLevel {
      color: var(--Blanco);
+     font-family: 'Pacifico';
+     font-weight: 400;
+     font-size: 5rem;
+     text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+     width: 20%;
      text-align: center;
+     padding-bottom: 2.5rem;
  }
