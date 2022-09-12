@@ -1,0 +1,43 @@
+body{
+    background: #5895be;  
+    font-family: sans-serif;  
+    
+  }
+  
+  .container{  
+    margin-top: 170px; 
+  }
+  
+  table { 
+    border-radius: 1.5em;
+    font-size: 25px;
+    border-collapse: collapse;
+    color:#d9ecf7;
+    background-color:rgb(76, 92, 179);
+    margin: 0 auto;
+    width: 400px;  
+    box-shadow: 0 7px 15px #000000;
+  }
+  
+  thead {
+    background:#404a80;
+   
+  }
+  
+  td {
+    padding: 20px;
+    text-align: center;
+   
+  }
+  
+  tbody {
+    cursor: pointer;
+    border-radius: 1.5em;
+  }
+  
+  tbody tr:hover {
+    background: #72b0da ;
+  }
+  
+  
+  
