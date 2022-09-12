@@ -10,7 +10,10 @@
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background: #5895be;  
+
+    background: url(../img/Fondo.jpg);
+	  background-size: 100% 100%;
+	  height: 100%;
     }
   
     .container{
@@ -23,7 +26,7 @@
       font-size: 20px;
       table-layout: fixed;
       border-collapse: collapse;
-      background:rgb(76, 92, 179); 
+      background:rgba(5, 110, 194, 0.5); 
       margin: 50px;
       border-radius: 1.5em;
     }
