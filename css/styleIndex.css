@@ -1,14 +1,21 @@
 * {box-sizing: border-box;}
 body { 
-	margin: 0;
+
 	font-family: Arial, sans-serif,Verdana;
-  background-color: #97b3ce;
+	background: url(../img/Fondo.jpg);
+	background-size: 100% 100%;
+
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+
   }
+  
   
   .header {
 	
 	overflow: hidden;
-	background-color: #1c2a49;
+	background-color: #40588d;
 	padding: 20px 10px;
   font-family: Arial, Verdana;
   }

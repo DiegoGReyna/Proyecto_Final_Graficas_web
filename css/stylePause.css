@@ -1,26 +1,30 @@
+
 body{
-    background: #5895be;  
     font-family: sans-serif;  
-    
+    background: url(../img/Fondo.jpg);
+	  background-size: 100% 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
   }
   
-  .container{  
-    margin-top: 170px; 
-  }
-  
-  table { 
+
+  table {  
     border-radius: 1.5em;
     font-size: 25px;
     border-collapse: collapse;
     color:#d9ecf7;
-    background-color:rgb(76, 92, 179);
+    background-color:rgba(12, 93, 160, 0.5);
     margin: 0 auto;
     width: 400px;  
-    box-shadow: 0 7px 15px #000000;
+    box-shadow: 0 7px 15px #000000;     
+  
   }
   
   thead {
-    background:#404a80;
+    background:#404a80b9;
    
   }
   
