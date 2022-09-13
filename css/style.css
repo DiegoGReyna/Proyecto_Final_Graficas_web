@@ -51,7 +51,7 @@
  .Container_Login label {
      padding: 1rem;
      color: var(--Blanco);
-     font-family: 'Pacifico';
+     font-family: sans-serif;
 
      font-weight: 400;
      font-size: 2.5rem;
@@ -98,7 +98,7 @@
  .Container_CreateAcount label {
      padding: 1rem;
      color: var(--Blanco);
-     font-family: 'Pacifico';
+     font-family: sans-serif;
 
      font-weight: 400;
      font-size: 2.5rem;
@@ -118,12 +118,11 @@
 
  .ButtonSubmit {
      border: none;
-     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5));
-     font-family: 'Pacifico', cursive;
+
      background-color: var(--verdeOscuro);
      border: none;
      filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5));
-     font-family: 'Pacifico', cursive;
+     font-family: sans-serif;
      font-size: 2rem;
      border-radius: 0.5rem;
      transition: all 0.3s;
@@ -150,25 +149,21 @@
  }
 
  .NormalLink {
+     display: flex;
      text-align: center;
      text-decoration: none;
      border: none;
      filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5));
-     font-family: 'Pacifico', cursive;
      border: none;
-     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5));
-     font-family: 'Pacifico', cursive;
      transition: all 0.3s;
      font-size: 2rem;
      border-radius: 0.5rem;
      background-color: var(--AzulOscuro);
      color: var(--Blanco);
-
-     text-shadow:
-         -1px -1px 0 #000,
-         1px -1px 0 #000,
-         -1px 1px 0 #000,
-         1px 1px 0 #000;
+     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
  }
 
 
@@ -194,7 +189,7 @@
      font-size: 2rem;
      padding: 1rem;
      transition: all 0.3s;
-     font-family: 'Pacifico', cursive;
+     font-family: sans-serif;
      filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5));
  }
 
@@ -240,7 +235,7 @@
 
  .Container_Settigs label {
      color: var(--Blanco);
-     font-family: 'Pacifico';
+     font-family: sans-serif;
      font-weight: 400;
      font-size: 4rem;
      text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
