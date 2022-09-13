@@ -92,7 +92,7 @@ body {
     text-align: center;
     background: url(../img/cartelMadera.png);
     background-size: 100% 100%;
-    font-family: 'Pacifico', cursive;
+    font-family: sans-serif;
     font-size: 3rem;
     color: var(--Blanco);
     border: none;
@@ -120,7 +120,7 @@ body {
 
     background: url(../img/Exit.png);
     background-size: 100% 100%;
-    font-family: 'Pacifico', cursive;
+    font-family: sans-serif;
     font-size: 4rem;
     color: var(--Blanco);
     border: none;
