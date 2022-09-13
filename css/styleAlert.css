@@ -1,0 +1,51 @@
+body{
+    background: url(../img/Fondo.jpg);
+    background-size: 100% 100%;
+    height: 100%;
+}
+
+.Container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: 120vh; 
+
+}
+
+.warning{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: x-large;
+    border-radius: 2rem;
+    padding: .5rem;
+    text-align: center;
+    flex-direction: row;
+    max-width: 30%;
+    margin: 1rem;
+    width: 25%;    
+}
+.advice{
+    background:rgba(139, 172, 216, 0.705);
+    border: solid 3px rgba(44, 74, 114, 0.925);
+    color: rgba(8, 61, 97, 0.918);
+}
+
+button{
+    background-color: rgba(7, 87, 141, 0.918);
+    border: 10;
+    padding: 7px;
+    color: rgb(244, 250, 255);
+    cursor: pointer;
+    margin: 4px 2px;border-radius: 6px;
+    border: rgba(44, 74, 114, 0.925);
+}
+
+.btn:hover:hover {
+    background-color: rgba(63, 152, 211, 0.918);
+}
+
+.image{
+    width: 140px;
+    height: 124;
+}
