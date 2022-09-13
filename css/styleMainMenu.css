@@ -1,0 +1,155 @@
+:root {
+    --AzulOscuro: #056EC2;
+    --AzulClaro: #0B88ED;
+    --celeste: #00AAE3;
+    --verdeOscuro: #0C8F41;
+    --verdeClaro: #11C358;
+    --Blanco: #F0F2F5;
+    --Rojo: #AE1E1E;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+body {
+    display: flex;
+    background: url(../img/Fondo.jpg);
+    background-size: 100% 100%;
+
+
+
+
+}
+
+
+
+
+.ContainerMainMenu {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 95vh;
+}
+
+.ContainerButtonsAnIconMainMenu {
+
+    display: grid;
+    grid-template-columns: 20% 80%;
+    height: 100%;
+}
+
+
+
+.ContainerOneColummn {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    justify-content: flex-end;
+    margin-left: 3rem;
+
+}
+
+.BtnPlay {
+    display: grid;
+    place-content: center;
+    text-decoration: none;
+    text-align: center;
+    background: url(../img/Play.png);
+    background-size: 100% 100%;
+    font-family: 'Pacifico', cursive;
+    font-size: 5.5rem;
+    color: var(--Blanco);
+    border: none;
+    width: 30rem;
+    height: 14rem;
+    text-shadow:
+        -3px -3px 0 #000,
+        3px -3px 0 #000,
+        -3px 3px 0 #000,
+        3px 3px 0 #000;
+    transition: all 0.3s;
+}
+
+.BtnPlay:hover {
+    color: var(--celeste);
+    transform: rotate(10deg);
+}
+
+.BtnClasic {
+    display: grid;
+    place-content: center;
+    text-decoration: none;
+    text-align: center;
+    background: url(../img/cartelMadera.png);
+    background-size: 100% 100%;
+    font-family: sans-serif;
+    font-size: 3rem;
+    color: var(--Blanco);
+    border: none;
+    width: 24rem;
+    height: 12rem;
+    text-shadow:
+        -2px -2px 0 #000,
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        2px 2px 0 #000;
+    transition: all 0.3s;
+}
+
+.BtnClasic:hover {
+    color: var(--celeste);
+    transform: rotate(10deg);
+
+}
+
+.BtnExit {
+    display: grid;
+    place-content: center;
+    text-decoration: none;
+    text-align: center;
+
+    background: url(../img/Exit.png);
+    background-size: 100% 100%;
+    font-family: sans-serif;
+    font-size: 4rem;
+    color: var(--Blanco);
+    border: none;
+    width: 24rem;
+    height: 12rem;
+    text-shadow:
+        -2px -2px 0 #000,
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        2px 2px 0 #000;
+    transition: all 0.3s;
+}
+
+.BtnExit:hover {
+    color: var(--Rojo);
+    transform: rotate(10deg);
+}
+
+.titleMainMenu {
+    text-align: center;
+    font-family: 'Pacifico', cursive;
+
+    font-size: 10rem;
+
+    color: var(--celeste);
+
+    text-shadow:
+        -1rem -5px 0 #000,
+        5px -5px 0 #000,
+        -5px 5px 0 #000,
+        5px 5px 0 #000;
+}

@@ -1,8 +1,10 @@
  :root {
-     --Azul: #056EC2;
+     --AzulOscuro: #056EC2;
+     --AzulClaro: #0B88ED;
      --celeste: #00AAE3;
-     --verdeOscuro: ;
-
+     --verdeOscuro: #0C8F41;
+     --verdeClaro: #11C358;
+     --Blanco: #F0F2F5;
  }
 
  *,
@@ -19,21 +21,23 @@
 
  body {
      height: 100%;
- }
-
- body {
      display: grid;
      place-content: center;
+     background: url(../img/Fondo.jpg);
+     background-size: 100% 100%;
+
  }
 
  .Container_Login {
 
-     background: #056EC2;
+     background: rgba(5, 110, 194, 0.5);
      box-shadow: 0px 4px 10px 15px rgba(0, 0, 0, 0.45);
      border-radius: 45px;
      height: 35rem;
      width: 45rem;
  }
+
+
 
  .Container_Login form {
      height: 100%;
@@ -42,38 +46,253 @@
      flex-direction: column;
      align-items: center;
      justify-content: center;
-
  }
 
  .Container_Login label {
-     padding: 1.5rem;
+     padding: 1rem;
+     color: var(--Blanco);
+     font-family: sans-serif;
+
+     font-weight: 400;
+     font-size: 2.5rem;
+     text-shadow:
+         -1px -1px 0 #000,
+         1px -1px 0 #000,
+         -1px 1px 0 #000,
+         1px 1px 0 #000;
  }
 
  /* .Container_Login input {
      width: 90%;
      height: 1.5rem;
  } */
-
  .Container_Login .ButtonSubmit {
      width: 90%;
      height: 4rem;
      padding: 1px;
-     margin: 0;
-     margin-top: 1rem;
  }
 
 
+
+
+ .Container_CreateAcount {
+
+     background: rgba(5, 110, 194, 0.5);
+     box-shadow: 0px 4px 10px 15px rgba(0, 0, 0, 0.45);
+     border-radius: 45px;
+     height: 55rem;
+     width: 50rem;
+ }
+
+
+
+ .Container_CreateAcount form {
+     height: 100%;
+     width: 100%;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+ }
+
+ .Container_CreateAcount label {
+     padding: 1rem;
+     color: var(--Blanco);
+     font-family: sans-serif;
+
+     font-weight: 400;
+     font-size: 2.5rem;
+     text-shadow:
+         -1px -1px 0 #000,
+         1px -1px 0 #000,
+         -1px 1px 0 #000,
+         1px 1px 0 #000;
+ }
+
+
+ .Container_CreateAcount .ButtonSubmit {
+     width: 90%;
+     height: 4rem;
+     padding: 1px;
+ }
+
  .ButtonSubmit {
-     border-radius: 5px;
+     border: none;
+
+     background-color: var(--verdeOscuro);
+     border: none;
+     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5));
+     font-family: sans-serif;
+     font-size: 2rem;
+     border-radius: 0.5rem;
+     transition: all 0.3s;
+     color: var(--Blanco);
+     text-shadow:
+         -1px -1px 0 #000,
+         1px -1px 0 #000,
+         -1px 1px 0 #000,
+         1px 1px 0 #000;
+
+
+ }
+
+ .ButtonSubmit:hover {
+     background-color: var(--verdeClaro);
+     filter: none;
+     color: #000;
+
+     text-shadow:
+         -1px -1px 0 var(--Blanco),
+         1px -1px 0 var(--Blanco),
+         -1px 1px 0 var(--Blanco),
+         1px 1px 0 var(--Blanco);
+ }
+
+ .NormalLink {
+     display: flex;
+     text-align: center;
+     text-decoration: none;
+     border: none;
+     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5));
+     border: none;
+     transition: all 0.3s;
+     font-size: 2rem;
+     border-radius: 0.5rem;
+     background-color: var(--AzulOscuro);
+     color: var(--Blanco);
+     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+ }
+
+
+ .NormalLink:hover {
+     background-color: var(--AzulClaro);
+     filter: none;
+     color: #000;
+
+     text-shadow:
+         -1px -1px 0 var(--Blanco),
+         1px -1px 0 var(--Blanco),
+         -1px 1px 0 var(--Blanco),
+         1px 1px 0 var(--Blanco);
  }
 
 
  .InputTxt {
      width: 90%;
-     height: 4rem;
+     height: 4.5rem;
      border-radius: 5px;
+     background-color: var(--Blanco);
+     border: none;
+     font-size: 2rem;
+     padding: 1rem;
+     transition: all 0.3s;
+     font-family: sans-serif;
+     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5));
  }
 
- input {
-     font-family: 'Lobster', cursive;
+ .TwoButtons {
+     width: 90%;
+     margin-top: 2rem;
+     display: grid;
+     grid-template-columns: 50% 50%;
+ }
+
+ .Title {
+
+     text-align: center;
+     color: var(--Blanco);
+     font-family: 'Pacifico';
+     font-weight: 400;
+     font-size: 2.2rem;
+     text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+
+ }
+
+
+
+ .Container_Settigs {
+
+     background: rgba(5, 110, 194, 0.5);
+     box-shadow: 0px 4px 10px 15px rgba(0, 0, 0, 0.45);
+     border-radius: 45px;
+     height: 35rem;
+     width: 45rem;
+ }
+
+
+
+ .Container_Settigs form {
+     height: 100%;
+     width: 100%;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+ }
+
+ .Container_Settigs label {
+     color: var(--Blanco);
+     font-family: sans-serif;
+     font-weight: 400;
+     font-size: 4rem;
+     text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+ }
+
+
+ .Container_Settigs .ButtonSubmit {
+     width: 90%;
+     height: 4rem;
+     padding: 1px;
+ }
+
+ .Box_Volume {
+     width: 90%;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+ }
+
+
+
+ .BoxInputVolume {
+     width: 100%;
+     display: flex;
+     flex-direction: row;
+
+     align-items: center;
+ }
+
+ .range {
+     -webkit-appearance: none;
+     outline: none;
+     overflow: hidden;
+     box-shadow: inset 0 0 5px rgba(0, 0, 0, 1);
+     background: var(--Blanco);
+     border-radius: 15px;
+     width: 80%;
+
+ }
+
+ .range::-webkit-slider-thumb {
+     -webkit-appearance: none;
+     width: 15px;
+     height: 15px;
+     border-radius: 50%;
+     background-color: var(--AzulClaro);
+     cursor: pointer;
+     box-shadow: -407px 0 0 400px #056EC2;
+ }
+
+ .VolumeLevel {
+     color: var(--Blanco);
+     font-family: 'Pacifico';
+     font-weight: 400;
+     font-size: 5rem;
+     text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+     width: 20%;
+     text-align: center;
+     padding-bottom: 2.5rem;
  }

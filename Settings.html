@@ -13,28 +13,35 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Pacifico&display=swap" rel="stylesheet">
-
-
-    <title>Home</title>
-
+    <title>Settings</title>
 </head>
-
 
 <body>
     <div class="Title">
-        <h1>Welcome to Swit Boat!</h1>
+        <h1>Settings</h1>
     </div>
-    <div class="Container_Login">
+    <div class="Container_Settigs">
 
         <form action="">
-            <label for="InpUser">User name</label>
-            <input class="InputTxt" type="text" name="" id="InpUser" placeholder="User name">
-            <label for="InpPassword">Password</label>
-            <input class="InputTxt" type="password" name="" id="#InpPassword" placeholder="Password">
+            <label for="InpVolume">Volume</label>
+            <div class="Box_Volume">
+                <div class="BoxInputVolume">
+
+                    <input class="range" type="range" name="" id="InpVolume" min="0" max="100" value="0"
+                        onchange="rangeSlide(this.value)" onmousemove="rangeSlide(this.value)">
+                    <span class="VolumeLevel" id="rangeVolume">0</span>
+                </div>
+                <script type="text/javascript">
+                    function rangeSlide(value) {
+                        document.getElementById('rangeVolume').innerHTML = value;
+                    }
+                </script>
+
+            </div>
             <div class="TwoButtons">
-                <input class="ButtonSubmit" type="submit" value="Log in">
+                <input class="ButtonSubmit" type="submit" value="Confirm settings">
                 <!-- <input class="NormalButton" type="button" value="Create an account"> -->
-                <a class="NormalLink" href="CreateAccount.html">Create an account</a>
+                <a class="NormalLink" href="MainMenu.html">Cancel</a>
             </div>
         </form>
 

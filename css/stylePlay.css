@@ -1,0 +1,76 @@
+:root {
+    --AzulOscuro: #056EC2;
+    --AzulClaro: #0B88ED;
+    --celeste: #00AAE3;
+    --verdeOscuro: #0C8F41;
+    --verdeClaro: #11C358;
+    --Blanco: #F0F2F5;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+body {
+    height: 95%;
+    display: flex;
+    place-content: center;
+    background: url(../img/Fondo.jpg);
+    background-size: 100% 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+
+
+.ContainerPlayGame {
+    display: flex;
+    width: 90%;
+    /* background-color: #0B88ED; */
+    height: 90%;
+    justify-content: center;
+    align-items: center;
+    background: rgba(5, 110, 194, 0.5);
+    box-shadow: 0px 4px 10px 15px rgba(0, 0, 0, 0.45);
+    border-radius: 35px;
+    /* height: 55rem;
+    width: 50rem; */
+}
+
+.BtnPause {
+    position: absolute;
+    display: grid;
+    place-content: center;
+    background: url(../img/cartelMadera.png);
+    background-size: 100% 100%;
+    border: none;
+    width: 12rem;
+    height: 8rem;
+    top: 5.5rem;
+    right: 8%;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.BtnPause:hover {
+    transform: rotate(-10deg);
+
+}
+
+.CanvasPlayGame {
+    width: 100%;
+    height: 100%;
+    /* background-color: #11C358; */
+    border-radius: 35px;
+
+
+}
