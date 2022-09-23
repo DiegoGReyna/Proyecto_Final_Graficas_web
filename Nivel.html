@@ -3,42 +3,57 @@
 
 <head>
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ventana Nivel</title>
-<link rel="stylesheet" href="css/styleNivel.css" type="text/css">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nivel</title>
+    <link rel="stylesheet" href="css/styleNivel.css" type="text/css">
 
 </head>
 
 <body>
 
-    <div class="card">
-
-      <div class="face front">
-          <img src="img/dia.png" alt="">
-          <h3>DIA</h3>
-      </div>
-      <div class="face back">
-          <h3>DIFICULTAD: FACIL</h3>
-          <p>Cielo despejado con una velocidad promedio. </p>
-      </div>
-
+    <div id="contenedor_carga">
+        <div id="carga"></div>
+     <h2 id="cargando">Cargando...</h2> 
     </div>
+    
 
-    <div class="card">
+            <div class="body__page">
+                <h2 id="titulo">Escoge un nivel</h2>
 
-      <div class="face front">
-          <img src="img/noche.png" alt="">
-          <h3>NOCHE</h3>
-      </div>
-      <div class="face back">
-          <h3>DIFICULTAD: DIFICIL</h3>
-          <p>Cielo oscuro con una velocidad más rápida. </p>
-      </div>
+                <div class="container__card">
+                    
+                    <div class="card">
+                        <div class="face front">
+                            <img src="img/dia.png" alt="">
+                            <h3>DIA</h3>
+                        </div>
+                        <div class="face back">
+                            <h3>DIFICULTAD: FACIL</h3>
+                            <p>Cielo despejado con una velocidad promedio. </p>
+                        </div>
+                    </div>
+    
+                    <div class="card">
+                        <div class="face front">
+                            <img src="img/noche.png" alt="">
+                            <h3>NOCHE</h3>
+                        </div>
+                        <div class="face back">
+                            <h3>DIFICULTAD: DIFICIL</h3>
+                            <p>Cielo oscuro con una velocidad más rápida. </p>
+                        </div>
+                    </div>           
+                </div>    
 
-
-    </div>
-
+            </div>
+    
+            <script>
+                var loader = document.getElementById('contenedor_carga');
+                window.addEventListener("load",function(){
+                    loader.style.display = "none";
+                })
+            </script> 
 
 </body>
 
