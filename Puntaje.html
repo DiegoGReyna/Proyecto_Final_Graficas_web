@@ -7,96 +7,105 @@
 
 </head>
 <body>
-    <div class="container">
-        <h3> NIVEL: DIA </h3>
-        <table>
-            
-            <thead>
-                <tr>
-                    <td>Nº</td>
-                    <td>Nombre</td>
-                    <td>Puntuación</td>
-                    <td>Tiempo</td>
-                    <td>Fecha</td>
-                </tr>
-            </thead>
-             <tbody>
-                 <tr>
-                    <td>01</td>
-                    <td>Carlos</td>
-                    <td>1200</td>
-                    <td>50:90s</td>
-                    <td>10/09/2022</td>
-                 </tr>
-                 <tr>
-                  <td>02</td>
-                  <td>Anna</td>
-                  <td>2000</td>
-                  <td>30:20s</td>
-                  <td>09/09/2022</td>
-                  </tr>
-                  <tr>
-                    <td>03</td>
-                    <td>Danna</td>
-                    <td>900</td>
-                    <td>80:10s</td>
-                    <td>08/09/2022</td>
-                  </tr>
-                  <tr>
-                    <td>04</td>
-                    <td>Alex</td>
-                    <td>1400</td>
-                    <td>55:16s</td>
-                    <td>11/09/2022</td>
-                  </tr>
-             </tbody>
-        </table>
-        <h3> NIVEL: NOCHE </h3>
-        <table>
-            
-            <thead>
-                <tr>
-                    <td>Nº</td>
-                    <td>Nombre</td>
-                    <td>Puntuación</td>
-                    <td>Tiempo</td>
-                    <td>Fecha</td>
-                </tr>
-            </thead>
-             <tbody>
-                 <tr>
-                    <td>01</td>
-                    <td>Martha</td>
-                    <td>1000</td>
-                    <td>30:90s</td>
-                    <td>08/09/2022</td>
-                 </tr>
-                 <tr>
-                  <td>02</td>
-                  <td>Laura</td>
-                  <td>2400</td>
-                  <td>35:20s</td>
-                  <td>15/08/2022</td>
-                  </tr>
-                  <tr>
-                    <td>03</td>
-                    <td>claudia</td>
-                    <td>1900</td>
-                    <td>75:11s</td>
-                    <td>30/08/2022</td>
-                  </tr>
-                  <tr>
-                    <td>04</td>
-                    <td>Edna</td>
-                    <td>1400</td>
-                    <td>55:10s</td>
-                    <td>10/09/2022</td>
-                  </tr>
-             </tbody>
-        </table>
+      <div id="contenedor_carga">
+        <div id="carga"></div>
+        <h2 id="cargando">Cargando...</h2> 
+      </div>
 
-    </div>
-    
+    <div class="container" >
+      <h3> NIVEL: DIA </h3>
+      <table class="table table-hover table-dark table-fixed">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Puntaje</th>
+            <th scope="col">Tiempo</th>
+            <th scope="col">Fecha</th>
+          </tr>
+        </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>2000</td>
+              <td>30:05</td>
+              <td>22/09/22</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Tessa</td>
+              <td>1800</td>
+              <td>50:20</td>
+              <td>20/09/22</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>Oscar</td>
+              <td>3000</td>
+              <td>30:12</td>
+              <td>18/09/22</td>
+            </tr>
+            <tr>
+              <th scope="row">4</th>
+              <td>Edna</td>
+              <td>5000</td>
+              <td>27:12</td>
+              <td>20/09/22</td>
+            </tr>
+          </tbody>
+      </table>
+      <h3> NIVEL: NOCHE </h3>
+      <table class="table table-hover table-dark table-fixed">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Puntaje</th>
+            <th scope="col">Tiempo</th>
+            <th scope="col">Fecha</th>
+          </tr>
+        </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>jacob</td>
+              <td>2000</td>
+              <td>30:05</td>
+              <td>20/09/22</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Martha</td>
+              <td>1800</td>
+              <td>50:20</td>
+              <td>20/09/22</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>Oscar</td>
+              <td>3000</td>
+              <td>30:12</td>
+              <td>18/09/22</td>
+            </tr>
+            <tr>
+              <th scope="row">4</th>
+              <td>Edna</td>
+              <td>5000</td>
+              <td>27:12</td>
+              <td>22/09/22</td>
+            </tr>
+          </tbody>
+      </table>
+      
+     </div>
+
+        <script>
+          var loader = document.getElementById('contenedor_carga');
+          window.addEventListener("load",function(){
+              loader.style.display = "none";
+          })
+        </script> 
 
 </body>
 </html>
