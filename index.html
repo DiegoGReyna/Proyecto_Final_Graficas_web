@@ -27,19 +27,25 @@
     <div class="Container_Login">
 
         <form action="">
-            <label for="InpUser">User name</label>
-            <input class="InputTxt" type="text" name="" id="InpUser" placeholder="User name">
-            <label for="InpPassword">Password</label>
-            <input class="InputTxt" type="password" name="" id="#InpPassword" placeholder="Password">
+            <label for="InpUser">Correo</label>
+            <input class="InputTxt" type="email" name="" id="InpEmail" placeholder="ejemplo@hotmail.com">
+            <label for="InpPassword">Contraseña</label>
+            <input class="InputTxt" type="password" name="" id="InpPassword" placeholder="*****">
             <div class="TwoButtons">
-                <input class="ButtonSubmit" type="submit" value="Log in">
+                <input class="ButtonSubmit" type="submit" id="btnSubmit" value="Log in">
                 <!-- <input class="NormalButton" type="button" value="Create an account"> -->
-                <a class="NormalLink" href="CreateAccount.html">Create an account</a>
+                <input type="button" class="NormalLink" onclick="window.location.href = 'CreateAccount.html';" value="Crear cuenta">
+
             </div>
         </form>
 
 
     </div>
+
+    <!--SCRIPTS-->
+    <script type="text/javascript" src="js/jquery-3.6.1.min.js"></script>
+    <script type="text/javascript" src="js/logIn.js"></script>
+    
 </body>
 
 </html>

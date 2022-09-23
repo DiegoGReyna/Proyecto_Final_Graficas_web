@@ -20,30 +20,34 @@
 
 <body>
     <div class="Title">
-        <h1>Create an acount</h1>
+        <h1>Crear cuenta</h1>
     </div>
     <div class="Container_CreateAcount">
 
         <form action="">
-            <label for="InpEmail">Email</label>
-            <input class="InputTxt" type="email" name="" id="InpEmail" placeholder="User name">
+            <label for="InpEmail">Correo</label>
+            <input class="InputTxt" type="email" name="" id="InpEmail" placeholder="ejemplo@hotmail.com">
 
-            <label for="InpUser">User name</label>
-            <input class="InputTxt" type="text" name="" id="InpUser" placeholder="User name">
+            <label for="InpUser">Nombre de usuario</label>
+            <input class="InputTxt" type="text" name="" id="InpUser" placeholder="Usuario18">
 
-            <label for="InpPassword">Password</label>
-            <input class="InputTxt" type="password" name="" id="#InpPassword" placeholder="Password">
-            <label for="InpConfirmPassword">Confirm password</label>
-            <input class="InputTxt" type="password" name="" id="#InpConfirmPassword" placeholder="Password">
+            <label for="InpPassword">Contraseña</label>
+            <input class="InputTxt" type="password" name="" id="InpPassword" placeholder="*****">
+            <label for="InpConfirmPassword">Confirmar contraseña</label>
+            <input class="InputTxt" type="password" name="" id="InpConfirmPassword" placeholder="*****">
             <div class="TwoButtons">
-                <input class="ButtonSubmit" type="submit" value="Create an account">
+                <input class="ButtonSubmit" type="submit" id="btnSubmit" value="Crear una cuenta">
                 <!-- <input class="NormalButton" type="button" value="Back to Log in"> -->
-                <a class="NormalLink" href="index.html">Back to Log in</a>
+                <input type="button" class="NormalLink" onclick="window.location.href = 'index.html';" value="Entrar">
             </div>
         </form>
 
 
     </div>
+
+    <!--SCRIPTS-->
+    <script type="text/javascript" src="js/jquery-3.6.1.min.js"></script>
+    <script type="text/javascript" src="js/createAccount.js"></script>
 </body>
 
 </html>
