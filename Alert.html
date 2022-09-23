@@ -12,6 +12,11 @@
 
 <body>
 
+    <div id="contenedor_carga">
+        <div id="carga"></div>
+     <h2 id="cargando">Cargando...</h2> 
+    </div>
+
     <div class="Container">
 
        <div class="warning advice">
@@ -23,6 +28,13 @@
 
        </div>
     </div>
+    
+    <script>
+        var loader = document.getElementById('contenedor_carga');
+        window.addEventListener("load",function(){
+            loader.style.display = "none";
+        })
+    </script> 
 
 </body>
 </html>
