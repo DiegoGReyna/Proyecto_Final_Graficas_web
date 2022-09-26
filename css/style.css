@@ -20,7 +20,7 @@
  }
 
  body {
-     height: 100%;
+     height: 95%;
      display: grid;
      place-content: center;
      background: url(../img/Fondo.jpg);
@@ -194,10 +194,11 @@
  }
 
  .TwoButtons {
-     width: 90%;
-     margin-top: 2rem;
-     display: grid;
-     grid-template-columns: 50% 50%;
+    width: 80%;
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    column-gap: 2rem;
  }
 
  .Title {
@@ -215,23 +216,17 @@
 
  .Container_Settigs {
 
-     background: rgba(5, 110, 194, 0.5);
-     box-shadow: 0px 4px 10px 15px rgba(0, 0, 0, 0.45);
-     border-radius: 45px;
-     height: 35rem;
-     width: 45rem;
+   
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 63rem;
  }
 
 
 
- .Container_Settigs form {
-     height: 100%;
-     width: 100%;
-     display: flex;
-     flex-direction: column;
-     align-items: center;
-     justify-content: center;
- }
+ 
 
  .Container_Settigs label {
      color: var(--Blanco);
@@ -296,3 +291,49 @@
      text-align: center;
      padding-bottom: 2.5rem;
  }
+
+ .ContainerImagenControles{
+    height: 70rem;
+    width: 55rem;
+    max-width: 70rem;
+    max-height: 55rem;
+ }
+
+ .BoxImageControles{
+    background: url(../img/Controles_.png);
+    height: 100%;
+    width: 100%;
+    background-size: 100% 100%;
+ }
+
+ .TwoBoxes{
+    display: grid;
+    width: 100%;
+    height: 90%;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+ }
+
+ .Box_Settings{
+    background: rgba(5, 110, 194, 0.5);
+    box-shadow: 0px 4px 10px 15px rgb(0 0 0 / 45%);
+    border-radius: 45px;
+    height: 70rem;
+    width: 150rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+ }
+
+
+ .Container_TitleSettings{
+    
+    color: var(--Blanco);
+     font-family: sans-serif;
+     font-weight: 400;
+     font-size: 4rem;
+     text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+ text-align: center;
+}
