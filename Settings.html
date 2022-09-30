@@ -17,50 +17,50 @@
 </head>
 
 <body>
+    <!--ventana cargando-->
+    <div id="contenedor_carga">
+        <div id="carga"></div>
+     <h2 id="cargando">Cargando...</h2> 
+    </div>
+
     <div class="Title">
         <h1>Ajustes</h1>
     </div>
-    <form class="Box_Settings" action="">
-        <div class="TwoBoxes">
-            <div class="Container_TitleSettings">
-                <label for="">Controles</label>
-                <div class="Container_Settigs">
+    <div class="Container_Settigs">
 
-                    <div id="" class="ContainerImagenControles">
-                        <div class="BoxImageControles">
-                        </div>
-                    </div>
+        <form action="">
+            <label for="InpVolume">Volumen</label>
+            <div class="Box_Volume">
+                <div class="BoxInputVolume">
+
+                    <input class="range" type="range" name="" id="InpVolume" min="0" max="100" value="0"
+                        onchange="rangeSlide(this.value)" onmousemove="rangeSlide(this.value)">
+                    <span class="VolumeLevel" id="rangeVolume">0</span>
                 </div>
+                <script type="text/javascript">
+                    function rangeSlide(value) {
+                        document.getElementById('rangeVolume').innerHTML = value;
+                    }
+                </script>
+
             </div>
-            <div class="Container_TitleSettings">
-                <label>Volumen</label>
-                <div class="Container_Settigs">
+            <div class="TwoButtons">
+                <input class="ButtonSubmit" type="submit" value="Confirmar ajuste">
+                <!-- <input class="NormalButton" type="button" value="Create an account"> -->
+                <input type="button" class="NormalLink" onclick="window.location.href = 'MainMenu.html';" value="Cancelar">
 
-                    <div class="Box_Volume">
-                        <div class="BoxInputVolume">
-
-                            <input class="range" type="range" name="" id="InpVolume" min="0" max="100" value="0"
-                                onchange="rangeSlide(this.value)" onmousemove="rangeSlide(this.value)">
-                            <span class="VolumeLevel" id="rangeVolume">0</span>
-                        </div>
-                        <script type="text/javascript">
-                            function rangeSlide(value) {
-                                document.getElementById('rangeVolume').innerHTML = value;
-                            }
-                        </script>
-
-                    </div>
-                </div>
             </div>
+        </form>
 
-        </div>
-        <div class="TwoButtons">
-            <input class="ButtonSubmit" type="submit" value="Confirmar ajuste">
-            <!-- <input class="NormalButton" type="button" value="Create an account"> -->
-            <input type="button" class="NormalLink" onclick="window.location.href = 'MainMenu.html';" value="Cancelar">
 
-        </div>
-    </form>
+    </div>
+        <!--SCRIPTS ventana cargando-->
+        <script> 
+            var loader = document.getElementById('contenedor_carga');
+            window.addEventListener("load",function(){
+                loader.style.display = "none";
+            })
+        </script> 
 </body>
 
 </html>
