@@ -17,6 +17,11 @@
 </head>
 
 <body>
+    <!--ventana cargando-->
+    <div id="contenedor_carga">
+        <div id="carga"></div>
+     <h2 id="cargando">Cargando...</h2> 
+    </div>
 
     <div class="ContainerMainMenu">
         <!-- <div>
@@ -42,6 +47,14 @@
     <!--SCRIPTS-->
     <script type="text/javascript" src="js/jquery-3.6.1.min.js"></script>
     <script type="text/javascript" src="js/exit.js"></script>
+    
+     <!--SCRIPTS ventana cargando-->
+     <script>  
+        var loader = document.getElementById('contenedor_carga');
+        window.addEventListener("load",function(){
+            loader.style.display = "none";
+        })
+    </script> 
 
 </body>
 
