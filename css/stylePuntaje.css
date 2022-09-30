@@ -21,7 +21,7 @@
     }
 
     .table-fixed{
-      height: 260px;
+      height: 500px;
       overflow-y: auto;
     }
     
@@ -29,11 +29,11 @@
     table {
       display: inline-block;
       color:#d9ecf7;
-      font-size: 20px;
+      font-size: 22px;
       table-layout: fixed;
       border-collapse: collapse;
       background:rgba(5, 110, 194, 0.5); 
-      margin: 50px;
+      margin: 28px;
       border-radius: 1.5em;
     }
   
@@ -45,11 +45,13 @@
       padding: 20px 15px;
       font-weight: 700;
       text-transform: uppercase;
+
     }
   
     td {
       padding: 20px;
       border-bottom: solid 1px rgb(231, 231, 231);
+      text-align:center;
     }
   
     tbody {
@@ -61,15 +63,6 @@
       background: #72b0da  ;
     }
   
-    h3{
-      margin-left: 270px;
-      display: inline-block;
-      position: absolute;
-      color: rgb(25, 18, 116);
-      border-radius: .5em;
-      background:rgba(5, 110, 194, 0.5);
-      border-bottom: solid 2px rgb(60, 39, 194);
-     }
 
 
                                       /* loader cargando... */

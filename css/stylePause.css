@@ -24,14 +24,12 @@ body{
   }
   
   thead {
-    background:#404a80b9;
-   
+    background:#404a80b9;   
   }
   
   td {
     padding: 20px;
-    text-align: center;
-   
+    text-align: center;   
   }
   
   tbody {
@@ -41,6 +39,15 @@ body{
   
   tbody tr:hover {
     background: #72b0da ;
+  }
+  .btn1, .btn2, .btn3 {
+    color: #d9ecf7;
+    background-color:rgba(12, 93, 160, 0);
+    padding: 10px 35px;
+    border-radius: none;
+    border: none;
+    font-size: x-large;
+    
   }
   
 
