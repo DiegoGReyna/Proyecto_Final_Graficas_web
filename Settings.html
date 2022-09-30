@@ -20,7 +20,7 @@
     <!--ventana cargando-->
     <div id="contenedor_carga">
         <div id="carga"></div>
-     <h2 id="cargando">Cargando...</h2> 
+        <h2 id="cargando">Cargando...</h2>
     </div>
 
     <div class="Title">
@@ -28,39 +28,57 @@
     </div>
     <div class="Container_Settigs">
 
-        <form action="">
-            <label for="InpVolume">Volumen</label>
-            <div class="Box_Volume">
-                <div class="BoxInputVolume">
+        <form class="Box_Settings" action="">
+            <div class="TwoBoxes">
+                <div class="Container_TitleSettings">
+                    <label for="">Controles</label>
+                    <div class="Container_Settigs">
 
-                    <input class="range" type="range" name="" id="InpVolume" min="0" max="100" value="0"
-                        onchange="rangeSlide(this.value)" onmousemove="rangeSlide(this.value)">
-                    <span class="VolumeLevel" id="rangeVolume">0</span>
+                        <div id="" class="ContainerImagenControles">
+                            <div class="BoxImageControles">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <script type="text/javascript">
-                    function rangeSlide(value) {
-                        document.getElementById('rangeVolume').innerHTML = value;
-                    }
-                </script>
+                <div class="Container_TitleSettings">
+                    <label>Volumen</label>
+                    <div class="Container_Settigs">
+
+                        <div class="Box_Volume">
+                            <div class="BoxInputVolume">
+
+                                <input class="range" type="range" name="" id="InpVolume" min="0" max="100" value="0"
+                                    onchange="rangeSlide(this.value)" onmousemove="rangeSlide(this.value)">
+                                <span class="VolumeLevel" id="rangeVolume">0</span>
+                            </div>
+                            <script type="text/javascript">
+                                function rangeSlide(value) {
+                                    document.getElementById('rangeVolume').innerHTML = value;
+                                }
+                            </script>
+
+                        </div>
+                    </div>
+                </div>
 
             </div>
             <div class="TwoButtons">
                 <input class="ButtonSubmit" type="submit" value="Confirmar ajuste">
                 <!-- <input class="NormalButton" type="button" value="Create an account"> -->
-                <input type="button" class="NormalLink" onclick="window.location.href = 'MainMenu.html';" value="Cancelar">
+                <input type="button" class="NormalLink" onclick="window.location.href = 'MainMenu.html';"
+                    value="Cancelar">
 
             </div>
         </form>
 
-
     </div>
-        <!--SCRIPTS ventana cargando-->
-        <script> 
-            var loader = document.getElementById('contenedor_carga');
-            window.addEventListener("load",function(){
-                loader.style.display = "none";
-            })
-        </script> 
+    <!--SCRIPTS ventana cargando-->
+    <script>
+        var loader = document.getElementById('contenedor_carga');
+        window.addEventListener("load", function () {
+            loader.style.display = "none";
+        })
+    </script>
 </body>
 
 </html>
