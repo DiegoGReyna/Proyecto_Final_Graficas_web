@@ -4,32 +4,118 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script type="text/javascript" src="js/jquery-3.6.1.min.js"></script>
+    <script type="text/javascript" src="js/threeJS/three.min.js"></script>
+
+    <!-- <script type="text/javascript" src="js/threeJS/three.module.js"></script> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/stylePlay.css">
     <title>Document</title>
-</head>
+    <script type="text/javascript">
+        var scene;
+        var renderer;
+        var camera;
+        var clock;
+
+        $(document).ready(function () {
+
+            var box = document.querySelector('.ContainerPlayGame');
+            var width = box.offsetWidth;
+            var height = box.offsetHeight;
+            // var width = window.innerWidth / 2;
+            // var height = window.innerHeight / 2;
+            clock = new THREE.Clock;
+
+            // in icializamos el renderer
+            renderer = new THREE.WebGLRenderer();
+            renderer.setClearColor(new THREE.Color(0.2, 0.3, 0.6));
+            renderer.setSize(width, height);
+            //inicializamos la camara
+            camera = new THREE.PerspectiveCamera(
+                75,
+                width / height,
+                0.1,
+                100
+            );
+            //inicializamos la esceba
+            scene = new THREE.Scene();
+            // para dibujar se necesita
+            //1.- Geometria:es un objeto que almecena la informacion de los vertices, indices y demas
+            //2.-Material: es un objeto que alamcena la info del material como colores, texturas , iliminacion , etx
+            //3.-Mesh:es un objeto que contiene la geometria y el material
+            var geometry = new THREE.BoxGeometry(1, 1, 1);
+            var material = new THREE.MeshLambertMaterial({
+                color: new THREE.Color(0.7, 0, 0),
+            });
+            var cube = new THREE.Mesh(geometry, material);
+            scene.add(cube);
+            var material2 = new THREE.MeshPhongMaterial({
+                color: new THREE.Color(0.5, 0.5, 0.5),
+                specular: new THREE.Color(1, 1, 1),
+                shininess: 500,
+            });
+            var cube2 = new THREE.Mesh(geometry, material2);
+            scene.add(cube2);
+            cube.name = "cubo01";
+            cube2.name = "cube02";
+            var axesHelpert = new THREE.AxesHelper(5);
+            scene.add(axesHelpert);
+            camera.position.set(0, 0, 2);
+            cube2.position.x = -1;
+            cube.position.x = 1;
+            //iluminacion ambiental 
+            //parametros 
+            //color de la luz
+            //intensidad
+            var ambient = new THREE.AmbientLight(
+                new THREE.Color(1, 1, 1),
+                1.0
+            );
+            scene.add(ambient);
+            //lus direccional
+            var directional = new THREE.DirectionalLight(
+                new THREE.Color(0, 1, 0),
+                0.4
+
+            );
+            directional.position.set(0, 0, 1);
+            scene.add(directional);
+            // le indicamos a Threejs
+            // donde queremos el canvas
+
+            $("#scene-section").append(renderer.domElement);
+            render();
+        });
+        var tiempoDelta = 0;
+        function render() {
+            var tiempoDelta = clock.getDelta();
+            var cubo = scene.getObjectByName("cubo01");
+            var cubo2 = scene.getObjectByName("cube02");
+            cubo2.rotation.y += 0.01;
+            cubo.rotation.y += 0.01;
+
+            renderer.render(scene, camera);
+            requestAnimationFrame(render);
+        }
+    </script>
 
 <body>
     <!--ventana cargando-->
     <div id="contenedor_carga">
         <div id="carga"></div>
-     <h2 id="cargando">Cargando...</h2> 
+        <h2 id="cargando">Cargando...</h2>
     </div>
 
-    <div class="ContainerPlayGame">
-        <button class="BtnPause" onclick="window.location.href = 'Pause.html';"><img src="img/Pause.svg" alt="" width="40px" height="40px"></button>
-        <canvas class="CanvasPlayGame">
-
-        </canvas>
-
-    </div>
+    <div class="ContainerPlayGame" id="scene-section" />
+    <button class="BtnPause" onclick="window.location.href = 'Pause.html';"><img src="img/Pause.svg" alt="" width="40px"
+            height="40px"></button>
     <!--SCRIPTS ventana cargando-->
-    <script> 
+    <script>
         var loader = document.getElementById('contenedor_carga');
-        window.addEventListener("load",function(){
+        window.addEventListener("load", function () {
             loader.style.display = "none";
         })
-    </script> 
+    </script>
 </body>
 
 </html>
