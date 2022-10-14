@@ -32,17 +32,30 @@
     </div>
     <div class="Container_Login">
 
-        <form action="">
+        <form action="database/logIn.php" method="POST" onsubmit="return validate()">
             <label for="InpUser">Correo</label>
-            <input class="InputTxt" type="email" name="" id="InpEmail" placeholder="ejemplo@hotmail.com">
+            <input class="InputTxt" type="email" name="InpEmail" id="InpEmail" placeholder="ejemplo@hotmail.com">
             <label for="InpPassword">Contraseña</label>
-            <input class="InputTxt" type="password" name="" id="InpPassword" placeholder="*****">
+            <input class="InputTxt" type="password" name="InpPassword" id="InpPassword" placeholder="*****">
             <div class="TwoButtons">
                 <input class="ButtonSubmit" type="submit" id="btnSubmit" value="Log in">
                 <!-- <input class="NormalButton" type="button" value="Create an account"> -->
                 <input type="button" class="NormalLink" onclick="window.location.href = 'CreateAccount.html';" value="Crear cuenta">
 
             </div>
+            <label id="errorLabel" style="color: rgb(252, 81, 81); margin-top: 10px; display: none;">¡Llene los datos correctamente!</label>
+            <?php 
+                session_start();
+                if(isset($_SESSION['error']))
+                {
+            ?>
+                <label id="errorLabel2" style="color: rgb(252, 81, 81); margin-top: 10px; display: block;"><?php echo $_SESSION['error']?></label>
+            <?php
+                }else{
+
+                }
+            ?>
+
         </form>
 
 
@@ -50,7 +63,7 @@
 
     <!--SCRIPTS-->
     <script type="text/javascript" src="js/jquery-3.6.1.min.js"></script>
-    <script type="text/javascript" src="controllers/logIn.js"></script>
+    <script type="text/javascript" src="js/logIn.js"></script>
 
     <!--SCRIPTS ventana cargando-->
     <script>  

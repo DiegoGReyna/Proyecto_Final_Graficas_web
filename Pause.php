@@ -33,7 +33,7 @@
       <tbody>
         <tr>
           <td>
-            <input type="button" onclick="window.location.href = 'Settings.html';" class="btn2" value="Configuracion">
+            <input type="button" onclick="window.location.href = 'Settings.php';" class="btn2" value="Configuracion">
           </td>
 
         </tr>
@@ -41,7 +41,7 @@
       <tbody>
         <tr>
           <td>
-            <input type="button" onclick="window.location.href = 'MainMenu.html';" class="btn3" value="Salir">
+            <input type="button" onclick="window.location.href = 'MainMenu.php';" class="btn3" value="Salir">
           </td>
         </tr>
       </tbody>

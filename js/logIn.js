@@ -1,14 +1,13 @@
 
 $.getScript('../model/user.js', function()
 {
+
+
     $("#btnSubmit").click(function(e){
 
         valid = true;
     
-        let email = $("#InpEmail").val();
-        let pass = $("#InpPassword").val();
-    
-        var user = User.logIn(email, pass);
+        /*var user = User.logIn(email, pass);
         //checar base de datos correo
     
         //session cookies
@@ -19,6 +18,24 @@ $.getScript('../model/user.js', function()
     
         if(!valid){
             e.preventDefault();
-        }
+        }*/
     });
 });
+
+function validate(){
+    let email = $("#InpEmail").val();
+    let pass = $("#InpPassword").val();
+
+    if(email == "" || username == "" || pass == "")
+    {
+        $("#errorLabel").css("display", "block");
+        return false;
+    }else{
+        if(pass != pass2){
+            return false;
+        }else{
+            return true;
+        }
+
+    }
+}

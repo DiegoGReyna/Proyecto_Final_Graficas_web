@@ -17,7 +17,7 @@
     </div>
 
     <div class="ContainerPlayGame">
-        <button class="BtnPause" onclick="window.location.href = 'Pause.html';"><img src="img/Pause.svg" alt="" width="40px" height="40px"></button>
+        <button class="BtnPause" onclick="window.location.href = 'Pause.php';"><img src="img/Pause.svg" alt="" width="40px" height="40px"></button>
         <canvas class="CanvasPlayGame">
 
         </canvas>

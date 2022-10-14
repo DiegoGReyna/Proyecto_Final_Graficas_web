@@ -25,7 +25,7 @@
 
             <div class="card c1">
                 <div class="icon">
-                    <img src="img/jugador1.jpg" alt="" onclick="window.location.href = 'Play.html';">
+                    <img src="img/jugador1.jpg" alt="" onclick="window.location.href = 'Play.php';">
                 </div>
                 <div class="info__description">
                     <p>Single player</p>
@@ -36,7 +36,7 @@
 
             <div class="card c2">
                 <div class="icon">
-                    <img src="img/jugador2.jpg" alt="" onclick="window.location.href = 'PlayMultyPlayer.html';">
+                    <img src="img/jugador2.jpg" alt="" onclick="window.location.href = 'PlayMultyPlayer.php';">
                 </div>
                 <div class="info__description">
                     <p>Multiplayer</p>

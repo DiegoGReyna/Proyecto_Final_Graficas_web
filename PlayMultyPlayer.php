@@ -13,7 +13,7 @@
 
     <div class="ContainerMultiplayerRenders">
 
-        <button class="BtnPause" onclick="window.location.href = 'Pause.html';"><img src="img/Pause.svg" alt=""
+        <button class="BtnPause" onclick="window.location.href = 'Pause.php';"><img src="img/Pause.svg" alt=""
                 width="40px" height="40px"></button>
         <div class="ContainerPlayer1">
             <label class="labelCanvasPlayer" for="">Jugador 1</label>

@@ -25,7 +25,7 @@
 
                 <div class="container__card">
                     
-                    <div class="card" onclick="window.location.href = 'ModoJuego.html';">
+                    <div class="card" onclick="window.location.href = 'ModoJuego.php';">
                         <div class="face front">
                             <img src="img/dia.png" alt="">
                             <h3>DIA</h3>
@@ -36,7 +36,7 @@
                         </div>
                     </div>
     
-                    <div class="card" onclick="window.location.href = 'ModoJuego.html';">
+                    <div class="card" onclick="window.location.href = 'ModoJuego.php';">
                         <div class="face front">
                             <img src="img/noche.png" alt="">
                             <h3>NOCHE</h3>

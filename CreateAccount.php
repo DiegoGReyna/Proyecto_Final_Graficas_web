@@ -30,22 +30,24 @@
     </div>
     <div class="Container_CreateAcount">
 
-        <form action="">
+        <form id="formCreateAccount" method="POST" action="database/signIn.php" onsubmit="return validation()">
             <label for="InpEmail">Correo</label>
-            <input class="InputTxt" type="email" name="" id="InpEmail" placeholder="ejemplo@hotmail.com">
+            <input class="InputTxt" type="email" name="InpEmail" id="InpEmail" placeholder="ejemplo@hotmail.com">
 
             <label for="InpUser">Nombre de usuario</label>
-            <input class="InputTxt" type="text" name="" id="InpUser" placeholder="Usuario18">
+            <input class="InputTxt" type="text" name="InpUser" id="InpUser" placeholder="Usuario18">
 
             <label for="InpPassword">Contraseña</label>
-            <input class="InputTxt" type="password" name="" id="InpPassword" placeholder="*****">
+            <input class="InputTxt" type="password" name="InpPassword" id="InpPassword" placeholder="*****">
             <label for="InpConfirmPassword">Confirmar contraseña</label>
             <input class="InputTxt" type="password" name="" id="InpConfirmPassword" placeholder="*****">
             <div class="TwoButtons">
                 <input class="ButtonSubmit" type="submit" id="btnSubmit" value="Crear una cuenta">
                 <!-- <input class="NormalButton" type="button" value="Back to Log in"> -->
-                <input type="button" class="NormalLink" onclick="window.location.href = 'index.html';" value="Entrar">
+                <input type="button" class="NormalLink" onclick="window.location.href = 'index.php';" value="Entrar">
             </div>
+            <label id="errorLabel" style="color: rgb(252, 81, 81); margin-top: 10px; display: none;">¡Llene los datos correctamente!</label>
+            <label id="errorLabel2" style="color: rgb(252, 81, 81); margin-top: 10px; display: none;">¡Las contraseñas no coinciden!</label>
         </form>
 
 
@@ -53,7 +55,8 @@
 
     <!--SCRIPTS-->
     <script type="text/javascript" src="js/jquery-3.6.1.min.js"></script>
-    <script type="text/javascript" src="controllers/createAccount.js"></script>
+    <script type="text/javascript" src="js/createAccount.js"></script>
+    <script type="text/javascript" src="model/user.js"></script>
     <!--SCRIPTS ventana cargando-->
     <script> 
         var loader = document.getElementById('contenedor_carga');

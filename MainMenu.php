@@ -33,10 +33,11 @@
                 <button class="BtnClasic">Score board</button>
                 <button class="BtnClasic">Settings</button>
                 <button class="BtnExit">Exit</button> -->
-                <a class="BtnPlay" href="Nivel.html">Jugar</a>
-                <a class="BtnClasic" href="Puntaje.html">Puntuaciones</a>
-                <a class="BtnClasic" href="Settings.html">Ajustes</a>
-                <a class="BtnExit" id="btnExit">Salir</a>
+                <a class="BtnPlay" href="Nivel.php">Jugar</a>
+                <a class="BtnClasic" href="Puntaje.php">Puntuaciones</a>
+                <a class="BtnClasic" href="Settings.php">Ajustes</a>
+                echo '<a class="BtnExit" href="database/logOut.php" id="btnExit">Salir</a>';
+
             </div>
             <div class="titleMainMenu">
                 <h1>Swift Boat</h1>
@@ -46,7 +47,7 @@
     </div>
     <!--SCRIPTS-->
     <script type="text/javascript" src="js/jquery-3.6.1.min.js"></script>
-    <script type="text/javascript" src="controllers/exit.js"></script>
+    <script type="text/javascript" src="js/exit.js"></script>
     
      <!--SCRIPTS ventana cargando-->
      <script>  
