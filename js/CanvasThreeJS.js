@@ -82,16 +82,16 @@ $(document).ready(function () {
 
 
     const BoatModelLoader=new GLTFLoader();
-    BoatModelLoader.load('modelos/boat/Boat_01.glb',function(gltf){
-        boat= gltf.scene;
+    BoatModelLoader.load('modelos/boat/Boat_01.glb',(model)=>{
+        boat= model.scene;
         isLoaded[0]=true;
         boat.position.set(0,0,5);
         scene.add(boat);
       
     })
     const WaterModelLoader=new GLTFLoader();
-    WaterModelLoader.load('modelos/water/Water.glb',function(gltf){
-        water=gltf.scene;
+    WaterModelLoader.load('modelos/water/Water.glb',(model)=>{
+        water=model.scene;
         water.position.set(0,0.5,0);
         isLoaded[1]=true;
        scene.add(water)
