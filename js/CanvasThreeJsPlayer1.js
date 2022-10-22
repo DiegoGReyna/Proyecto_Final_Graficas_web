@@ -66,14 +66,14 @@ $(document).ready(function () {
     orbit.update();
    
     const BoatModelLoader=new GLTFLoader();
-    BoatModelLoader.load('../modelos/boat/Boat_01.glb',(model)=>{
+    BoatModelLoader.load('modelos/boat/Boat_01.glb',(model)=>{
         boat= model.scene;
         isLoaded[1]=true;
         boat.position.set(0,0,5);
         scene.add(boat);
     })
     const WaterModelLoader=new GLTFLoader();
-    WaterModelLoader.load('../modelos/water/Water.glb',(model)=>{
+    WaterModelLoader.load('modelos/water/Water.glb',(model)=>{
         water=model.scene;
         isLoaded[2]=true;
         water.position.set(0,0.5,0);
@@ -82,7 +82,7 @@ $(document).ready(function () {
    
     
     const ModelLoader=new GLTFLoader();
-    ModelLoader.load('../modelos/city/Map.glb',(model)=>{
+    ModelLoader.load('modelos/city/Map.glb',(model)=>{
         Map=model.scene;
         isLoaded[0]=true;
         scene.add(Map);

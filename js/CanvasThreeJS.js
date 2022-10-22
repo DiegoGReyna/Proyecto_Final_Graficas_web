@@ -12,8 +12,9 @@ var clock;
 ///Modelos
 var boat;
 var water;
-var city;
-
+var Map;
+var keys = {};
+var isLoaded=[false,false,false];
 $(document).ready(function () {
     
     var box = document.querySelector('.ContainerPlayGame');
@@ -41,9 +42,7 @@ $(document).ready(function () {
     scene = new THREE.Scene();
 
    
-    // scene.add(plan);
-
-    plan.rotation.x=-0.5*Math.PI;
+  
 
 
     // para dibujar se necesita
@@ -83,22 +82,29 @@ $(document).ready(function () {
 
 
     const BoatModelLoader=new GLTFLoader();
-    BoatModelLoader.load('../modelos/boat/Boat_01.glb',function(gltf){
+    BoatModelLoader.load('modelos/boat/Boat_01.glb',function(gltf){
         boat= gltf.scene;
+        isLoaded[0]=true;
         boat.position.set(0,0,5);
         scene.add(boat);
+      
     })
     const WaterModelLoader=new GLTFLoader();
-    WaterModelLoader.load('../modelos/water/Water.glb',function(gltf){
+    WaterModelLoader.load('modelos/water/Water.glb',function(gltf){
         water=gltf.scene;
         water.position.set(0,0.5,0);
+        isLoaded[1]=true;
        scene.add(water)
+      
     })
     const ModelLoader=new GLTFLoader();
-    ModelLoader.load('../modelos/city/Map.glb',function(gltf){
+    ModelLoader.load('modelos/city/Map.glb',(model)=>{
        
-        city=gltf.scene;
-        scene.add(city);
+        Map=model.scene;
+        Map.name="map";
+        isLoaded[2]=true;
+        scene.add(Map);
+       
     })
     
     //iluminacion ambiental 
@@ -122,28 +128,51 @@ $(document).ready(function () {
     // donde queremos el canvas
 
     $("#scene-section").append(renderer.domElement);
-    
+    document.addEventListener('keydown', onKeyDown);
+	document.addEventListener('keyup', onKeyUp);
     render();
 });
 var tiempoDelta = 0;
+function onKeyDown(event) {
+    keys[String.fromCharCode(event.keyCode)] = true;
+}
+function onKeyUp(event) {
+    keys[String.fromCharCode(event.keyCode)] = false;
+}
 function render() {
-    var tiempoDelta = clock.getDelta();
-    var cubo = scene.getObjectByName("cubo01");
-    var cubo2 = scene.getObjectByName("cube02");
-    cubo2.rotation.y += 0.01;
-    cubo.rotation.y += 0.01
     
-    renderer.render(scene, camera);
+   
     requestAnimationFrame(render);
-    city.position.z+=0.2;
-    document.onkeydown=function(e){
-        if(e.keyCode===65){
-            boat.position.x-=5;
-           
-         
-        }
-        if(e.keyCode===68){
-            boat.position.x +=5;
-        }
+ 
+    if(isLoaded[0]===true && isLoaded[1]===true && isLoaded[2]===true){
+        var tiempoDelta = clock.getDelta();
+        
+        var ModelMap=scene.getObjectByName("map");
+        ModelMap.position.z+=5 *tiempoDelta;
+
+        
+        if (keys["A"]) {
+			boat.position.x-=5 *tiempoDelta;
+          
+		} else if (keys["D"]) {
+            boat.position.x +=5*tiempoDelta;
+		}
+        
+        //document.onkeydown=function(e){
+        //     if(e.keyCode===65){
+        //         boat.position.x-=5;
+        //         console.log("aaaa");
+            
+        //     }
+        //     if(e.keyCode===68){
+        //         boat.position.x +=5;
+              
+        //     }
+        // }
+
+
+       
+    
+        renderer.render(scene, camera);
     }
 }
