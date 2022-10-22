@@ -32,17 +32,15 @@ body {
 
 
 
-.ContainerPlayer1 {
+/* .ContainerPlayer1 {
     display: flex;
-    /* width: 90%; */
-    /* background-color: #0B88ED; */
-    /* height: 90%; */
+   
     justify-content: center;
     align-items: center;
     background: rgba(5, 110, 194, 0.5);
-    /* box-shadow: 0px 4px 10px 15px rgb(0 0 0 / 45%); */
+  
     border-radius: 20px;
-}
+} */
 .ContainerPlayer2 {
     display: flex;
     /* width: 90%; */
@@ -104,4 +102,74 @@ body {
      -1px 1px 0 #000,
      1px 1px 0 #000;
      top: 6.5rem;
+}
+
+
+
+
+.ContainerPlayer1{
+    display: flex;
+    width: 90%;
+    /* background-color: #0B88ED; */
+    height: 90%;
+    justify-content: center;
+    align-items: center;
+    background: rgba(5, 110, 194, 0.5);
+    box-shadow: 0px 4px 10px 15px rgba(0, 0, 0, 0.45);
+    border-radius: 35px;
+    /* height: 55rem;
+    width: 50rem; */
+}
+.ContainerPlayer1 canvas{
+    border-radius: 35px;
+
+}
+
+#scene-sectionPlayer1{
+    display: flex;
+    width: 90%;
+    /* background-color: #0B88ED; */
+    height: 90%;
+    justify-content: center;
+    align-items: center;
+    background: rgba(5, 110, 194, 0.5);
+    box-shadow: 0px 4px 10px 15px rgba(0, 0, 0, 0.45);
+    border-radius: 35px;
+}
+
+
+
+
+
+/*****/
+
+
+.ContainerPlayer2{
+    display: flex;
+    width: 90%;
+    /* background-color: #0B88ED; */
+    height: 90%;
+    justify-content: center;
+    align-items: center;
+    background: rgba(5, 110, 194, 0.5);
+    box-shadow: 0px 4px 10px 15px rgba(0, 0, 0, 0.45);
+    border-radius: 35px;
+    /* height: 55rem;
+    width: 50rem; */
+}
+.ContainerPlayer2 canvas{
+    border-radius: 35px;
+
+}
+
+#scene-sectionPlayer2{
+    display: flex;
+    width: 90%;
+    /* background-color: #0B88ED; */
+    height: 90%;
+    justify-content: center;
+    align-items: center;
+    background: rgba(5, 110, 194, 0.5);
+    box-shadow: 0px 4px 10px 15px rgba(0, 0, 0, 0.45);
+    border-radius: 35px;
 }
