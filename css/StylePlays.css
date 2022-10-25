@@ -6,7 +6,7 @@
     --verdeClaro: #11C358;
     --Blanco: #F0F2F5;
 }
-                    /* ESTE CSS NO ME FUNCIONA, NO ME CARGA LOS ESTILOS POR ESO CREE OTRO */
+
 *,
 *:before,
 *:after {
@@ -18,14 +18,14 @@ html {
     box-sizing: border-box;
     height: 100%;
 }
-/* icons pantalla  copy*/
-.ContainerWidget{
-    
+
+    /* icons pantalla */
+.ContainerWidget{    
     background: none;
     background-size: 100% 100%;
     border: none;
-    top: 470px;
-    left: 12px;
+    top: 490px;
+    left: 80px;
 }
 td
 {
@@ -35,6 +35,8 @@ td
     font-weight: bold;  
     color: #e5e6f1;  
 }
+    
+          
 body {
     height: 95%;
     display: flex;
