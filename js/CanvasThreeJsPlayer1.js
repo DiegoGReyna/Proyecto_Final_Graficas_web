@@ -2,7 +2,7 @@ import * as THREE from "./threeJS/three.module.js"
 // import { OrbitControls } from "../jsm/controls/OrbitControls.js"
 import { OrbitControls } from "./threeJS/OrbitControls.js";
 import{ GLTFLoader } from "../jsm/loaders/GLTFLoader.js";
-
+import { BarrelSpawn } from "./spawners/barrel/barrelSpawner";
 
 
 var scene;
@@ -14,6 +14,8 @@ var boat;
 var water;
 var Map;
 var isLoaded=[false,false,false];
+
+var Barrel
 
 var keys = {};
 
@@ -72,6 +74,8 @@ $(document).ready(function () {
         boat.position.set(0,0,5);
         scene.add(boat);
     })
+
+    
     const WaterModelLoader=new GLTFLoader();
     WaterModelLoader.load('modelos/water/Water.glb',(model)=>{
         water=model.scene;
