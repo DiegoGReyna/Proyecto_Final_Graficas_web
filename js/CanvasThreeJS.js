@@ -265,6 +265,6 @@ function finishMapCube(scene){
     scene.add(finishCube);
     finishCube.name = "finishCube";
     finishCube.position.set(0,1,-1046);
-    finishCube.scale.set(45,4,1);
+    finishCube.scale.set(46,4,1);
     
 }
