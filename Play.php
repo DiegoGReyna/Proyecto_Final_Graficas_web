@@ -28,10 +28,11 @@
         <!-- icons pantalla -->
         <table>
             <tr>
-                <th><img src="./img/esfera_Naranja2.png" width="65px" height="50px"></th>
-                <th><img src="./img/esfera_Roja2.png" width="65px" height="50px"></th>
-                <th><img src="./img/piramide2.png" width="65px" height="50px"></th>
-                <th><img src="./img/barril.png" width="70px" height="50px"></th>
+                <th><img src="img/esfera_Naranja2.png" width="65px" height="50px"></th>
+                <th><img src="img/esfera_Roja2.png" width="65px" height="50px"></th>
+                <th><img src="img/piramide2.png" width="65px" height="50px"></th>
+                <th><img src="img/barril.png" width="70px" height="50px"></th>
+            
             </tr>
             <tr>
                 <td>X 3</td>
