@@ -11,6 +11,13 @@
     <title>Ventana WINNER</title>
     <script type="text/javascript" src="js/facebook.js"> </script>
     <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", () => {
+            var score = localStorage.getItem("score");
+            document.getElementById("puntaje").innerHTML = score.toString();
+            document.getElementById("score").value = score;
+        });
+    </script>
+    <script type="text/javascript">
     function share(){
         var score = localStorage.getItem("score");
         shareScore(score)
@@ -31,10 +38,13 @@
             
             <div class="paragraph">
                 <h3>Puntaje</h3>
-                <h3 >2000</h3>
+                <h3 id="puntaje"></h3>
             </div>
             <div class="btns">
-                <button class="open-view" onclick="window.location.href = 'MainMenu.php';" >Continuar</button>
+                <form method="POST" action="database/tableScores.php">
+                    <input name="score" id="score" type="hidden"/>
+                    <button type="submit" class="open-view" >Continuar</button>
+                </form>
                 <button onclick="share();" class="open-guide">Compartir</button>
             </div>
     </section>

@@ -14,6 +14,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Pacifico&display=swap" rel="stylesheet">
     <title>Main menu</title>
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", () => {
+            var score = localStorage.getItem("score");
+            if(score > 0){
+                localStorage.removeItem("score");
+            }
+        });
+    </script>
 </head>
 
 <body>

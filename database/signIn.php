@@ -24,7 +24,7 @@
         echo "Registro exitoso";
         $conn = $connection->disconnect();
 
-        header('Location: ../index.html');
+        header('Location: ../index.php');
 
     }
     catch(PDOException $ex){
