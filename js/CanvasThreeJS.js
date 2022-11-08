@@ -8,18 +8,24 @@ import yellowOrbSpawn from "./spawners/yellowOrb/yellowOrb.js";
 import yellowTriangleSpawn from "./spawners/yellowTriangle/yellowTriangleSpawn.js";
 import obstacleLevel1 from "./spawners/obstacles/Level_1/obstacleLevel1.js";
 import obstacleLevel2 from "./spawners/obstacles/Level_2/obstacleLevel2.js";
-import {obstacleLevel3_1,obstacleLevel3_2} from "./spawners/obstacles/Level_3/obstacleLevel3.js";
+import {obstacleLevel3_1} from "./spawners/obstacles/Level_3/obstacleLevel3.js";
+import { Player } from "../model/Player.js";
 var i=1;
 var redOrbe=[];
 var obstacles=[];
+var obstaclesLevel1= [], obstaclesLevel2=[], obstaclesLevel3=[];
 var yellowOrbe=[];
 var yellowTriangle=[];
-var Barrels=[];
+var Barrels=[], barrelsList=[], redOrbeList=[], yellowOrbeList=[], yellowTriangleList=[];
 var Barrel;
 var scene;
 var renderer;
 var camera;
 var clock;
+var isPlay = true, anclaje_ = true, isPlayingRn = false;
+var player;
+var tiempoDelta;
+var speedMovementMap = 5;
 ///Modelos
 var boat;
 var water;
@@ -27,8 +33,13 @@ var Map;
 var keys = {};
 let mixer;
 var isLoaded=[false,false,false,false];
+var bounds=[];
 $(document).ready(function () {
-    
+   
+    //jugador
+    player = new Player(0,0,0,false, false, 0);
+
+
     var box = document.querySelector('.ContainerPlayGame');
     var width = box.offsetWidth;
     var height = box.offsetHeight;
@@ -82,7 +93,7 @@ $(document).ready(function () {
         boat= model.scene;
         isLoaded[0]=true;
         boat.position.set(0,0,5);
-       
+        boat.name = "BoatModel"
         scene.add(boat);
         mixer= new THREE.AnimationMixer(boat);
         const clips=model.animations;
@@ -104,6 +115,8 @@ $(document).ready(function () {
        scene.add(water)
       
     })
+
+    
     const ModelLoader=new GLTFLoader();
     ModelLoader.load('modelos/city/Map.glb',(model)=>{
        
@@ -135,9 +148,6 @@ $(document).ready(function () {
     // donde queremos el canvas
     
 
-
-
-
     // var geometryTetrahedron = new THREE.ConeBufferGeometry(2,4,4);
     // var materialTetrahedron = new THREE.MeshLambertMaterial({
     //     color: new THREE.Color(0.7, 0, 0),
@@ -145,126 +155,417 @@ $(document).ready(function () {
     // var Tetrahedron = new THREE.Mesh(geometryTetrahedron, materialTetrahedron);
     // scene.add(Tetrahedron);
     // Tetrahedron.position.y=2;
+    //Obstaculos
+    spawnObstaclesLvl1();
+    spawnObstaclesLvl2();
+    spawnObstaclesLvl3();
+
+    //Barriles
+    spawnBarrels();
+
+    //Items
+    spawnItems();
 
 
-
-
-    edgesMapCubes(scene);
-    finishMapCube(scene);
-
-
-
-
-   
     $("#scene-section").append(renderer.domElement);
     document.addEventListener('keydown', onKeyDown);
 	document.addEventListener('keyup', onKeyUp);
     render();
 });
-var tiempoDelta = 0;
+
 function onKeyDown(event) {
     keys[String.fromCharCode(event.keyCode)] = true;
 }
 function onKeyUp(event) {
     keys[String.fromCharCode(event.keyCode)] = false;
 }
+
 function render() {
+    //!player.lose
+    if(!player.lose){
+        if(isPlay){
+            //var BarrilLoaded=scene.getObjectByName("Barril"+i);
+        
+            requestAnimationFrame(render);
+        
+            if(isLoaded[0]===true && isLoaded[1]===true && isLoaded[2]===true ){
+                tiempoDelta = clock.getDelta();
+                        
+                var ModelMap=scene.getObjectByName("map");
+                ModelMap.position.z+=speedMovementMap *tiempoDelta;
     
-    var BarrilLoaded=scene.getObjectByName("Barril"+i);
+                //Anclaje de obstaculos al mapa
+                if(scene.getObjectByName("Roca_Decierto_grande_9") !== undefined &&
+                scene.getObjectByName("Barril_4") !== undefined &&
+                scene.getObjectByName("yellowTriangle4") !== undefined &&
+                scene.getObjectByName("Glacier_9") !== undefined &&
+                scene.getObjectByName("RocaLevel1_9") !== undefined
+                ){
     
-    
-    requestAnimationFrame(render);
+                    if(anclaje_){
+                        anclajeObstaculos();
+                    }
+                    if(!isPlayingRn)
+                        isPlayingRn = true;
+                }
 
-    
- 
-    if(isLoaded[0]===true && isLoaded[1]===true && isLoaded[2]===true ){
-        var tiempoDelta = clock.getDelta();
-        
-        
-        var ModelMap=scene.getObjectByName("map");
+                if(isPlayingRn){
+                    //Colision lados
+                    bounderiesCollision(boat);
+                    //Colision final
+                    finalMapCollision(ModelMap);
+                    //Colision barries
+                    barrelCollision(boat, barrelsList);
+                    //Colision obstaculos
+                    if(!player.inmunidad){
 
-        var Meta=scene.getObjectByName("finishCube");
-        ModelMap.position.z+=5 *tiempoDelta;
-        
-        Map.add(Meta);
-        
-        if(BarrilLoaded!=null){
-             BarrilLoaded.position.z+=5 *tiempoDelta;
+                        obstaclesCollision1(boat, obstaclesLevel1)
+                        obstaclesCollision2(boat, obstaclesLevel2)
+                        obstaclesCollision3(boat, obstaclesLevel3);
+
+                        if(player.strikeCounter > 2)
+                        {
+                            player.lose = true;
+                        }
+    
+                    }
+    
+                    //Colision items
+                    itemsCollision(boat,redOrbeList, yellowOrbeList, yellowTriangleList)
+
+                }
+                if (player.inmunidad == true) {
+                    player.inmunidadCounter += tiempoDelta;
+                    switch(speedMovementMap){
+                        case 5:
+                            if (player.inmunidadCounter >= 3.5) {
+                                player.inmunidad = false;
+                                player.inmunidadCounter = 0;
+                            } 
+                        break;
+                        case 4: 
+                            if (player.inmunidadCounter >= 4.5) {
+                                player.inmunidad = false;
+                                player.inmunidadCounter = 0;
+                            }
+                        break;
+                        case 3: 
+                            if (player.inmunidadCounter >= 5.5) {
+                                player.inmunidad = false;
+                                player.inmunidadCounter = 0;
+                            }
+                        break;
+                    }
+                       
+                }
+    
+                document.getElementById('pScore').innerHTML = player.score.toString();
                 
+                if (keys["A"]) {
+                    
+                    boat.position.x-=5 *tiempoDelta;
+                 
+                } else if (keys["D"]) {
+                    
+                    boat.position.x +=5*tiempoDelta;
+                }else if (keys["L"]) {
+                   
+                }
+        
+               
+                renderer.render(scene, camera);
+            }
         }
-       
-      
-        if (keys["A"]) {
-            
-			boat.position.x-=5 *tiempoDelta;
-         
-		} else if (keys["D"]) {
-            
-            boat.position.x +=5*tiempoDelta;
-		}else if (keys["L"]) {
-           
-		}else if(keys["S"]){
+    }else{
+        isPlay = false;
+        localStorage.setItem("score", player.score)
+        window.location.href = "Loser.php";
+    }
+    
+    
+}
 
-            obstacleLevel1(scene,obstacles[1],-20,0,-10);
-            obstacleLevel2(scene,obstacles[2],0,0,-10);
-            obstacleLevel3_1(scene,obstacles[3],20,0,-10);
-            obstacleLevel3_2(scene,obstacles[4],10,0,-10);
+function barrelCollision(boat, barrelsList){
+    for(let i = 0; i < barrelsList.length; i++){
+        if(detectCollision(boat, barrelsList[i])){
+                //console.log('Bote colisionó barril')
 
-
-            BarrelLoader(scene,Barrels[i],0,0,-100,i);
-            redOrbeSpawn(scene,redOrbe[1],-20,-100);
-            yellowOrbSpawn(scene,yellowOrbe[1],20,-100);
-            yellowTriangleSpawn(scene,yellowTriangle[1],10,-100);
-            
+                barrelsList[i].removeFromParent();
+                barrelsList[i].remove();
+                let index = barrelsList.indexOf(barrelsList[i])
+                barrelsList.splice(index,1);
+                
+            player.barrelCounter++;
+            player.score = player.score + 50;
+            document.getElementById('barrelCount').innerHTML = player.barrelCounter.toString();
+        }else{
         }
-        renderer.render(scene, camera);
     }
 }
 
+function itemsCollision(boat,redOrbeList, yellowOrbeList, yellowTriangleList){
 
-function edgesMapCubes(scene){
+    for(let i = 0; i < redOrbeList.length; i++){
+        if(detectCollision(boat, redOrbeList[i])){
+            console.log('Bote colisionó con una esfera roja')
+            if(player.score > 0){
+                redOrbeList[i].removeFromParent();
+                redOrbeList[i].remove();
+                let index = redOrbeList.indexOf(redOrbeList[i])
+                redOrbeList.splice(index,1);
+
+                player.score = player.score*2;
+            }
+        }else{
+        }
     
-    var geometry = new THREE.BoxGeometry(1, 1, 1);
-    var material = new THREE.MeshLambertMaterial({
-        color: new THREE.Color(0.7, 0, 0),
-        // wireframe:true,
-        // transparent:true,
-        // opacity:0,
-    });
-    var cubeRight = new THREE.Mesh(geometry, material);
-    scene.add(cubeRight);
-    var material2 = new THREE.MeshLambertMaterial({
-        color: new THREE.Color(0.5, 0.5, 0.5),
-        // wireframe:true,
-        // transparent:true,
-        // opacity:0,
-    });
-    var cubeLeft = new THREE.Mesh(geometry, material2);
-    scene.add(cubeLeft);
+    }
+    for(let i = 0; i < yellowOrbeList.length; i++){
+        if(detectCollision(boat, yellowOrbeList[i])){
+            console.log('Bote colisionó con una esfera amarilla')
+            if(player.score > 0){
+                yellowOrbeList[i].removeFromParent();
+                yellowOrbeList[i].remove();
+                let index_ = yellowOrbeList.indexOf(yellowOrbeList[i])
+                yellowOrbeList.splice(index_,1);
 
-    cubeRight.name = "cubeRight";
-    cubeLeft.name = "cubeLeft";
-   
-    cubeLeft.position.set(-23,10,5);
-    cubeRight.position.set(23,10,5);
-    cubeRight.scale.set(1,20,50);
-    cubeLeft.scale.set(1,20,50);
+                let array = [-1/3, 3];
+                let index = Math.floor(Math.random() * array.length);
+                let chosen = array[index];
+                if(index == 0){
+                    player.score = Math.round(player.score + (player.score*chosen));
+                }
+                else{
+                    player.score = player.score*3;
+                }
+            }
+        }else{
+        }
+    
+    }
+    for(let i = 0; i < yellowTriangleList.length; i++){
+        if(detectCollision(boat, yellowTriangleList[i])){
+            console.log('Bote colisionó con un triangulo amarillo')
+            if(player.strikeCounter > 0){ 
+                yellowTriangleList[i].removeFromParent();
+                yellowTriangleList[i].remove();
+                let index = yellowTriangleList.indexOf(yellowTriangleList[i])
+                yellowTriangleList.splice(index,1);
+
+                player.strikeCounter--;
+                document.getElementById("anclaCount").innerHTML = player.strikeCounter.toString();
+            }
+        }else{
+        }
+    
+    }
 }
 
+function obstaclesCollision1(boat, obstaclesLevel1){
 
-function finishMapCube(scene){
+    for(let i = 0; i < obstaclesLevel1.length; i++){
+        if(detectCollision(boat, obstaclesLevel1[i])){
+            player.inmunidad = true;
+            player.strikeCounter++;
+            document.getElementById('anclaCount').innerHTML = player.strikeCounter.toString();
+            speedMovementMap = speedMovementMap -1;
+            console.log('Bote colisionó con los obstaculos del nivel 1')
+        }else{
+        }
     
-    var geometry = new THREE.BoxGeometry(1, 1, 1);
-    var material = new THREE.MeshLambertMaterial({
-        color: new THREE.Color(0, 0, 1),
-        // wireframe:true,
-        // transparent:true,
-        // opacity:0,
-    });
-    var finishCube = new THREE.Mesh(geometry, material);
-    scene.add(finishCube);
-    finishCube.name = "finishCube";
-    finishCube.position.set(0,1,-1046);
-    finishCube.scale.set(46,4,1);
+    }
+}
+
+function obstaclesCollision2(boat, obstaclesLevel2){
+
+    for(let i = 0; i < obstaclesLevel2.length; i++){
+        if(detectCollision(boat, obstaclesLevel2[i])){
+            player.inmunidad = true;
+            player.strikeCounter++;
+            document.getElementById('anclaCount').innerHTML = player.strikeCounter.toString();
+            speedMovementMap = speedMovementMap -1;
+            console.log('Bote colisionó con los obstaculos del nivel 2')
+        }else{
+        }
     
+    }
+}
+function obstaclesCollision3(boat, obstaclesLevel3){
+
+    for(let i = 0; i < obstaclesLevel3.length; i++){
+        if(detectCollision(boat, obstaclesLevel3[i])){
+            player.inmunidad = true;
+            player.strikeCounter++;
+            document.getElementById('anclaCount').innerHTML = player.strikeCounter.toString();
+            speedMovementMap = speedMovementMap -1;
+            console.log('Bote colisionó con los obstaculos del nivel 3')
+        }else{
+        }
+    
+    }
+}
+
+function detectCollision(object1, object2){
+
+    for (var i = 0; i < object1.children.length; i++) {
+
+        for (var j = 0; j < object2.children.length; j++) {
+            object1.children[i].geometry.computeBoundingBox(); 
+            object2.children[i].geometry.computeBoundingBox();
+            object1.updateMatrixWorld();
+            object2.updateMatrixWorld();
+
+            var box1 = object1.children[i].geometry.boundingBox.clone();
+            box1.applyMatrix4(object1.matrixWorld);
+
+            var box2 = object2.children[i].geometry.boundingBox.clone();
+            box2.applyMatrix4(object2.matrixWorld);
+            if (box1.intersectsBox(box2)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+function bounderiesCollision(object){
+    for (var i = 0; i < object.children.length; i++) {
+
+        if(object.position.x > 21 || object.position.x < -21)
+        {
+            isPlay = false;
+            localStorage.setItem("score", player.score)
+            window.location.href = "loser.php";
+        }          
+    }
+}
+
+function finalMapCollision(object){
+    for (var i = 0; i < object.children.length; i++) {
+
+        if(object.position.z > 1045)
+        {
+            isPlay = false;
+            localStorage.setItem("score", player.score)
+            window.location.href = "victory.php";
+        }          
+    }
+}
+
+function spawnObstaclesLvl1(){
+
+    for(let i = 0; i < 10; i ++){
+        let z= Math.floor(Math.random() * (26 - 300) + 300);
+        let x= Math.floor(Math.random() * (21 - (-21)) + (-21));
+    
+        obstacleLevel1(scene,obstacles[0],x,0,-z,i );
+    }
+}
+
+function spawnObstaclesLvl2(){
+
+    for(let i = 0; i < 10; i ++){
+        let z= Math.floor(Math.random() * (300 - 628) + 628);
+        let x= Math.floor(Math.random() * (21 - (-21)) + (-21));
+        obstacleLevel2(scene,obstacles[0],x,0,-z,i );
+    }
+}
+
+function spawnObstaclesLvl3(){
+
+    for(let i = 0; i < 10; i ++){
+        let z= Math.floor(Math.random() * (628 - 990) + 990);
+        let x= Math.floor(Math.random() * (21 - (-21)) + (-21));
+    
+        obstacleLevel3_1(scene,obstacles[2],x,0,-z,i );
+    }
+}
+
+function spawnBarrels(){
+
+    for(let i = 0; i < 25; i ++){
+        var z= Math.floor(Math.random() * (35 - 990) + 990);
+        var x= Math.floor(Math.random() * (21 - (-21)) + (-21));
+        
+        BarrelLoader(scene,Barrels[1],x,0,-z,i);
+    }
+
+}
+
+function spawnItems(){
+
+    for(let i = 0; i < 5; i ++){
+        let z= Math.floor(Math.random() * (36 - 990) + 990);
+        let x= Math.floor(Math.random() * (21 - (-21)) + (-21));
+        redOrbeSpawn(scene,redOrbe[1],x,-z,i );
+    }
+
+    for(let i = 0; i < 5; i++){
+        let z= Math.floor(Math.random() * (36 - 990) + 990);
+        let x= Math.floor(Math.random() * (21 - (-21)) + (-21));
+        yellowOrbSpawn(scene,yellowOrbe[1],x,-z, i);
+    }
+
+    for(let i = 0; i < 5; i++){
+        let z= Math.floor(Math.random() * (36 - 990) + 990);
+        let x= Math.floor(Math.random() * (21 - (-21)) + (-21));
+        yellowTriangleSpawn(scene,yellowTriangle[1],x,-z, i);
+    }
+
+}
+
+function anclajeObstaculos(){
+    //Obstaculos
+    for(let i=0; i< 10; i++)
+    {
+        let a = scene.getObjectByName("RocaLevel1_"+i);
+        obstaclesLevel1.push(a)
+        Map.add(obstaclesLevel1[i]);
+    }
+    for(let i=0; i< 10; i++)
+    {
+        let a = scene.getObjectByName("Glacier_"+i);
+        obstaclesLevel2.push(a)
+        Map.add(obstaclesLevel2[i]);
+    }
+
+    for(let i=0; i< 10; i++)
+    {
+        let a = scene.getObjectByName("Roca_Decierto_grande_"+i);
+        obstaclesLevel3.push(a);
+        Map.add(obstaclesLevel3[i]);
+    }
+
+    //Barriles
+    for(let i=0; i< 25; i++)
+    {
+        let a = scene.getObjectByName("Barril_"+i);
+        barrelsList.push(a)
+        Map.add(barrelsList[i]);
+    }
+
+    //Items
+    //redOrbe
+    for(let i=0; i< 5; i++)
+    {
+        let a = scene.getObjectByName("redOrbe"+i);
+        redOrbeList.push(a)
+        Map.add(redOrbeList[i]);
+    }
+    //yellowOrbe
+    for(let i=0; i< 5; i++)
+    {
+        let a = scene.getObjectByName("yellowOrbe"+i);
+        yellowOrbeList.push(a)
+        Map.add(yellowOrbeList[i]);
+    }
+    //yellowTriangle
+    for(let i=0; i< 5; i++)
+    {
+        let a = scene.getObjectByName("yellowTriangle"+i);
+        yellowTriangleList.push(a)
+        Map.add(yellowTriangleList[i]);
+    }
+
+    anclaje_ = false;
 }

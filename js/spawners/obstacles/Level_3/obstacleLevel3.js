@@ -2,7 +2,7 @@ import{ GLTFLoader } from "../../../../jsm/loaders/GLTFLoader.js"
 
 export  function obstacleLevel3_1(Myscena,globalVar,x,y,z,i) {
     const BoatModelLoader=new GLTFLoader();
-    BoatModelLoader.load('js/spawners/obstacles/Level_3/Roca_Decierto_grande_Level3.glb',(model)=>{
+    BoatModelLoader.load('js/spawners/obstacles/Level_3/Rock_Level_3.glb',(model)=>{
         globalVar= model.scene;
         globalVar.name="Roca_Decierto_grande_"+i;
         Myscena.add(globalVar);
@@ -11,7 +11,7 @@ export  function obstacleLevel3_1(Myscena,globalVar,x,y,z,i) {
 }
 
 
-export  function obstacleLevel3_2(Myscena,globalVar,x,y,z,i) {
+/*export  function obstacleLevel3_2(Myscena,globalVar,x,y,z,i) {
     const BoatModelLoader=new GLTFLoader();
     BoatModelLoader.load('js/spawners/obstacles/Level_3/Roca_Decierto_grande_2_Level3.glb',(model)=>{
         globalVar= model.scene;
@@ -19,4 +19,4 @@ export  function obstacleLevel3_2(Myscena,globalVar,x,y,z,i) {
         Myscena.add(globalVar);
         globalVar.position.set(x,y,z);
     })
-}
+}*/

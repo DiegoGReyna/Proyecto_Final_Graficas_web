@@ -2,7 +2,6 @@ import * as THREE from "./threeJS/three.module.js"
 // import { OrbitControls } from "../jsm/controls/OrbitControls.js"
 import { OrbitControls } from "./threeJS/OrbitControls.js";
 import{ GLTFLoader } from "../jsm/loaders/GLTFLoader.js";
-import { BarrelSpawn } from "./spawners/barrel/barrelSpawner";
 
 
 var scene;
@@ -146,21 +145,7 @@ function render() {
 		} else if (keys["D"]) {
             boat.position.x +=5*tiempoDelta;
 		}
-        
-        //document.onkeydown=function(e){
-        //     if(e.keyCode===65){
-        //         boat.position.x-=5;
-        //         console.log("aaaa");
-            
-        //     }
-        //     if(e.keyCode===68){
-        //         boat.position.x +=5;
-              
-        //     }
-        // }
-
-
-       
+           
     
         renderer.render(scene, camera);
     }
