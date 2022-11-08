@@ -2,7 +2,7 @@ import * as THREE from "./threeJS/three.module.js"
 // import { OrbitControls } from "../jsm/controls/OrbitControls.js"
 import { OrbitControls } from "./threeJS/OrbitControls.js";
 import{ GLTFLoader } from "../jsm/loaders/GLTFLoader.js";
-import { BarrelSpawn } from "./spawners/barrel/barrelSpawner";
+
 
 
 var scene;

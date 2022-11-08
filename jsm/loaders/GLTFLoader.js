@@ -864,7 +864,7 @@ class GLTFMaterialsIridescenceExtension {
 }
 
 /**
- * Sheen Materials Extension
+ * Sheen Materials Extensionf
  *
  * Specification: https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_materials_sheen
  */

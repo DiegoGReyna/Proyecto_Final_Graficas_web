@@ -9,6 +9,8 @@ import yellowTriangleSpawn from "./spawners/yellowTriangle/yellowTriangleSpawn.j
 import obstacleLevel1 from "./spawners/obstacles/Level_1/obstacleLevel1.js";
 import obstacleLevel2 from "./spawners/obstacles/Level_2/obstacleLevel2.js";
 import {obstacleLevel3_1,obstacleLevel3_2} from "./spawners/obstacles/Level_3/obstacleLevel3.js";
+
+var isNightLevel=true;
 var i=1;
 var redOrbe=[];
 var obstacles=[];
@@ -25,8 +27,11 @@ var boat;
 var water;
 var Map;
 var keys = {};
-let mixer;
+var AnimatPlayed=[false,false,false];
+var mixer;
 var isLoaded=[false,false,false,false];
+var action
+var lose=false
 $(document).ready(function () {
     
     var box = document.querySelector('.ContainerPlayGame');
@@ -78,7 +83,7 @@ $(document).ready(function () {
 
   
     const BoatModelLoader=new GLTFLoader();
-    BoatModelLoader.load('modelos/boat/Animated_Boat.glb',(model)=>{
+    BoatModelLoader.load('modelos/boat/Barco_Animated.glb',(model)=>{
         boat= model.scene;
         isLoaded[0]=true;
         boat.position.set(0,0,5);
@@ -86,21 +91,24 @@ $(document).ready(function () {
         scene.add(boat);
         mixer= new THREE.AnimationMixer(boat);
         const clips=model.animations;
-        const clip = THREE.AnimationClip.findByName(clips,'otra animacion');
-        const action = mixer.clipAction(clip);
-        action.play();
-        
+        const clipDer = THREE.AnimationClip.findByName(clips,'Perder_1');
+         action = mixer.clipAction(clipDer);
+       
+         mixer.addEventListener('finished',function(e){
+            
+            boat.position.set(0,-10,5);
+         })
       
     })
 
 
-
-
     const WaterModelLoader=new GLTFLoader();
-    WaterModelLoader.load('modelos/water/Water.glb',(model)=>{
+    WaterModelLoader.load('modelos/water/water_1.0.glb',(model)=>{
         water=model.scene;
         water.position.set(0,0.5,0);
         isLoaded[1]=true;
+        
+        water.name="water";
        scene.add(water)
       
     })
@@ -113,23 +121,50 @@ $(document).ready(function () {
         scene.add(Map);
        
     })
+
+
+    
+
+
+
+
+
+    const spotLight = new THREE.SpotLight( 0xffffff  
+        ,0.5 ,1000,0.90,0.75);
+    spotLight.position.set( 0, 5,1);
+    spotLight.castShadow = true;
+    scene.add(spotLight);
+
     
     //iluminacion ambiental 
     //parametros 
     //color de la luz
     //intensidad
-    var ambient = new THREE.AmbientLight(
-        new THREE.Color(1, 0.6, 0.1),
-        1
-    );
+    if(isNightLevel===false){
+        var ambient = new THREE.AmbientLight(
+            "#FFFFFF",
+            1
+        );
+        var directional = new THREE.DirectionalLight(
+            new THREE.Color(1, 0.6, 0.1),
+            0.6
+    
+        );
+    }else{
+        var ambient = new THREE.AmbientLight(
+            "#061596",
+            0.5
+        );
+        var directional = new THREE.DirectionalLight(
+            "#999DBF",
+            0.4
+    
+        );
+    }
     scene.add(ambient);
     //lus direccional
-    var directional = new THREE.DirectionalLight(
-        "#FFFFFF",
-        1.5
-
-    );
     directional.position.set(0, 12, 10);
+    
     scene.add(directional);
     // le indicamos a Threejs
     // donde queremos el canvas
@@ -164,6 +199,7 @@ $(document).ready(function () {
 var tiempoDelta = 0;
 function onKeyDown(event) {
     keys[String.fromCharCode(event.keyCode)] = true;
+    
 }
 function onKeyUp(event) {
     keys[String.fromCharCode(event.keyCode)] = false;
@@ -172,21 +208,29 @@ function render() {
     
     var BarrilLoaded=scene.getObjectByName("Barril"+i);
     
-    
-    requestAnimationFrame(render);
 
-    
+    requestAnimationFrame(render);
+   
  
     if(isLoaded[0]===true && isLoaded[1]===true && isLoaded[2]===true ){
         var tiempoDelta = clock.getDelta();
+        if(lose===false){
+            mixer.update(tiempoDelta)
+            
+            
+           
+         }
         
+
         
         var ModelMap=scene.getObjectByName("map");
+        var agua=scene.getObjectByName("water");
 
         var Meta=scene.getObjectByName("finishCube");
         ModelMap.position.z+=5 *tiempoDelta;
         
         Map.add(Meta);
+        Map.add(agua);
         
         if(BarrilLoaded!=null){
              BarrilLoaded.position.z+=5 *tiempoDelta;
@@ -195,14 +239,23 @@ function render() {
        
       
         if (keys["A"]) {
-            
+
 			boat.position.x-=5 *tiempoDelta;
+            
          
 		} else if (keys["D"]) {
             
+            
+            
+           
             boat.position.x +=5*tiempoDelta;
 		}else if (keys["L"]) {
+            action.setLoop( THREE.LoopOnce );
+            action.play();
            
+            
+
+            
 		}else if(keys["S"]){
 
             obstacleLevel1(scene,obstacles[1],-20,0,-10);
