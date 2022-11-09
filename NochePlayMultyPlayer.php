@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script type="text/javascript" src="js/jquery-3.6.1.min.js"></script>
+    <script type="text/javascript" src="js/threeJS/three.min.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/stylePlayMultyplayer.css">
+    <title>Document</title>
+
+</head>
+
+<body>
+
+    <div class="ContainerMultiplayerRenders">
+
+        <button class="BtnPause" onclick="window.location.href = 'Pause.html';"><img src="img/Pause.svg" alt="" width="40px" height="40px"></button>
+
+        <div class="ContainerPlayer1" id="scene-sectionPlayer1">
+            <label class="labelCanvasPlayer" for="">Jugador 1</label>
+        </div>
+        <div class="ContainerPlayer2" id="scene-sectionPlayer2">
+            <label class="labelCanvasPlayer" for="">Jugador 2</label>
+        </div>
+
+    </div>
+
+    <script type="module" src="js/CanvasThreeJsPlayer1Night.js"></script>
+    <script type="module" src="js/CanvasThreeJsPlayer2Night.js"></script>
+</body>
+
+</html>

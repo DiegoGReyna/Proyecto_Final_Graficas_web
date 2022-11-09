@@ -35,30 +35,24 @@ $(document).ready(function () {
     var box = document.querySelector('.ContainerPlayGame');
     var width = box.offsetWidth;
     var height = box.offsetHeight;
-    // var width = window.innerWidth / 2;
-    // var height = window.innerHeight / 2;
     clock = new THREE.Clock;
     var planeGeometry=new THREE.PlaneGeometry(50,50);
     var planeMaterial=new THREE.MeshBasicMaterial({color: 0xFFFFFF});
     var plan = new THREE.Mesh(planeGeometry,planeMaterial);
     
-    // in icializamos el renderer
     renderer = new THREE.WebGLRenderer();
     renderer.setClearColor(new THREE.Color(0.2, 0.3, 0.6));
     renderer.setSize(width, height);
-    //inicializamos la camara
+   
     camera = new THREE.PerspectiveCamera(
         60,
         width / height,
         0.1,
         1000
     );
-    //inicializamos la esceba
+  
     scene = new THREE.Scene();  
-    // para dibujar se necesita
-    //1.- Geometria:es un objeto que almecena la informacion de los vertices, indices y demas
-    //2.-Material: es un objeto que alamcena la info del material como colores, texturas , iliminacion , etx
-    //3.-Mesh:es un objeto que contiene la geometria y el material
+   
 
     var axesHelpert = new THREE.AxesHelper(10);
     scene.add(axesHelpert);
@@ -111,16 +105,17 @@ $(document).ready(function () {
     //color de la luz
     //intensidad
     var ambient = new THREE.AmbientLight(
-        new THREE.Color(1, 0.6, 0.1),
-        1
+        "#061596",
+        0.5
     );
     scene.add(ambient);
     //lus direccional
     var directional = new THREE.DirectionalLight(
-        "#FFFFFF",
-        1.5
+        "#999DBF",
+        0.4
 
     );
+
     directional.position.set(0, 12, 10);
     scene.add(directional);
     // le indicamos a Threejs
