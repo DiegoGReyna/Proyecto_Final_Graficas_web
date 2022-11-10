@@ -76,8 +76,9 @@ $(document).ready(function () {
 
     
     const WaterModelLoader=new GLTFLoader();
-    WaterModelLoader.load('modelos/water/Water.glb',(model)=>{
+    WaterModelLoader.load('modelos/water/water_1.0.glb',(model)=>{
         water=model.scene;
+        water.name="water";
         isLoaded[2]=true;
         water.position.set(0,0.5,0);
        scene.add(water)
@@ -134,9 +135,12 @@ function render() {
 
         if(isLoaded[0]===true && isLoaded[1]===true && isLoaded[2]===true){
         var tiempoDelta = clock.getDelta();
-        
+    
+
         var ModelMap=scene.getObjectByName("map");
+        var ModelWater=scene.getObjectByName("water");
         ModelMap.position.z+=5 *tiempoDelta;
+        ModelMap.add(ModelWater);
 
         
         if (keys["A"]) {

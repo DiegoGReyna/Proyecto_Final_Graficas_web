@@ -20,28 +20,23 @@ $(document).ready(function () {
     var box = document.querySelector('.ContainerPlayer1');
     var width = box.offsetWidth;
     var height = box.offsetHeight;
-    // var width = window.innerWidth / 2;
-    // var height = window.innerHeight / 2;
+    
     clock = new THREE.Clock;
     
-    // in icializamos el renderer
+   
     renderer = new THREE.WebGLRenderer();
     renderer.setClearColor(new THREE.Color(0.2, 0.3, 0.6));
     renderer.setSize(width, height);
-    //inicializamos la camara
+   
     camera = new THREE.PerspectiveCamera(
         60,
         width / height,
         0.1,
         1000
     );
-    //inicializamos la esceba
+   
     scene2 = new THREE.Scene();
 
-    // para dibujar se necesita
-    //1.- Geometria:es un objeto que almecena la informacion de los vertices, indices y demas
-    //2.-Material: es un objeto que alamcena la info del material como colores, texturas , iliminacion , etx
-    //3.-Mesh:es un objeto que contiene la geometria y el material
     var geometry = new THREE.BoxGeometry(1, 1, 1);
     var material = new THREE.MeshLambertMaterial({
         color: new THREE.Color(0.7, 0, 0),
@@ -79,7 +74,6 @@ $(document).ready(function () {
         scene2.add(water)
     })
    
-   
     
     const ModelLoader=new GLTFLoader();
     ModelLoader.load('modelos/city/Map.glb',(model)=>{
@@ -92,14 +86,14 @@ $(document).ready(function () {
    
 //luz ambiental
     var ambient = new THREE.AmbientLight(
-        "#FFFFFF",
-        1
+        "#061596",
+        0.5
     );
     scene2.add(ambient);
     //luz direccional
     var directional = new THREE.DirectionalLight(
-        new THREE.Color(1, 0.6, 0.1),
-        1
+        "#999DBF",
+        0.4
 
     );
     directional.position.set(0, 12, 10);

@@ -12,7 +12,7 @@
     <!-- <link rel="stylesheet" href="css/stylePlay.css"> -->
     <link rel="stylesheet" href="css/StylePlays.css">
     <title>Document</title>
-    <script type="module" src="js/CanvasThreeJS.js"></script>
+    <script type="module" src="js/CanvasThreeJSNight.js"></script>
 
 <body>
     <!--ventana cargando-->
