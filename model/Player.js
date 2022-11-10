@@ -1,6 +1,6 @@
 export class Player{
 
-    score; strikeCounter; barrelCounter; lose; inmunidad; inmunidadCounter;
+    score; strikeCounter; barrelCounter; lose; inmunidad; inmunidadCounter; win = false;
 
     constructor(score, strikeCounter, barrelCounter, lose, inmunidad, inmunidadCounter){
         this.score = score;

@@ -16,7 +16,7 @@ var renderer;
 var camera;
 var clock;
 //var isPlay = true, 
-var anclaje_ = true, isPlayingRn = false;
+var anclaje_ = true, isPlayingRn = false, isPaused = false;
 //OBJETOS
 var player = new Player(0,0,0,false, false, 0);
 var obst, barr, ite;
@@ -148,7 +148,7 @@ function onKeyUp(event) {
 function render() {
     //!player.lose
     if(!player.lose){
-        if(true){
+        if(!isPaused){
         
             requestAnimationFrame(render);
         

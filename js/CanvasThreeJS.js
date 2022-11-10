@@ -8,6 +8,8 @@ import { Collision } from "../model/Collision.js";
 import { Barrel } from "../model/Barrel.js";
 import { Terrain } from "../model/Terrain.js";
 import { Item } from "../model/Item.js";
+import { Game } from "../model/Game.js";
+
 //Variables
 var tiempoDelta;
 var speedMovementMap = 5;
@@ -22,6 +24,7 @@ var player = new Player(0,0,0,false, false, 0);
 var obst, barr, ite;
 var collisions = new Collision();
 var speed = new Terrain(5);
+var factoryGame = new Game();
 
 ///Modelos
 var boat;
@@ -152,8 +155,8 @@ function onKeyUp(event) {
 
 function render() {
     //!player.lose
-    if(!player.lose){
-        if(true){
+    if(player.lose == false){
+        if(factoryGame.isPaused == false){
         
             requestAnimationFrame(render);
         
@@ -173,21 +176,21 @@ function render() {
                 scene.getObjectByName("RocaLevel1_9") !== undefined
                 ){
     
-                    if(anclaje_){
+                    if(factoryGame.anclaje_ == true){
                         obst.anchorObstacles(Map);
                         barr.anchorBarrels(Map);
                         ite.anchorItems(Map);
-                        anclaje_ = false;
+                        factoryGame.anclaje_ = false;
                     }
-                    if(!isPlayingRn)
-                        isPlayingRn = true;
+                    if(factoryGame.isPlayingRn == false)
+                        factoryGame.isPlayingRn = true;
                 }
 
-                if(isPlayingRn){
+                if(factoryGame.isPlayingRn == true){
                     //Colision lados
                     collisions.bounderiesCollision(player, boat);
                     //Colision final
-                    collisions.finalMapCollision(player, boat);
+                    collisions.finalMapCollision(player, Map);
                     //Colision barries
                     barr.barrelCollision(player, boat);
                     //Colision obstaculos
@@ -250,9 +253,15 @@ function render() {
             }
         }
     }else{
-        //isPlay = false;
+        factoryGame.isPaused = true;
         localStorage.setItem("score", player.score)
         window.location.href = "Loser.php";
-    }   
+    }
+
+    if(player.win == true){
+        factoryGame.isPaused = true;
+        localStorage.setItem("score", player.score)
+        window.location.href = "Victory.php";
+    }
     
 }

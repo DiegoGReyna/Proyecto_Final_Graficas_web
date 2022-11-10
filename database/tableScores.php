@@ -21,7 +21,6 @@
         if($stm->execute())
         {
             echo "Edicion exitosa";
-            unset($_SESSION['userId']); 
             $conn = $connection->disconnect();
     
             header('Location: ../MainMenu.php.');

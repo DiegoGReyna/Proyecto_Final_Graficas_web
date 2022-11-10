@@ -28,6 +28,21 @@
 
     </div>
 
+    <audio id="musicGame" loop>
+        <source src="sound/music.mp3" type="audio/mpeg">
+    </audio>
+
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", () => {
+            let val = localStorage.getItem("audio");
+            if(val > 0){
+                document.getElementById('musicGame').volume = (val/100);
+                document.getElementById("musicGame").loop = true;
+                document.getElementById('musicGame').play();
+            }
+        });
+    </script>
+
     <script type="module" src="js/CanvasThreeJsPlayer1.js"></script>
     <script type="module" src="js/CanvasThreeJsPlayer2.js"></script>
 </body>

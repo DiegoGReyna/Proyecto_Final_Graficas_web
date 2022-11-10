@@ -14,17 +14,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Pacifico&display=swap" rel="stylesheet">
     <title>Main menu</title>
-    <script type="text/javascript" src="modelos/audio.js"></script>
-    <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", () => {
-            localStorage.setItem("audio", 90);
-            var score = localStorage.getItem("score");
-            if(score > 0){
-                localStorage.removeItem("score");
-            }
-        });
-    </script>
-
 </head>
 
 <body>
@@ -57,9 +46,19 @@
 
     </div>
     <!--SCRIPTS-->
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", () => {
+            if(!localStorage.getItem("audio")>0){
+                localStorage.setItem("audio", 90);
+            }
+            var score = localStorage.getItem("score");
+            if(score > 0){
+                localStorage.removeItem("score");
+            }
+        });
+    </script>
     <script type="text/javascript" src="js/jquery-3.6.1.min.js"></script>
     <script type="text/javascript" src="js/exit.js"></script>
-    
      <!--SCRIPTS ventana cargando-->
      <script>  
         var loader = document.getElementById('contenedor_carga');

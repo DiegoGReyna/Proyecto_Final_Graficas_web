@@ -47,14 +47,13 @@
                         <div class="Box_Volume">
                             <div class="BoxInputVolume">
 
-                                <input class="range" type="range" name="" id="InpVolume" min="0" max="100" value="90"
+                                <input class="range" type="range" name="InpVolume" id="InpVolume" min="0" max="100"
                                     onchange="rangeSlide(this.value)" onmousemove="rangeSlide(this.value)">
                                 <span class="VolumeLevel" id="rangeVolume">90</span>
                             </div>
                             <script type="text/javascript">
                                 function rangeSlide(value) {
                                     document.getElementById('rangeVolume').innerHTML = value;
-                                    localStorage.setItem("audio", value);
 
                                 }
                             </script>
@@ -65,9 +64,9 @@
 
             </div>
             <div class="TwoButtons">
-                <input class="ButtonSubmit" type="submit" value="Confirmar ajuste">
+                <input class="ButtonSubmit" type="button" onclick="updateVolume()" value="Confirmar ajuste">
                 <!-- <input class="NormalButton" type="button" value="Create an account"> -->
-                <input type="button" class="NormalLink" onclick="window.location.href = 'MainMenu.html';"
+                <input type="button" class="NormalLink" onclick="window.location.href = 'MainMenu.php';"
                     value="Cancelar">
 
             </div>
@@ -75,11 +74,27 @@
 
     </div>
     <!--SCRIPTS ventana cargando-->
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", () => {
+            let val = localStorage.getItem("audio");
+            if(val > 0){
+                document.getElementById('InpVolume').value = val;
+                document.getElementById('rangeVolume').innerHTML = val;
+            }
+        });
+    </script>
     <script>
         var loader = document.getElementById('contenedor_carga');
         window.addEventListener("load", function () {
             loader.style.display = "none";
         })
+    </script>
+      <script type="text/javascript">
+       function updateVolume(){
+        let val = document.getElementById('InpVolume').value;
+        localStorage.setItem("audio", val);
+        window.location.href = 'MainMenu.php';
+       }
     </script>
 </body>
 

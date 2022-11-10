@@ -1,3 +1,5 @@
+import { Sound } from "./Audio.js";
+
 export class Collision{
     
     detectCollision(object1, object2){
@@ -24,25 +26,30 @@ export class Collision{
     }
 
     bounderiesCollision(player, object){
+        let sound = new Sound();
         for (var i = 0; i < object.children.length; i++) {
     
             if(object.position.x > 21 || object.position.x < -21)
             {
                 //isPlay = false;
                 localStorage.setItem("score", player.score)
-                window.location.href = "Loser.php";
+                sound.playLose();
+                player.lose = true;
+
             }          
         }
     }
 
     finalMapCollision(player, object){
+        let sound = new Sound();
+
         for (var i = 0; i < object.children.length; i++) {
     
             if(object.position.z > 1045)
             {
                 //isPlay = false;
                 localStorage.setItem("score", player.score)
-                window.location.href = "victory.php";
+                player.win = true;
             }          
         }
     }

@@ -31,10 +31,7 @@ function validate(){
         $("#errorLabel").css("display", "block");
         return false;
     }else{
-       
-        let sound = new Sound();
-        sound.playMusic(localStorage.getItem("audio"));
-        
+               
         return true;
     }
 }

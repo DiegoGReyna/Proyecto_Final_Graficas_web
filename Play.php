@@ -49,8 +49,23 @@
             </tr>
         </table>
     </div>
+ 
+    <audio id="musicGame" loop>
+        <source src="sound/music.mp3" type="audio/mpeg">
+    </audio>
+
 
     <!--SCRIPTS ventana cargando-->
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", () => {
+            let val = localStorage.getItem("audio");
+            if(val > 0){
+                document.getElementById('musicGame').volume = (val/100);
+                document.getElementById("musicGame").loop = true;
+                document.getElementById('musicGame').play();
+            }
+        });
+    </script>
     <script>
         var loader = document.getElementById('contenedor_carga');
         window.addEventListener("load", function() {

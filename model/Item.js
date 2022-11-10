@@ -1,7 +1,9 @@
 import redOrbeSpawn from "../js/spawners/redOrbe/redOrbeSpawn.js";
 import yellowOrbSpawn from "../js/spawners/yellowOrb/yellowOrb.js";
 import yellowTriangleSpawn from "../js/spawners/yellowTriangle/yellowTriangleSpawn.js";
+import { Sound } from "./Audio.js";
 import {Collision} from "./Collision.js";
+
 
 export class Item{
     redOrbeList=[]; 
@@ -64,31 +66,31 @@ export class Item{
 
     itemsCollision(boat,player, speed){
         let collision = new Collision();
-
+        let sound = new Sound();
+        
         for(let i = 0; i < this.redOrbeList.length; i++){
             if(collision.detectCollision(boat, this.redOrbeList[i])){
-                console.log('Bote colisionó con una esfera roja')
-                if(player.score > 0){
-                    this.redOrbeList[i].removeFromParent();
-                    this.redOrbeList[i].remove();
-                    let index = this.redOrbeList.indexOf(this.redOrbeList[i])
-                    this.redOrbeList.splice(index,1);
-    
+                console.log('Bote colisionó con una esfera roja');
+                this.redOrbeList[i].removeFromParent();
+                this.redOrbeList[i].remove();
+                let index = this.redOrbeList.indexOf(this.redOrbeList[i])
+                this.redOrbeList.splice(index,1);
+                if(player.score > 0){    
                     player.score = player.score*2;
                 }
+                sound.playGetItem();
             }else{
             }
         
         }
         for(let i = 0; i < this.yellowOrbeList.length; i++){
             if(collision.detectCollision(boat, this.yellowOrbeList[i])){
-                console.log('Bote colisionó con una esfera amarilla')
-                if(player.score > 0){
-                    this.yellowOrbeList[i].removeFromParent();
-                    this.yellowOrbeList[i].remove();
-                    let index_ = this.yellowOrbeList.indexOf(this.yellowOrbeList[i])
-                    this.yellowOrbeList.splice(index_,1);
-    
+                console.log('Bote colisionó con una esfera amarilla');
+                this.yellowOrbeList[i].removeFromParent();
+                this.yellowOrbeList[i].remove();
+                let index_ = this.yellowOrbeList.indexOf(this.yellowOrbeList[i])
+                this.yellowOrbeList.splice(index_,1);
+                if(player.score > 0){    
                     let array = [-1/3, 3];
                     let index = Math.floor(Math.random() * array.length);
                     let chosen = array[index];
@@ -99,6 +101,7 @@ export class Item{
                         player.score = player.score*3;
                     }
                 }
+                sound.playGetItem();
             }else{
             }
         
@@ -116,6 +119,7 @@ export class Item{
                     speed.speedMovementMap = speed.speedMovementMap + 1;
                     document.getElementById("anclaCount").innerHTML = player.strikeCounter.toString();
                 }
+                sound.playGetItem();
             }else{
             }
         

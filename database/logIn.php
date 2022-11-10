@@ -8,7 +8,7 @@
     $email = $_POST['InpEmail'];
     $pass = $_POST['InpPassword'];
 
-    $id;
+    $id; $foundUser = false;
     try{
         $connection = new DB();
         $conn = $connection->connect();
@@ -30,24 +30,24 @@
                 {
                     $id = $row['id'];
                     $_SESSION["userId"]=$id;
-                    if(isset($_SESSION['error'])){
-                        unset($_SESSION['error']);
-                    }
-                    //echo " NO ERROR";
-                    header('Location: ../MainMenu.php');
-                    die(); 
-                }else{
-                    if(isset($_SESSION['error'])){
-                        unset($_SESSION['error']);
-                    }
-                    //echo "  ERROR";
-
-                    $_SESSION['error'] = "Ingresa datos válidos";
-                    header('Location: ../index.php');
-                    die(); 
+                    $foundUser = true;                   
                 }
             }
 
+            if($foundUser){
+                if(isset($_SESSION['error'])){
+                    unset($_SESSION['error']);
+                }
+                header('Location: ../MainMenu.php');
+                die(); 
+            }else{
+                if(isset($_SESSION['error'])){
+                    unset($_SESSION['error']);
+                }
+                $_SESSION['error'] = "Ingresa datos válidos";
+                header('Location: ../index.php');
+                die(); 
+            }
        
 
         $conn = $connection->disconnect();
