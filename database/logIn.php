@@ -16,40 +16,35 @@
         $sql = "SELECT * FROM user";
         $stm = $conn->prepare($sql);
 
-
+        echo $email. " ". $pass;
         $stm->execute();
 
         $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
-
-
+    
+        
             foreach($result as $row)
             {
-                if($row['email'] == $email)
-                {
-                    if($row['password'] == $pass)
-                    {
-                        $id = $row['id'];
-                        $_SESSION["userId"]=$id;
-                        //setcookie('userID', $id);
-                        if(isset($_SESSION['error'])){
-                            unset($_SESSION['error']);
-                        }
-                        header('Location: ../MainMenu.php');
-                        //echo "Registro encontrado ". $_SESSION['userId'];
-                    } else{
-                        //echo "Registro no encontrado";
-                       
-                        $_SESSION['error'] = "Contraseña errónea"; 
-                        header('Location: ../index.php');
+                //echo " OAA: ".$row['email']."  ".$row['password'];
 
-                        
-                    } 
+                if($row['email'] == $email && $row['password'] == $pass)
+                {
+                    $id = $row['id'];
+                    $_SESSION["userId"]=$id;
+                    if(isset($_SESSION['error'])){
+                        unset($_SESSION['error']);
+                    }
+                    //echo " NO ERROR";
+                    header('Location: ../MainMenu.php');
+                    die(); 
                 }else{
                     if(isset($_SESSION['error'])){
                         unset($_SESSION['error']);
                     }
-                    $_SESSION['error'] = "El correo no existe";
+                    //echo "  ERROR";
+
+                    $_SESSION['error'] = "Ingresa datos válidos";
                     header('Location: ../index.php');
+                    die(); 
                 }
             }
 

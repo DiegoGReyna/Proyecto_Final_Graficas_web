@@ -26,16 +26,15 @@ function validate(){
     let email = $("#InpEmail").val();
     let pass = $("#InpPassword").val();
 
-    if(email == "" || username == "" || pass == "")
+    if(email == "" || pass == "")
     {
         $("#errorLabel").css("display", "block");
         return false;
     }else{
-        if(pass != pass2){
-            return false;
-        }else{
-            return true;
-        }
-
+       
+        let sound = new Sound();
+        sound.playMusic(localStorage.getItem("audio"));
+        
+        return true;
     }
 }

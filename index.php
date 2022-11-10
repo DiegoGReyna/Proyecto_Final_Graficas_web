@@ -16,6 +16,8 @@
 
 
     <title>Home</title>
+    <script type="text/javascript" src="modelos/audio.js"></script>
+
 
 </head>
 

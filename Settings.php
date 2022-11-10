@@ -47,13 +47,15 @@
                         <div class="Box_Volume">
                             <div class="BoxInputVolume">
 
-                                <input class="range" type="range" name="" id="InpVolume" min="0" max="100" value="0"
+                                <input class="range" type="range" name="" id="InpVolume" min="0" max="100" value="90"
                                     onchange="rangeSlide(this.value)" onmousemove="rangeSlide(this.value)">
-                                <span class="VolumeLevel" id="rangeVolume">0</span>
+                                <span class="VolumeLevel" id="rangeVolume">90</span>
                             </div>
                             <script type="text/javascript">
                                 function rangeSlide(value) {
                                     document.getElementById('rangeVolume').innerHTML = value;
+                                    localStorage.setItem("audio", value);
+
                                 }
                             </script>
 

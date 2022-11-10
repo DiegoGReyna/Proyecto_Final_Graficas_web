@@ -1,6 +1,6 @@
 import {Collision} from "./Collision.js";
 import BarrelLoader from "../js/spawners/barrel/barrelSpawner.js";
-
+import { Sound } from "./Audio.js";
 export class Barrel{
     barrelsList=[];
     Barrels=[];
@@ -37,6 +37,8 @@ export class Barrel{
         for(let i = 0; i < this.barrelsList.length; i++){
             if(collision.detectCollision(boat, this.barrelsList[i])){
                     //console.log('Bote colisionó barril')
+                    let sound = new Sound();
+                    sound.playgetBarrel();
     
                     this.barrelsList[i].removeFromParent();
                     this.barrelsList[i].remove();
