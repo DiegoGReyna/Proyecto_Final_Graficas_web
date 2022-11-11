@@ -18,6 +18,30 @@ html {
     box-sizing: border-box;
     height: 100%;
 }
+/* icons */
+.ContainerWidget{    
+    background: none;
+    background-size: 100% 100%;
+    border: none;
+    top: 460px;
+    left: -25px;
+}
+.ContainerWidget2{    
+    background: none;
+    background-size: 100% 100%;
+    border: none;
+    top: 460px;
+    left: 700px;
+}
+td
+{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align:center;
+    font-size: medium;
+    font-weight: bold;  
+    color: #e5e6f1;  
+    text-shadow: 0.1em 0.1em #0a0a0a;
+}
 
 body {
     height: 95%;
