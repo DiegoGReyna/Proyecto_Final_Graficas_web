@@ -9,6 +9,7 @@ import { Barrel } from "../model/Barrel.js";
 import { Terrain } from "../model/Terrain.js";
 import { Item } from "../model/Item.js";
 import { Game } from "../model/Game.js";
+
 //Variables
 var tiempoDelta;
 var speedMovementMap = 5;
@@ -46,9 +47,6 @@ $(document).ready(function () {
     // var width = window.innerWidth / 2;
     // var height = window.innerHeight / 2;
     clock = new THREE.Clock;
-    var planeGeometry=new THREE.PlaneGeometry(50,50);
-    var planeMaterial=new THREE.MeshBasicMaterial({color: 0xFFFFFF});
-    var plan = new THREE.Mesh(planeGeometry,planeMaterial);
     
     // in icializamos el renderer
     renderer = new THREE.WebGLRenderer();
@@ -133,7 +131,6 @@ $(document).ready(function () {
         0.4
 
     );
-
     directional.position.set(0, 12, 10);
     scene.add(directional);
     // le indicamos a Threejs
@@ -296,8 +293,9 @@ function render() {
                     } else if (keys["D"]) {
                         
                         boat.position.x +=5*tiempoDelta;
-                    }else if (keys["L"]) {
-                    
+                    }else if (keys["P"]) {
+                        factoryGame.isPaused = true;
+                        document.getElementById("myModal").style.display = "block";
                     }
                
 

@@ -39,7 +39,6 @@ var keys = {};
 
 var isLosing=true;
 var isLoaded=[false,false,false,false];
-
 $(document).ready(function () {
     
     var box = document.querySelector('.ContainerPlayer1');
@@ -62,22 +61,10 @@ $(document).ready(function () {
     );
     //inicializamos la esceba
     scene = new THREE.Scene();
-
     // para dibujar se necesita
     //1.- Geometria:es un objeto que almecena la informacion de los vertices, indices y demas
     //2.-Material: es un objeto que alamcena la info del material como colores, texturas , iliminacion , etx
     //3.-Mesh:es un objeto que contiene la geometria y el material
-    var geometry = new THREE.BoxGeometry(1, 1, 1);
-    var material = new THREE.MeshLambertMaterial({
-        color: new THREE.Color(0.7, 0, 0),
-    });
-  
-    var material2 = new THREE.MeshPhongMaterial({
-        color: new THREE.Color(0.5, 0.5, 0.5),
-        specular: new THREE.Color(1, 1, 1),
-        shininess: 500,
-    });
-    
 
     var axesHelpert = new THREE.AxesHelper(10);
     scene.add(axesHelpert);

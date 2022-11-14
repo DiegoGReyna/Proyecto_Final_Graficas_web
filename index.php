@@ -41,7 +41,7 @@
             <div class="TwoButtons">
                 <input class="ButtonSubmit" type="submit" id="btnSubmit" value="Log in">
                 <!-- <input class="NormalButton" type="button" value="Create an account"> -->
-                <input type="button" class="NormalLink" onclick="window.location.href = 'CreateAccount.html';" value="Crear cuenta">
+                <input type="button" class="NormalLink" onclick="window.location.href = 'CreateAccount.php';" value="Crear cuenta">
 
             </div>
             <label id="errorLabel" style="color: rgb(252, 81, 81); margin-top: 10px; display: none;">¡Llene los datos correctamente!</label>

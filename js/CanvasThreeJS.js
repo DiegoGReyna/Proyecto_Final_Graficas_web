@@ -47,9 +47,6 @@ $(document).ready(function () {
     // var width = window.innerWidth / 2;
     // var height = window.innerHeight / 2;
     clock = new THREE.Clock;
-    var planeGeometry=new THREE.PlaneGeometry(50,50);
-    var planeMaterial=new THREE.MeshBasicMaterial({color: 0xFFFFFF});
-    var plan = new THREE.Mesh(planeGeometry,planeMaterial);
     
     // in icializamos el renderer
     renderer = new THREE.WebGLRenderer();
@@ -296,8 +293,9 @@ function render() {
                     } else if (keys["D"]) {
                         
                         boat.position.x +=5*tiempoDelta;
-                    }else if (keys["L"]) {
-                    
+                    }else if (keys["P"]) {
+                        factoryGame.isPaused = true;
+                        document.getElementById("myModal").style.display = "block";
                     }
                
 
