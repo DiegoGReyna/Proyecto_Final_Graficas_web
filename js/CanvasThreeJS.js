@@ -19,19 +19,25 @@ var camera;
 var clock;
 //var isPlay = true, 
 var anclaje_ = true, isPlayingRn = false;
+
 //OBJETOS
 var player = new Player(0,0,0,false, false, 0);
 var obst, barr, ite;
 var collisions = new Collision();
 var speed = new Terrain(5);
 var factoryGame = new Game();
-
+///Animaciones
+var mixer;
+var mixer2;
+var  action;
+var  action2;
 ///Modelos
 var boat;
 var water;
 var Map;
 var keys = {};
-let mixer;
+
+var isLosing=true;
 var isLoaded=[false,false,false,false];
 $(document).ready(function () {
   
@@ -74,16 +80,20 @@ $(document).ready(function () {
     orbit.update();
      
     const BoatModelLoader=new GLTFLoader();
-    BoatModelLoader.load('modelos/boat/Animated_Boat.glb',(model)=>{
+    BoatModelLoader.load('modelos/boat/Animated_Boat_1.glb',(model)=>{
         boat= model.scene;
         isLoaded[0]=true;
         boat.position.set(0,0,5);
         boat.name = "BoatModel"
         scene.add(boat);
         mixer= new THREE.AnimationMixer(boat);
+        // mixer2= new THREE.AnimationMixer(boat);
         const clips=model.animations;
-        const clip = THREE.AnimationClip.findByName(clips,'otra animacion');
-        const action = mixer.clipAction(clip);
+        const clip = THREE.AnimationClip.findByName(clips,'Moving_1');
+        const clip2 = THREE.AnimationClip.findByName(clips,'Action');
+     action = mixer.clipAction(clip);
+     action2 = mixer.clipAction(clip2);
+     action2.setLoop( THREE.LoopOnce );
         action.play();
         
       
@@ -165,6 +175,7 @@ $(document).ready(function () {
 });
 
 function onKeyDown(event) {
+    
     keys[String.fromCharCode(event.keyCode)] = true;
 }
 function onKeyUp(event) {
@@ -179,7 +190,10 @@ function render() {
         
             if(isLoaded[0]===true && isLoaded[1]===true && isLoaded[2]===true ){
                 tiempoDelta = clock.getDelta();
-                        
+               
+                if (mixer){
+                    mixer.update(tiempoDelta);
+                }  
                 var ModelMap=scene.getObjectByName("map");
                 var ModelWater=scene.getObjectByName("water");
                 ModelMap.position.z+=speed.speedMovementMap *tiempoDelta;
@@ -217,7 +231,27 @@ function render() {
                         
                         if(player.strikeCounter > 2)
                         {
-                            player.lose = true;
+                          
+                            action.stop();
+                            action2.play();
+                            mixer.update(tiempoDelta);
+
+                            setTimeout(() => {
+                                
+                                boat.position.y=-4;
+                              }, 2800)
+
+                            setTimeout(() => {
+                                
+                                player.lose = true;
+                              }, 5000)
+                              
+                            
+                    
+                          
+                              
+                            
+                          
                         }
     
                     }
@@ -254,25 +288,37 @@ function render() {
     
                 document.getElementById('pScore').innerHTML = player.score.toString();
                 
-                if (keys["A"]) {
+                
+                    if (keys["A"]) {
+                        
+                        boat.position.x-=5 *tiempoDelta;
                     
-                    boat.position.x-=5 *tiempoDelta;
-                 
-                } else if (keys["D"]) {
+                    } else if (keys["D"]) {
+                        
+                        boat.position.x +=5*tiempoDelta;
+                    }else if (keys["L"]) {
                     
-                    boat.position.x +=5*tiempoDelta;
-                }else if (keys["L"]) {
-                   
-                }
+                    }
+               
+
+            
         
                
                 renderer.render(scene, camera);
             }
         }
     }else{
+        
+          
         factoryGame.isPaused = true;
         localStorage.setItem("score", player.score)
         window.location.href = "Loser.php";
+      
+
+  
+   
+   
+
     }
 
     if(player.win == true){

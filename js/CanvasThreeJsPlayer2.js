@@ -9,6 +9,10 @@ var scene2;
 var renderer;
 var camera;
 var clock;
+///Animaciones
+var  action;
+var  action2;
+var mixer;
 ///Modelos
 var boat2;
 var water;
@@ -64,11 +68,20 @@ $(document).ready(function () {
     orbit.update();
    
     const BoatModelLoader=new GLTFLoader();
-    BoatModelLoader.load('modelos/boat/Boat_03_Green.glb',(model)=>{
+    BoatModelLoader.load('modelos/boat/Animated_Boat_2.glb',(model)=>{
         boat2= model.scene;
         isLoaded[1]=true;
         boat2.position.set(0,0,5);
         scene2.add(boat2);
+        mixer= new THREE.AnimationMixer(boat2);
+       
+        const clips=model.animations;
+        const clip = THREE.AnimationClip.findByName(clips,'Moving_1');
+        const clip2 = THREE.AnimationClip.findByName(clips,'Action');
+        action = mixer.clipAction(clip);
+        action2 = mixer.clipAction(clip2);
+        action2.setLoop( THREE.LoopOnce );
+        action.play();
     })
     const WaterModelLoader=new GLTFLoader();
     WaterModelLoader.load('modelos/water/water_1.0.glb',(model)=>{
@@ -129,7 +142,9 @@ function render() {
         requestAnimationFrame(render);
         if(isLoaded[0]===true && isLoaded[1]===true && isLoaded[2]===true){
         var tiempoDelta = clock.getDelta();
-        
+        if (mixer){
+            mixer.update(tiempoDelta);
+        } 
         var ModelMap=scene2.getObjectByName("map");
         var ModelWater=scene2.getObjectByName("water");
         ModelMap.position.z+=5 *tiempoDelta;
