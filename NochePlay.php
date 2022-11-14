@@ -45,7 +45,8 @@
                 <!--<td><label id="piramideCount">0</label></td>-->
                 <td style="padding-left: 30px; padding-right:10px"><label id="pScore">0</label></td>
                 <td><label style="padding-left: 10px" id="barrelCount">0</label>\25</td>
-                <td><label style="padding-left: 10px" id="anclaCount">0</label></td>
+                <td><label style="color:red; padding-left: 10px" >Strikes:</label></td>
+                <td><label style="color:red;padding-left: 10px" id="anclaCount">0</label></td>
             </tr>
         </table>
     </div>

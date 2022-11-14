@@ -21,9 +21,41 @@
 
         <div class="ContainerPlayer1" id="scene-sectionPlayer1">
             <label class="labelCanvasPlayer" for="">Jugador 1</label>
+                <div class="ContainerWidget" style="position: absolute" top="470px" left="12px">
+                <!-- icons pantalla -->
+                <table>
+                    <tr>
+                        <th style="padding-left: 30px; padding-right:10px"> <img src="img/imgscore.png" width="100px" height="30px"></th>
+                        <th style="padding-left: 10px;"><img src="img/barril.png" width="70px" height="50px"></th>
+                        <th style="padding-left: 10px;"><img src="img/ancla.png" width="70px" height="50px"></th>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 30px; padding-right:10px "><label id="pScore" >0</label></td>
+                        <td><label style="padding-left: 10px" id="barrelCount">0</label>\25</td>
+                        <td><label style="color:red; padding-left: 10px" >Strikes:</label></td>
+                        <td><label style="color:red; padding-left: 10px" id="anclaCount">0</label></td>
+                    </tr>
+                </table>
+                </div>
         </div>
         <div class="ContainerPlayer2" id="scene-sectionPlayer2">
             <label class="labelCanvasPlayer" for="">Jugador 2</label>
+            <div class="ContainerWidget2" style="position: absolute" top="470px" left="12px">
+             <!-- icons pantalla -->
+            <table>
+                <tr>
+                    <th style="padding-left: 30px; padding-right:10px"> <img src="img/imgscore.png" width="100px" height="30px"></th>
+                    <th style="padding-left: 10px;"><img src="img/barril.png" width="70px" height="50px"></th>
+                    <th style="padding-left: 10px;"><img src="img/ancla.png" width="70px" height="50px"></th>
+                </tr>
+                <tr>
+                    <td style="padding-left: 30px; padding-right:10px "><label id="pScore" >0</label></td>
+                    <td><label style="padding-left: 10px" id="barrelCount">0</label>\25</td>
+                    <td><label style="color:red; padding-left: 10px" >Strikes:</label></td>
+                    <td><label style="color:red; padding-left: 10px" id="anclaCount">0</label></td>
+                </tr>
+            </table>
+            </div>
         </div>
 
     </div>
