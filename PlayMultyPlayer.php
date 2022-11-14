@@ -9,15 +9,18 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/stylePlayMultyplayer.css">
+    <link rel="stylesheet" href="css/pauseStyle.css">
     <title>Document</title>
-
+    <script type="module" src="js/CanvasThreeJsPlayer1.js"></script>
 </head>
 
 <body>
 
     <div class="ContainerMultiplayerRenders">
-
-        <button class="BtnPause" onclick="window.location.href = 'Pause.html';"><img src="img/Pause.svg" alt="" width="40px" height="40px"></button>
+        
+        <button id= "btnPause" class="BtnPause" >
+            <img src="img/Pause.svg" alt="" width="40px" height="40px">
+        </button>
 
         <div class="ContainerPlayer1" id="scene-sectionPlayer1">
             <label class="labelCanvasPlayer" for="">Jugador 1</label>
@@ -63,6 +66,101 @@
     <audio id="musicGame" loop>
         <source src="sound/music.mp3" type="audio/mpeg">
     </audio>
+
+    <div id="myModal" class="modal">
+        
+    <div class="container">
+        <div id="bodyModalTableSetting" class="bodyModalTableSetting">
+            <table class="tableSettings">
+                <thead>
+                    <tr>
+                    <td class="tdStyle">PAUSA</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td class="tdStyle">
+                        <input type="button" id="botonContinuar" class="btn1" value="Reunudar">
+                    </td>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr>
+                    <td class="tdStyle">
+                        <input type="button" onclick="ajustes()" class="btn2" value="Configuracion">
+                    </td>
+
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr>
+                    <td class="tdStyle">
+                        <input type="button" onclick="window.location.href = 'MainMenu.php';" class="btn3" value="Salir">
+                    </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id= "bodyModalAjuste" class="volumen" style="display:none;">
+            <div class="Container_TitleSettings">
+                <label>Volumen</label>
+                <div class="Container_Settigs">
+                    <div class="Box_Volume">
+                        <div class="BoxInputVolume">
+                            <input class="range" type="range" name="InpVolume" id="InpVolume" min="0" max="100"
+                                onchange="rangeSlide(this.value)" onmousemove="rangeSlide(this.value)">
+                            <span class="VolumeLevel" id="rangeVolume">90</span>
+                        </div>
+                        <script type="text/javascript">
+                            function rangeSlide(value) {
+                                document.getElementById('rangeVolume').innerHTML = value;
+
+                            }
+                        </script>
+
+                    </div>
+                </div>
+                <div class="">
+                <input class="ButtonSubmit" type="button" onclick="updateVolume()" value="Confirmar ajuste">
+                <!-- <input class="NormalButton" type="button" value="Create an account"> -->
+                <input type="button" class="NormalLink" onclick="document.getElementById('bodyModalAjuste').style.display ='none';document.getElementById('bodyModalTableSetting').style.display ='block';"
+                    value="Cancelar">
+                </div>
+            </div>
+           
+        </div>
+    </div>
+    <!--SCRIPTS ventana cargando-->
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", () => {
+            let val = localStorage.getItem("audio");
+            if(val > 0){
+                document.getElementById('musicGame').volume = (val/100);
+                document.getElementById("musicGame").loop = true;
+                document.getElementById('musicGame').play();
+
+                document.getElementById('InpVolume').value = val;
+                document.getElementById('rangeVolume').innerHTML = val;
+
+            }
+        });
+
+        function updateVolume(){
+            let val = document.getElementById('InpVolume').value;
+            localStorage.setItem("audio", val);
+            document.getElementById('bodyModalAjuste').style.display ='none';
+            document.getElementById('bodyModalTableSetting').style.display ='block';
+            document.getElementById('musicGame').volume = (val/100);
+            document.getElementById("musicGame").loop = true;
+            document.getElementById('musicGame').play();
+       }
+
+        function ajustes(){
+            document.getElementById("bodyModalTableSetting").style.display = "none";
+            document.getElementById("bodyModalAjuste").style.display = "block";
+
+        }
+    </script>
 
     <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", () => {

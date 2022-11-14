@@ -2,23 +2,43 @@ import * as THREE from "./threeJS/three.module.js"
 // import { OrbitControls } from "../jsm/controls/OrbitControls.js"
 import { OrbitControls } from "./threeJS/OrbitControls.js";
 import{ GLTFLoader } from "../jsm/loaders/GLTFLoader.js";
+import { Player } from "../model/Player.js";
+import { Obstacles } from "../model/Obstacles.js";
+import { Collision } from "../model/Collision.js";
+import { Barrel } from "../model/Barrel.js";
+import { Terrain } from "../model/Terrain.js";
+import { Item } from "../model/Item.js";
+import { Game } from "../model/Game.js";
 
-
-
+//Variables
+var tiempoDelta;
+var speedMovementMap = 5;
 var scene2;
 var renderer;
 var camera;
 var clock;
+//var isPlay = true, 
+var anclaje_ = true, isPlayingRn = false;
+
+//OBJETOS
+var player = new Player(0,0,0,false, false, 0);
+var obst, barr, ite;
+var collisions = new Collision();
+var speed = new Terrain(5);
+var factoryGame = new Game();
 ///Animaciones
 var  action;
 var  action2;
 var mixer;
+var mixer2;
 ///Modelos
 var boat2;
 var water;
 var Map;
-var isLoaded=[false,false,false];
 var keys = {};
+
+var isLosing=true;
+var isLoaded=[false,false,false,false];
 $(document).ready(function () {
     
     var box = document.querySelector('.ContainerPlayer1');
@@ -124,6 +144,20 @@ $(document).ready(function () {
 
     document.addEventListener('keydown', onKeyDown);
 	document.addEventListener('keyup', onKeyUp);	
+    document.getElementById("btnPause").addEventListener("click", myFunction);
+    document.getElementById("botonContinuar").addEventListener("click", myFunction2);
+
+    function myFunction() {
+        factoryGame.isPaused = true;
+        document.getElementById("myModal").style.display = "block";
+    }
+    
+    function myFunction2() {
+        factoryGame.isPaused = false;
+        document.getElementById("myModal").style.display = "none";
+        render();
+
+    }
     
     render();
 });
@@ -138,42 +172,45 @@ function onKeyUp(event) {
 }
 
 function render() {
-   
-        requestAnimationFrame(render);
-        if(isLoaded[0]===true && isLoaded[1]===true && isLoaded[2]===true){
-        var tiempoDelta = clock.getDelta();
-        if (mixer){
-            mixer.update(tiempoDelta);
-        } 
-        var ModelMap=scene2.getObjectByName("map");
-        var ModelWater=scene2.getObjectByName("water");
-        ModelMap.position.z+=5 *tiempoDelta;
-        ModelMap.add(ModelWater);
-        
-        // document.onkeydown=function(e){
-        //     if(e.keyCode===37){
-        //         boat2.position.x-=5;
+    if(player.lose == false){
+        if(factoryGame.isPaused == false){
+            requestAnimationFrame(render);
+            if(isLoaded[0]===true && isLoaded[1]===true && isLoaded[2]===true){
+            var tiempoDelta = clock.getDelta();
+            if (mixer){
+                mixer.update(tiempoDelta);
+            } 
+            var ModelMap=scene2.getObjectByName("map");
+            var ModelWater=scene2.getObjectByName("water");
+            ModelMap.position.z+=5 *tiempoDelta;
+            ModelMap.add(ModelWater);
+
+            if (keys[37]) {
+                boat2.position.x-=5 *tiempoDelta;
             
-            
-        //     }
-        //     if(e.keyCode===39){
-        //         boat2.position.x +=5;
-              
-        //     }
-        // }
-
-
-
+            } else if (keys[39]) {
+                boat2.position.x +=5 *tiempoDelta;
+            }
     
-        if (keys[37]) {
-            boat2.position.x-=5 *tiempoDelta;
-          
-		} else if (keys[39]) {
-            boat2.position.x +=5 *tiempoDelta;
-		}
-
-    
-    
-        renderer.render(scene2, camera);
+            renderer.render(scene2, camera);
+        }
     }
+        }else{
+                
+                
+            factoryGame.isPaused = true;
+            localStorage.setItem("score", player.score)
+            window.location.href = "Loser.php";
+        
+
+
+
+
+        }
+
+        if(player.win == true){
+            factoryGame.isPaused = true;
+            localStorage.setItem("score", player.score)
+            window.location.href = "Victory.php";
+        }
 }

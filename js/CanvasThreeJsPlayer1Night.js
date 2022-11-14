@@ -2,25 +2,43 @@ import * as THREE from "./threeJS/three.module.js"
 // import { OrbitControls } from "../jsm/controls/OrbitControls.js"
 import { OrbitControls } from "./threeJS/OrbitControls.js";
 import{ GLTFLoader } from "../jsm/loaders/GLTFLoader.js";
+import { Player } from "../model/Player.js";
+import { Obstacles } from "../model/Obstacles.js";
+import { Collision } from "../model/Collision.js";
+import { Barrel } from "../model/Barrel.js";
+import { Terrain } from "../model/Terrain.js";
+import { Item } from "../model/Item.js";
+import { Game } from "../model/Game.js";
 
-
+//Variables
+var tiempoDelta;
+var speedMovementMap = 5;
 var scene;
 var renderer;
 var camera;
 var clock;
+//var isPlay = true, 
+var anclaje_ = true, isPlayingRn = false;
+
+//OBJETOS
+var player = new Player(0,0,0,false, false, 0);
+var obst, barr, ite;
+var collisions = new Collision();
+var speed = new Terrain(5);
+var factoryGame = new Game();
 ///Animaciones
+var mixer;
+var mixer2;
 var  action;
 var  action2;
-var mixer;
 ///Modelos
 var boat;
 var water;
 var Map;
-var isLoaded=[false,false,false];
-
-var Barrel
-
 var keys = {};
+
+var isLosing=true;
+var isLoaded=[false,false,false,false];
 
 $(document).ready(function () {
     
@@ -77,6 +95,7 @@ $(document).ready(function () {
         boat.position.set(0,0,5);
         scene.add(boat);
         mixer= new THREE.AnimationMixer(boat);
+       
         const clips=model.animations;
         const clip = THREE.AnimationClip.findByName(clips,'Moving_1');
         const clip2 = THREE.AnimationClip.findByName(clips,'Action');
@@ -124,11 +143,25 @@ var ambient = new THREE.AmbientLight(
     // donde queremos el canvas
 
     $("#scene-sectionPlayer1").append(renderer.domElement);
+    document.addEventListener('keydown', onKeyDown);
+	document.addEventListener('keyup', onKeyUp);
+    document.getElementById("btnPause").addEventListener("click", myFunction);
+    document.getElementById("botonContinuar").addEventListener("click", myFunction2);
+
+    function myFunction() {
+        factoryGame.isPaused = true;
+        document.getElementById("myModal").style.display = "block";
+    }
+    
+    function myFunction2() {
+        factoryGame.isPaused = false;
+        document.getElementById("myModal").style.display = "none";
+        render();
+
+    }
     
     render();
-    
-		document.addEventListener('keydown', onKeyDown);
-		document.addEventListener('keyup', onKeyUp);	
+ 	
 });
 
 var tiempoDelta = 0;
@@ -141,29 +174,148 @@ function onKeyUp(event) {
 }
 
 function render() {
-   
-        requestAnimationFrame(render);
+    if(player.lose == false){
+        if(factoryGame.isPaused == false){
         
-
-        if(isLoaded[0]===true && isLoaded[1]===true && isLoaded[2]===true){
-        var tiempoDelta = clock.getDelta();
-        if (mixer){
-            mixer.update(tiempoDelta);
-        }  
-        var ModelMap=scene.getObjectByName("map");
-        var ModelWater=scene.getObjectByName("water");
-        ModelMap.position.z+=5 *tiempoDelta;
-        ModelMap.add(ModelWater);
+            requestAnimationFrame(render);
         
-        if (keys["A"]) {
-			boat.position.x-=5 *tiempoDelta;
-          
-		} else if (keys["D"]) {
-            boat.position.x +=5*tiempoDelta;
-		}
-           
+            if(isLoaded[0]===true && isLoaded[1]===true && isLoaded[2]===true ){
+                tiempoDelta = clock.getDelta();
+               
+                if (mixer){
+                    mixer.update(tiempoDelta);
+                }  
+                var ModelMap=scene.getObjectByName("map");
+                var ModelWater=scene.getObjectByName("water");
+                ModelMap.position.z+=speed.speedMovementMap *tiempoDelta;
+                ModelMap.add(ModelWater);
     
-        renderer.render(scene, camera);
+                //Anclaje de obstaculos al mapa
+                if(scene.getObjectByName("Roca_Decierto_grande_9") !== undefined &&
+                scene.getObjectByName("Barril_4") !== undefined &&
+                scene.getObjectByName("yellowTriangle4") !== undefined &&
+                scene.getObjectByName("Glacier_9") !== undefined &&
+                scene.getObjectByName("RocaLevel1_9") !== undefined
+                ){
+    
+                    if(factoryGame.anclaje_ == true){
+                        obst.anchorObstacles(Map);
+                        barr.anchorBarrels(Map);
+                        ite.anchorItems(Map);
+                        factoryGame.anclaje_ = false;
+                    }
+                    if(factoryGame.isPlayingRn == false)
+                        factoryGame.isPlayingRn = true;
+                }
+
+                if(factoryGame.isPlayingRn == true){
+                    //Colision lados
+                    collisions.bounderiesCollision(player, boat);
+                    //Colision final
+                    collisions.finalMapCollision(player, Map);
+                    //Colision barries
+                    barr.barrelCollision(player, boat);
+                    //Colision obstaculos
+                    if(!player.inmunidad){
+
+                        obst.obstaclesCollisions(boat, player, speed)
+                        
+                        if(player.strikeCounter > 2)
+                        {
+                          
+                            action.stop();
+                            action2.play();
+                            mixer.update(tiempoDelta);
+
+                            setTimeout(() => {
+                                
+                                boat.position.y=-4;
+                              }, 2800)
+
+                            setTimeout(() => {
+                                
+                                player.lose = true;
+                              }, 5000)
+                              
+                            
+                    
+                          
+                              
+                            
+                          
+                        }
+    
+                    }
+    
+                    //Colision items
+                    ite.itemsCollision(boat,player, speed)
+
+            
+                    if (player.inmunidad == true) {
+                        player.inmunidadCounter += tiempoDelta;
+                        switch(speedMovementMap){
+                            case 5:
+                                if (player.inmunidadCounter >= 3.5) {
+                                    player.inmunidad = false;
+                                    player.inmunidadCounter = 0;
+                                } 
+                            break;
+                            case 4: 
+                                if (player.inmunidadCounter >= 4.5) {
+                                    player.inmunidad = false;
+                                    player.inmunidadCounter = 0;
+                                }
+                            break;
+                            case 3: 
+                                if (player.inmunidadCounter >= 5.5) {
+                                    player.inmunidad = false;
+                                    player.inmunidadCounter = 0;
+                                }
+                            break;
+                        }
+                        
+                    }
+                }
+    
+                document.getElementById('pScore').innerHTML = player.score.toString();
+                
+                
+                    if (keys["A"]) {
+                        
+                        boat.position.x-=5 *tiempoDelta;
+                    
+                    } else if (keys["D"]) {
+                        
+                        boat.position.x +=5*tiempoDelta;
+                    }else if (keys["L"]) {
+                    
+                    }
+               
+
+            
+        
+               
+                renderer.render(scene, camera);
+            }
+        }
+    }else{
+        
+          
+        factoryGame.isPaused = true;
+        localStorage.setItem("score", player.score)
+        window.location.href = "Loser.php";
+      
+
+  
+   
+   
+
+    }
+
+    if(player.win == true){
+        factoryGame.isPaused = true;
+        localStorage.setItem("score", player.score)
+        window.location.href = "Victory.php";
     }
 }
 

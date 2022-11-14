@@ -8,6 +8,7 @@ import { Collision } from "../model/Collision.js";
 import { Barrel } from "../model/Barrel.js";
 import { Terrain } from "../model/Terrain.js";
 import { Item } from "../model/Item.js";
+import { Game } from "../model/Game.js";
 //Variables
 var tiempoDelta;
 var speedMovementMap = 5;
@@ -16,46 +17,56 @@ var renderer;
 var camera;
 var clock;
 //var isPlay = true, 
-var anclaje_ = true, isPlayingRn = false, isPaused = false;
+var anclaje_ = true, isPlayingRn = false;
+
 //OBJETOS
 var player = new Player(0,0,0,false, false, 0);
 var obst, barr, ite;
 var collisions = new Collision();
 var speed = new Terrain(5);
+var factoryGame = new Game();
 ///Animaciones
+var mixer;
+var mixer2;
 var  action;
 var  action2;
-var mixer;
 ///Modelos
 var boat;
 var water;
 var Map;
 var keys = {};
 
+var isLosing=true;
 var isLoaded=[false,false,false,false];
 $(document).ready(function () {
   
     var box = document.querySelector('.ContainerPlayGame');
     var width = box.offsetWidth;
     var height = box.offsetHeight;
+    // var width = window.innerWidth / 2;
+    // var height = window.innerHeight / 2;
     clock = new THREE.Clock;
     var planeGeometry=new THREE.PlaneGeometry(50,50);
     var planeMaterial=new THREE.MeshBasicMaterial({color: 0xFFFFFF});
     var plan = new THREE.Mesh(planeGeometry,planeMaterial);
     
+    // in icializamos el renderer
     renderer = new THREE.WebGLRenderer();
     renderer.setClearColor(new THREE.Color(0.2, 0.3, 0.6));
     renderer.setSize(width, height);
-   
+    //inicializamos la camara
     camera = new THREE.PerspectiveCamera(
         60,
         width / height,
         0.1,
         1000
     );
-  
+    //inicializamos la esceba
     scene = new THREE.Scene();  
-   
+    // para dibujar se necesita
+    //1.- Geometria:es un objeto que almecena la informacion de los vertices, indices y demas
+    //2.-Material: es un objeto que alamcena la info del material como colores, texturas , iliminacion , etx
+    //3.-Mesh:es un objeto que contiene la geometria y el material
 
     var axesHelpert = new THREE.AxesHelper(10);
     scene.add(axesHelpert);
@@ -75,12 +86,13 @@ $(document).ready(function () {
         boat.name = "BoatModel"
         scene.add(boat);
         mixer= new THREE.AnimationMixer(boat);
+        // mixer2= new THREE.AnimationMixer(boat);
         const clips=model.animations;
         const clip = THREE.AnimationClip.findByName(clips,'Moving_1');
         const clip2 = THREE.AnimationClip.findByName(clips,'Action');
-        action = mixer.clipAction(clip);
-        action2 = mixer.clipAction(clip2);
-        action2.setLoop( THREE.LoopOnce );
+     action = mixer.clipAction(clip);
+     action2 = mixer.clipAction(clip2);
+     action2.setLoop( THREE.LoopOnce );
         action.play();
         
       
@@ -105,7 +117,7 @@ $(document).ready(function () {
         scene.add(Map);
        
     })
-    
+        
     //iluminacion ambiental 
     //parametros 
     //color de la luz
@@ -141,10 +153,29 @@ $(document).ready(function () {
     $("#scene-section").append(renderer.domElement);
     document.addEventListener('keydown', onKeyDown);
 	document.addEventListener('keyup', onKeyUp);
+    document.getElementById("btnPause").addEventListener("click", myFunction);
+    document.getElementById("botonContinuar").addEventListener("click", myFunction2);
+
+    function myFunction() {
+        factoryGame.isPaused = true;
+        document.getElementById("myModal").style.display = "block";
+    }
+    
+    function myFunction2() {
+        factoryGame.isPaused = false;
+        document.getElementById("myModal").style.display = "none";
+        render();
+
+    }
+
     render();
+
+    
+
 });
 
 function onKeyDown(event) {
+    
     keys[String.fromCharCode(event.keyCode)] = true;
 }
 function onKeyUp(event) {
@@ -152,17 +183,17 @@ function onKeyUp(event) {
 }
 
 function render() {
-    //!player.lose
-    if(!player.lose){
-        if(!isPaused){
+    if(player.lose == false){
+        if(factoryGame.isPaused == false){
         
             requestAnimationFrame(render);
         
             if(isLoaded[0]===true && isLoaded[1]===true && isLoaded[2]===true ){
                 tiempoDelta = clock.getDelta();
+               
                 if (mixer){
                     mixer.update(tiempoDelta);
-                }   
+                }  
                 var ModelMap=scene.getObjectByName("map");
                 var ModelWater=scene.getObjectByName("water");
                 ModelMap.position.z+=speed.speedMovementMap *tiempoDelta;
@@ -176,21 +207,21 @@ function render() {
                 scene.getObjectByName("RocaLevel1_9") !== undefined
                 ){
     
-                    if(anclaje_){
+                    if(factoryGame.anclaje_ == true){
                         obst.anchorObstacles(Map);
                         barr.anchorBarrels(Map);
                         ite.anchorItems(Map);
-                        anclaje_ = false;
+                        factoryGame.anclaje_ = false;
                     }
-                    if(!isPlayingRn)
-                        isPlayingRn = true;
+                    if(factoryGame.isPlayingRn == false)
+                        factoryGame.isPlayingRn = true;
                 }
 
-                if(isPlayingRn){
+                if(factoryGame.isPlayingRn == true){
                     //Colision lados
                     collisions.bounderiesCollision(player, boat);
                     //Colision final
-                    collisions.finalMapCollision(player, boat);
+                    collisions.finalMapCollision(player, Map);
                     //Colision barries
                     barr.barrelCollision(player, boat);
                     //Colision obstaculos
@@ -200,7 +231,7 @@ function render() {
                         
                         if(player.strikeCounter > 2)
                         {
-                           
+                          
                             action.stop();
                             action2.play();
                             mixer.update(tiempoDelta);
@@ -214,6 +245,13 @@ function render() {
                                 
                                 player.lose = true;
                               }, 5000)
+                              
+                            
+                    
+                          
+                              
+                            
+                          
                         }
     
                     }
@@ -250,25 +288,43 @@ function render() {
     
                 document.getElementById('pScore').innerHTML = player.score.toString();
                 
-                if (keys["A"]) {
+                
+                    if (keys["A"]) {
+                        
+                        boat.position.x-=5 *tiempoDelta;
                     
-                    boat.position.x-=5 *tiempoDelta;
-                 
-                } else if (keys["D"]) {
+                    } else if (keys["D"]) {
+                        
+                        boat.position.x +=5*tiempoDelta;
+                    }else if (keys["L"]) {
                     
-                    boat.position.x +=5*tiempoDelta;
-                }else if (keys["L"]) {
-                   
-                }
+                    }
+               
+
+            
         
                
                 renderer.render(scene, camera);
             }
         }
     }else{
-        //isPlay = false;
+        
+          
+        factoryGame.isPaused = true;
         localStorage.setItem("score", player.score)
         window.location.href = "Loser.php";
-    }   
+      
+
+  
+   
+   
+
+    }
+
+    if(player.win == true){
+        factoryGame.isPaused = true;
+        localStorage.setItem("score", player.score)
+        window.location.href = "Victory.php";
+    }
     
 }
