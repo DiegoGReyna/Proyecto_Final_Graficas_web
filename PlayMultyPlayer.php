@@ -173,8 +173,7 @@
         });
     </script>
 
-    <script type="module" src="js/CanvasThreeJsPlayer1.js"></script>
-    <script type="module" src="js/CanvasThreeJsPlayer2.js"></script>
+    <script type="module" src="js/CanvasThreeJsMultiplayerNormal.js"></script>
 </body>
 
 </html>
