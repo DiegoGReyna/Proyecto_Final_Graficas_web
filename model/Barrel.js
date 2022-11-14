@@ -38,7 +38,7 @@ export class Barrel{
             if(collision.detectCollision(boat, this.barrelsList[i])){
                     //console.log('Bote colisionó barril')
                     let sound = new Sound();
-                    sound.playgetBarrel();
+                    sound.playGetItem();
     
                     this.barrelsList[i].removeFromParent();
                     this.barrelsList[i].remove();

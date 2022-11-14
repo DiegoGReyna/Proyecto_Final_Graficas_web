@@ -33,7 +33,6 @@ export class Collision{
             {
                 //isPlay = false;
                 localStorage.setItem("score", player.score)
-                sound.playLose();
                 player.lose = true;
 
             }          

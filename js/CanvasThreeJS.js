@@ -143,7 +143,25 @@ $(document).ready(function () {
     $("#scene-section").append(renderer.domElement);
     document.addEventListener('keydown', onKeyDown);
 	document.addEventListener('keyup', onKeyUp);
+    document.getElementById("btnPause").addEventListener("click", myFunction);
+    document.getElementById("botonContinuar").addEventListener("click", myFunction2);
+
+    function myFunction() {
+        factoryGame.isPaused = true;
+        document.getElementById("myModal").style.display = "block";
+    }
+    
+    function myFunction2() {
+        factoryGame.isPaused = false;
+        document.getElementById("myModal").style.display = "none";
+        render();
+
+    }
+
     render();
+
+    
+
 });
 
 function onKeyDown(event) {
@@ -154,7 +172,6 @@ function onKeyUp(event) {
 }
 
 function render() {
-    //!player.lose
     if(player.lose == false){
         if(factoryGame.isPaused == false){
         
@@ -265,3 +282,4 @@ function render() {
     }
     
 }
+
