@@ -185,16 +185,12 @@ function render() {
         
             requestAnimationFrame(render);
         
+            var ModelMap=scene.getObjectByName("map");
+            var ModelWater=scene.getObjectByName("water");
+          
+
             if(isLoaded[0]===true && isLoaded[1]===true && isLoaded[2]===true ){
-                tiempoDelta = clock.getDelta();
-               
-                if (mixer){
-                    mixer.update(tiempoDelta);
-                }  
-                var ModelMap=scene.getObjectByName("map");
-                var ModelWater=scene.getObjectByName("water");
-                ModelMap.position.z+=speed.speedMovementMap *tiempoDelta;
-                ModelMap.add(ModelWater);
+                
     
                 //Anclaje de obstaculos al mapa
                 if(scene.getObjectByName("Roca_Decierto_grande_9") !== undefined &&
@@ -203,7 +199,8 @@ function render() {
                 scene.getObjectByName("Glacier_9") !== undefined &&
                 scene.getObjectByName("RocaLevel1_9") !== undefined
                 ){
-    
+                    
+                    
                     if(factoryGame.anclaje_ == true){
                         obst.anchorObstacles(Map);
                         barr.anchorBarrels(Map);
@@ -215,16 +212,28 @@ function render() {
                 }
 
                 if(factoryGame.isPlayingRn == true){
+
+                    tiempoDelta = clock.getDelta();
+               
+                    if (mixer){
+                        mixer.update(tiempoDelta);
+                    }  
+
+                    ModelMap.position.z+=speed.speedMovementMap *tiempoDelta;
+                    ModelMap.add(ModelWater);
+        
                     //Colision lados
                     collisions.bounderiesCollision(player, boat);
                     //Colision final
-                    collisions.finalMapCollision(player, Map);
+                    collisions.finalMapCollision(player, Map, speed);
                     //Colision barries
-                    barr.barrelCollision(player, boat);
+                    if(barr.barrelCollision(player, boat))
+                        document.getElementById('barrelCount').innerHTML = player.barrelCounter.toString();
                     //Colision obstaculos
                     if(!player.inmunidad){
 
-                        obst.obstaclesCollisions(boat, player, speed)
+                        if(obst.obstaclesCollisions(boat, player, speed))
+                            document.getElementById('anclaCount').innerHTML = player.strikeCounter.toString();
                         
                         if(player.strikeCounter > 2)
                         {
@@ -253,13 +262,14 @@ function render() {
     
                     }
     
-                    //Colision items
-                    ite.itemsCollision(boat,player, speed)
+                    //Colision items (triangulos amarillos)
+                    if(ite.itemsCollision(boat,player, speed)== 0)
+                        document.getElementById("anclaCount").innerHTML = player.strikeCounter.toString();
 
             
                     if (player.inmunidad == true) {
                         player.inmunidadCounter += tiempoDelta;
-                        switch(speedMovementMap){
+                        switch(speed.speedMovementMap){
                             case 5:
                                 if (player.inmunidadCounter >= 3.5) {
                                     player.inmunidad = false;

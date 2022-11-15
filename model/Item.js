@@ -40,6 +40,29 @@ export class Item{
     
     }
 
+    
+    spawnItems2(){
+
+        for(let i = 5; i < 10; i ++){
+            let z= Math.floor(Math.random() * (36 - 990) + 990);
+            let x= Math.floor(Math.random() * (321 - (279)) + (279));
+            redOrbeSpawn(this.scene,this.redOrbe[1],x,-z,i );
+        }
+    
+        for(let i = 5; i < 10; i++){
+            let z= Math.floor(Math.random() * (36 - 990) + 990);
+            let x= Math.floor(Math.random() * (321 - (279)) + (279));
+            yellowOrbSpawn(this.scene,this.yellowOrbe[1],x,-z, i);
+        }
+    
+        for(let i = 5; i < 10; i++){
+            let z= Math.floor(Math.random() * (36 - 990) + 990);
+            let x= Math.floor(Math.random() * (321 - (279)) + (279));
+            yellowTriangleSpawn(this.scene,this.yellowTriangle[1],x,-z, i);
+        }
+    
+    }
+
     anchorItems(Map){
         for(let i=0; i< 5; i++)
         {
@@ -64,10 +87,36 @@ export class Item{
     
     }
 
+    anchorItems2(Map){
+        for(let i=0; i< 10; i++)
+        {
+            let a = this.scene.getObjectByName("redOrbe"+i);
+            this.redOrbeList.push(a)
+            Map.add(this.redOrbeList[i]);
+        }
+        //yellowOrbe
+        for(let i=0; i< 10; i++)
+        {
+            let a = this.scene.getObjectByName("yellowOrbe"+i);
+            this.yellowOrbeList.push(a)
+            Map.add(this.yellowOrbeList[i]);
+        }
+        //yellowTriangle
+        for(let i=0; i< 10; i++)
+        {
+            let a = this.scene.getObjectByName("yellowTriangle"+i);
+            this.yellowTriangleList.push(a)
+            Map.add(this.yellowTriangleList[i]);
+        }
+    
+    }
+
+
     itemsCollision(boat,player, speed){
         let collision = new Collision();
         let sound = new Sound();
-        
+        let coll = false;
+
         for(let i = 0; i < this.redOrbeList.length; i++){
             if(collision.detectCollision(boat, this.redOrbeList[i])){
                 console.log('Bote colisionó con una esfera roja');
@@ -117,12 +166,14 @@ export class Item{
                 if(player.strikeCounter > 0){ 
                     player.strikeCounter--;
                     speed.speedMovementMap = speed.speedMovementMap + 1;
-                    document.getElementById("anclaCount").innerHTML = player.strikeCounter.toString();
+                    coll = true;
                 }
                 sound.playGetItem();
             }else{
             }
         
         }
+
+        return coll;
     }
 }

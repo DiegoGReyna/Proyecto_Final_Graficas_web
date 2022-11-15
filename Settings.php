@@ -77,7 +77,7 @@
     <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", () => {
             let val = localStorage.getItem("audio");
-            if(val > 0){
+            if(val >= 0){
                 document.getElementById('InpVolume').value = val;
                 document.getElementById('rangeVolume').innerHTML = val;
             }

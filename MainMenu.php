@@ -51,8 +51,14 @@
             if(!localStorage.getItem("audio")>0){
                 localStorage.setItem("audio", 90);
             }
+            if(localStorage.getItem("jugador") != null){
+                localStorage.removeItem("jugador");
+            }
+            if(localStorage.getItem("score2") != null){
+                localStorage.removeItem("score2");
+            }
             var score = localStorage.getItem("score");
-            if(score > 0){
+            if(score >= 0){
                 localStorage.removeItem("score");
             }
         });

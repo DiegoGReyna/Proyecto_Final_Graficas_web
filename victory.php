@@ -13,8 +13,23 @@
     <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", () => {
             var score = localStorage.getItem("score");
-            document.getElementById("puntaje").innerHTML = score.toString();
             document.getElementById("score").value = score;
+
+           if(localStorage.getItem("score2") != null){
+            //Multijugador
+                document.getElementById("jugador").innerHTML = localStorage.getItem("jugador");
+                if(localStorage.getItem("jugador") == "Jugador 2")
+                    document.getElementById("puntaje").innerHTML = localStorage.getItem("score2");
+                else
+                    document.getElementById("puntaje").innerHTML = score;
+
+           }else{
+            //No Multijugador
+                var score2 = localStorage.getItem("score2");
+                document.getElementById("jugador").innerHTML = localStorage.getItem("jugador");
+                document.getElementById("puntaje").innerHTML = score;
+           }
+
         });
     </script>
     <script type="text/javascript">
@@ -35,7 +50,9 @@
     <section class="modal">
         <div class="modal-container">
             <h2 class="title" >WINNER</h2>
-            
+            <h5 class="paragraph" id="jugador"></h5>
+
+            <label id="nombre"></label>
             <div class="paragraph">
                 <h3>Puntaje</h3>
                 <h3 id="puntaje"></h3>

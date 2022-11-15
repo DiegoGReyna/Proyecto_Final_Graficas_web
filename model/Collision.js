@@ -39,16 +39,30 @@ export class Collision{
         }
     }
 
-    finalMapCollision(player, object){
+    bounderiesCollision2(player, object){
+        for (var i = 0; i < object.children.length; i++) {
+    
+            if(object.position.x > 321 || object.position.x < 279)
+            {
+                //isPlay = false;
+                localStorage.setItem("score", player.score)
+                player.lose = true;
+
+            }          
+        }
+    }
+    finalMapCollision(player, object, terrain){
         let sound = new Sound();
 
         for (var i = 0; i < object.children.length; i++) {
     
-            if(object.position.z > 1045)
+            if(object.position.z > 1047)
             {
                 //isPlay = false;
-                localStorage.setItem("score", player.score)
+                //localStorage.setItem("score", player.score)
                 player.win = true;
+                terrain.speedMovementMap = 0;
+
             }          
         }
     }

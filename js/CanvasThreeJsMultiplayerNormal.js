@@ -25,7 +25,7 @@ var camera2;
 
 //var isPlay = true, 
 var anclaje_ = true, isPlayingRn = false;
-
+var playerOneCrashed = false, playerTwoCrashed = false;
 //OBJETOS
 var player = new Player(0,0,0,false, false, 0);
 var player2 = new Player(0,0,0,false, false, 0);
@@ -106,7 +106,8 @@ $(document).ready(function () {
     camera.position.set(0, 12, 40);
     camera2.position.set(300, 12, 40);
 
-
+    
+    
     //*** Modelos JUGADOR UNO ***/
     
     const BoatModelLoader=new GLTFLoader();
@@ -193,7 +194,6 @@ $(document).ready(function () {
         const clip2 = THREE.AnimationClip.findByName(clips2,'Moving_1');
         const clip22 = THREE.AnimationClip.findByName(clips2,'Action');
         action2 = mixer2.clipAction(clip2);
-        debugger;
         action22 = mixer2.clipAction(clip22);
         action22.setLoop( THREE.LoopOnce );
         
@@ -246,11 +246,11 @@ $(document).ready(function () {
     barr2 = new Barrel(scene);
     ite2 = new Item(scene);
     //Obstaculos
-    obst2.spawnObstacles();
+    obst2.spawnObstacles2();
     //Barriles
-    barr2.spawnBarrels();
+    barr2.spawnBarrels2();
     //Items
-    ite2.spawnItems();
+    ite2.spawnItems2();
 
     $("#scene-sectionPlayer1").append(renderer.domElement);
     $("#scene-sectionPlayer2").append(renderer2.domElement);
@@ -289,44 +289,38 @@ function onKeyUp(event) {
 }
 
 function render() {
-    if(player.lose == false){
+    if(player.win == false || player2.win == false){
         if(factoryGame.isPaused == false){
         
             requestAnimationFrame(render);
         
-            if(isLoaded2[2]===true && isLoaded2[0]===true&&isLoaded[0]===true && isLoaded[1]===true && isLoaded[2]===true ){
-                tiempoDelta = clock.getDelta();
+            var ModelMap=scene.getObjectByName("map");
+            var ModelWater=scene.getObjectByName("water");
+            var ModelMa2=scene.getObjectByName("map2");
+            var ModelWater2=scene.getObjectByName("water2");
+
+            if(isLoaded2[1] === true && isLoaded2[2]===true && isLoaded2[0]===true&&isLoaded[0]===true && isLoaded[1]===true && isLoaded[2]===true ){
                
-                if (mixer){
-                    mixer.update(tiempoDelta);
-                }  
-                if (mixer2){
-                    mixer2.update(tiempoDelta);
-                    
-                }  
-                var ModelMap=scene.getObjectByName("map");
-                var ModelWater=scene.getObjectByName("water");
-                var ModelMa2=scene.getObjectByName("map2");
-                var ModelWater2=scene.getObjectByName("water2");
-                
-                ModelMap.position.z+=speed.speedMovementMap *tiempoDelta;
-                ModelMa2.position.z+=speed.speedMovementMap *tiempoDelta;
-                ModelMa2.add(ModelWater2);
-                ModelMap.add(ModelWater);
-             
     
                 //Anclaje de obstaculos al mapa
                 if(scene.getObjectByName("Roca_Decierto_grande_9") !== undefined &&
                 scene.getObjectByName("Barril_4") !== undefined &&
                 scene.getObjectByName("yellowTriangle4") !== undefined &&
                 scene.getObjectByName("Glacier_9") !== undefined &&
-                scene.getObjectByName("RocaLevel1_9") !== undefined
+                scene.getObjectByName("RocaLevel1_9") !== undefined &&
+
+                scene.getObjectByName("Roca_Decierto_grande_19") !== undefined &&
+                scene.getObjectByName("Glacier_19") !== undefined &&
+                scene.getObjectByName("RocaLevel1_19") !== undefined &&
+                scene.getObjectByName("Barril_49") !== undefined
+                
                 ){
-    
+                        
                     if(factoryGame.anclaje_ == true){
-                        obst.anchorObstacles(Map);
-                        barr.anchorBarrels(Map);
-                        ite.anchorItems(Map);
+                        obst.anchorObstacles2(Map);
+                        barr.anchorBarrels2(Map);
+                        ite.anchorItems2(Map);
+
                         factoryGame.anclaje_ = false;
                     }
                     if(factoryGame.isPlayingRn == false)
@@ -334,17 +328,41 @@ function render() {
                 }
 
                 if(factoryGame.isPlayingRn == true){
+
+                    tiempoDelta = clock.getDelta();
+               
+                    if (mixer){
+                        mixer.update(tiempoDelta);
+                    }  
+                    if (mixer2){
+                        mixer2.update(tiempoDelta);
+                        
+                    }  
+
+                    ModelMap.position.z=ModelMap.position.z +(speed.speedMovementMap *tiempoDelta);
+                    ModelMa2.position.z=ModelMa2.position.z + (speed2.speedMovementMap *tiempoDelta);
+                    ModelMa2.add(ModelWater2);
+                    ModelMap.add(ModelWater);    
+
                     //Colision lados
                     collisions.bounderiesCollision(player, boat);
+                    collisions.bounderiesCollision2(player2, boat2);
                     //Colision final
-                    collisions.finalMapCollision(player, Map);
+                    collisions.finalMapCollision(player, Map, speed);
+                    collisions.finalMapCollision(player2, Map2, speed2);
+
                     //Colision barries
-                    barr.barrelCollision(player, boat);
+                    if(barr.barrelCollision(player, boat))
+                        document.getElementById('barrelCount').innerHTML = player.barrelCounter.toString();
+                    if(barr.barrelCollision(player2, boat2))
+                        document.getElementById('barrelCount2').innerHTML = player2.barrelCounter.toString();
+
                     //Colision obstaculos
                     if(!player.inmunidad){
 
-                        obst.obstaclesCollisions(boat, player, speed)
-                        
+                        if(obst.obstaclesCollisions(boat, player, speed))
+                            document.getElementById('anclaCount').innerHTML = player.strikeCounter.toString();
+
                         if(player.strikeCounter > 2)
                         {
                           
@@ -361,24 +379,48 @@ function render() {
                                 
                                 player.lose = true;
                               }, 5000)
-                              
-                            
-                    
-                          
-                              
-                            
                           
                         }
     
                     }
+
+                    //Colision obstaculos
+                    if(!player2.inmunidad){
+
+                        if(obst.obstaclesCollisions(boat2, player2, speed2))
+                            document.getElementById('anclaCount2').innerHTML = player2.strikeCounter.toString();
+
+                        if(player2.strikeCounter > 2)
+                        {
+                            
+                            action.stop();
+                            action2.play();
+                            mixer.update(tiempoDelta);
+
+                            setTimeout(() => {
+                                
+                                boat2.position.y=-4;
+                                }, 2800)
+
+                            setTimeout(() => {
+                                
+                                player2.lose = true;
+                                }, 5000)
+                            
+                        }
     
-                    //Colision items
-                    ite.itemsCollision(boat,player, speed)
+                    }
+    
+                    //Colision items (triangulos amarillos)
+                    if(ite.itemsCollision(boat,player, speed)== 0)
+                        document.getElementById("anclaCount").innerHTML = player.strikeCounter.toString();
+                    if(ite.itemsCollision(boat2,player2, speed2)== 0)
+                        document.getElementById("anclaCount2").innerHTML = player2.strikeCounter.toString();
 
             
                     if (player.inmunidad == true) {
                         player.inmunidadCounter += tiempoDelta;
-                        switch(speedMovementMap){
+                        switch(speed.speedMovementMap){
                             case 5:
                                 if (player.inmunidadCounter >= 3.5) {
                                     player.inmunidad = false;
@@ -400,10 +442,48 @@ function render() {
                         }
                         
                     }
+
+                    if (player2.inmunidad == true) {
+                        player2.inmunidadCounter += tiempoDelta;
+                        switch(speed2.speedMovementMap){
+                            case 5:
+                                if (player2.inmunidadCounter >= 3.5) {
+                                    player2.inmunidad = false;
+                                    player2.inmunidadCounter = 0;
+                                } 
+                            break;
+                            case 4: 
+                                if (player2.inmunidadCounter >= 4.5) {
+                                    player2.inmunidad = false;
+                                    player2.inmunidadCounter = 0;
+                                }
+                            break;
+                            case 3: 
+                                if (player2.inmunidadCounter >= 5.5) {
+                                    player2.inmunidad = false;
+                                    player2.inmunidadCounter = 0;
+                                }
+                            break;
+                        }
+                        
+                    }
+
+                    if(player.lose == true){
+
+                        factoryGame.isPaused = true;
+                        playerOneCrashed = true;
+                                                   
+                    }else if(player2.lose == true){
+
+                        factoryGame.isPaused = true;
+                        playerTwoCrashed = true;
+
+                    }
                 }
     
                 document.getElementById('pScore').innerHTML = player.score.toString();
-                
+                document.getElementById('pScore2').innerHTML = player2.score.toString();
+
                 
                     if (keys["A"]) {
                         
@@ -432,25 +512,46 @@ function render() {
                 renderer.render(scene, camera);
                 
             }
+        }else{
+            if(playerOneCrashed){
+                localStorage.setItem("score", player.score)
+                localStorage.setItem("score2", player2.score)
+                localStorage.setItem("jugador", 'Jugador 2')
+    
+            }else if(playerTwoCrashed){
+
+                localStorage.setItem("score", player.score)
+                localStorage.setItem("jugador", 'Jugador 1')
+            }
+
+            window.location.href = "Victory.php";
+
         }
     }else{
         
           
         factoryGame.isPaused = true;
-        localStorage.setItem("score", player.score)
-        window.location.href = "Loser.php";
+
+        if(player.score > player2.score){
+            localStorage.setItem("score", player.score)
+            localStorage.setItem("jugador", 'Jugador 1')
+
+            window.location.href = "Victory.php";
+        }else if(player.score < player2.score){
+            localStorage.setItem("score", player.score)
+            localStorage.setItem("score2", player2.score)
+            localStorage.setItem("jugador", 'Jugador 2')
+
+            window.location.href = "Victory.php";
+           
+        }else{
+            localStorage.setItem("score", player.score)
+            localStorage.setItem("jugador", 'Jugador 1')
+        }
       
 
-  
-   
-   
-
     }
 
-    if(player.win == true){
-        factoryGame.isPaused = true;
-        localStorage.setItem("score", player.score)
-        window.location.href = "Victory.php";
-    }
+
 
 }

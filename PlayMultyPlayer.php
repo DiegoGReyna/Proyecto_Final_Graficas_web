@@ -53,10 +53,10 @@
                         <th style="padding-left: 10px;"><img src="img/ancla.png" width="70px" height="50px"></th>
                     </tr>
                     <tr>
-                        <td style="padding-left: 30px; padding-right:10px "><label id="pScore">0</label></td>
-                        <td><label style="padding-left: 10px" id="barrelCount">0</label>\25</td>
+                        <td style="padding-left: 30px; padding-right:10px "><label id="pScore2">0</label></td>
+                        <td><label style="padding-left: 10px" id="barrelCount2">0</label>\25</td>
                         <td><label style="color:red; padding-left: 10px">Strikes:</label></td>
-                        <td><label style="color:red; padding-left: 10px" id="anclaCount">0</label></td>
+                        <td><label style="color:red; padding-left: 10px" id="anclaCount2">0</label></td>
                     </tr>
                 </table>
             </div>
@@ -133,7 +133,7 @@
         <script type="text/javascript">
             document.addEventListener("DOMContentLoaded", () => {
                 let val = localStorage.getItem("audio");
-                if (val > 0) {
+                if (val >= 0) {
                     document.getElementById('musicGame').volume = (val / 100);
                     document.getElementById("musicGame").loop = true;
                     document.getElementById('musicGame').play();
