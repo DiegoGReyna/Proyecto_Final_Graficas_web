@@ -19,7 +19,8 @@ var camera;
 var clock;
 //var isPlay = true, 
 var anclaje_ = true, isPlayingRn = false;
-
+//luz focal
+var spotLight
 //OBJETOS
 var player = new Player(0,0,0,false, false, 0);
 var obst, barr, ite;
@@ -57,7 +58,7 @@ $(document).ready(function () {
         60,
         width / height,
         0.1,
-        1000
+        1500
     );
     //inicializamos la esceba
     scene = new THREE.Scene();  
@@ -66,15 +67,15 @@ $(document).ready(function () {
     //2.-Material: es un objeto que alamcena la info del material como colores, texturas , iliminacion , etx
     //3.-Mesh:es un objeto que contiene la geometria y el material
 
-    var axesHelpert = new THREE.AxesHelper(10);
-    scene.add(axesHelpert);
-    const GridHelper= new THREE.GridHelper(10);
-    GridHelper.position.y=0.5
-    scene.add(GridHelper);
-    var orbit =new OrbitControls(camera,renderer.domElement);
-    camera.position.set(0, 12, 20);
+    // var axesHelpert = new THREE.AxesHelper(10);
+    // scene.add(axesHelpert);
+    // const GridHelper= new THREE.GridHelper(10);
+    // GridHelper.position.y=0.5
+    // scene.add(GridHelper);
+    // var orbit =new OrbitControls(camera,renderer.domElement);
+    camera.position.set(0, 12, 40);
     
-    orbit.update();
+    // orbit.update();
      
     const BoatModelLoader=new GLTFLoader();
     BoatModelLoader.load('modelos/boat/Animated_Boat_1.glb',(model)=>{
@@ -115,7 +116,22 @@ $(document).ready(function () {
         scene.add(Map);
        
     })
-    
+    //sky dome
+ var skyGeo = new THREE.SphereGeometry(1300, 25, 25); 
+ var loader  = new THREE.TextureLoader(),
+ texture = loader.load( "img/sky1.png" );
+ texture.wrapS = THREE.RepeatWrapping;
+  texture.wrapT = THREE.RepeatWrapping;
+  texture.repeat.x = 4;
+  texture.repeat.y = 4;
+
+ var material = new THREE.MeshPhongMaterial({ 
+  map: texture,
+  });
+  
+  var sky = new THREE.Mesh(skyGeo, material);
+  sky.material.side = THREE.BackSide;
+  scene.add(sky);
     //iluminacion ambiental 
     //parametros 
     //color de la luz
@@ -123,22 +139,36 @@ $(document).ready(function () {
     var ambient = new THREE.AmbientLight(
         new THREE.Color(1, 0.6, 0.1),
         1
+       
     );
     scene.add(ambient);
     //lus direccional
     var directional = new THREE.DirectionalLight(
-        "#FFFFFF",
-        1.5
+        0xFFFFFF,
+        1
+       
 
     );
     directional.position.set(0, 12, 10);
     scene.add(directional);
+    
+    spotLight = new THREE.SpotLight(  0xFF5500,0.1,1000,Math.PI*0.6,0);
+
+    spotLight.position.set(0,10,5);
+
+    scene.add(spotLight);
+ 
+    
+   
+
+        
     // le indicamos a Threejs
     // donde queremos el canvas
 
     obst = new Obstacles(scene);
     barr = new Barrel(scene);
     ite = new Item(scene);
+    
     //Obstaculos
     obst.spawnObstacles();
     //Barriles
@@ -190,7 +220,7 @@ function render() {
           
 
             if(isLoaded[0]===true && isLoaded[1]===true && isLoaded[2]===true ){
-                
+                spotLight.target=boat;
     
                 //Anclaje de obstaculos al mapa
                 if(scene.getObjectByName("Roca_Decierto_grande_9") !== undefined &&

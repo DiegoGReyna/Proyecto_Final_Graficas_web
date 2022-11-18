@@ -22,7 +22,9 @@ var speedMovementMap2 = 5;
 var scene2;
 var renderer2;
 var camera2;
-
+/// luz
+var spotLight;
+var spotLight2;
 //var isPlay = true, 
 var anclaje_ = true, isPlayingRn = false;
 var playerOneCrashed = false, playerTwoCrashed = false;
@@ -41,9 +43,6 @@ var mixer;
 var mixer2;
 var  action;
 var  action2;
-
-;
-
 var  action2;
 var  action22;
 ///Modelos
@@ -153,18 +152,32 @@ $(document).ready(function () {
     
     //luz ambiental
     var ambient = new THREE.AmbientLight(
-        "#FFFFFF",
+        new THREE.Color(1, 0.6, 0.1),
         1
     );
     scene.add(ambient);
     //luz direccional
     var directional = new THREE.DirectionalLight(
-        new THREE.Color(1, 0.6, 0.1),
+        0xFFFFFF,
         1
 
     );
     directional.position.set(0, 12, 10);
     scene.add(directional);
+
+    spotLight = new THREE.SpotLight( 0xFF5500,0.1,1000,Math.PI*0.6,0);
+
+    spotLight.position.set(0,10,30);
+
+    scene.add(spotLight);
+
+    spotLight2 = new THREE.SpotLight( 0xFF5500,0.1,1000,Math.PI*0.6,0);
+
+    spotLight2.position.set(300,10,30);
+
+    scene.add(spotLight2);
+
+
     // le indicamos a Threejs
     // donde queremos el canvas
 
@@ -224,20 +237,24 @@ $(document).ready(function () {
 
     })
    /*Sky dome*/
-   var skyGeo = new THREE.SphereGeometry(1500, 25, 25); 
+   var skyGeo = new THREE.SphereGeometry(1300, 25, 25); 
    var loader  = new THREE.TextureLoader(),
-   texture = loader.load( "img/DiaSkyDome.jpg" );
-   
+   texture = loader.load( "img/sky1.png" );
+   texture.wrapS = THREE.RepeatWrapping;
+    texture.wrapT = THREE.RepeatWrapping;
+    texture.repeat.x = 4;
+    texture.repeat.y = 4;
+
    var material = new THREE.MeshPhongMaterial({ 
     map: texture,
     });
-    // texture.repeat.set( 1,1 );
+    
     var sky = new THREE.Mesh(skyGeo, material);
     sky.material.side = THREE.BackSide;
     scene.add(sky);
-     sky.position.y=-250;
     
-    //luz ambiental
+    sky.rotateY(90);
+    
     
     // le indicamos a Threejs
     // donde queremos el canvas
@@ -301,7 +318,8 @@ function render() {
 
             if(isLoaded2[1] === true && isLoaded2[2]===true && isLoaded2[0]===true&&isLoaded[0]===true && isLoaded[1]===true && isLoaded[2]===true ){
                
-    
+                spotLight.target=boat;
+                spotLight2.target=boat2;
                 //Anclaje de obstaculos al mapa
                 if(scene.getObjectByName("Roca_Decierto_grande_9") !== undefined &&
                 scene.getObjectByName("Barril_4") !== undefined &&
