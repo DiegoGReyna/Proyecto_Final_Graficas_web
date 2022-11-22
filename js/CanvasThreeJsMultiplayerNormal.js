@@ -280,13 +280,14 @@ $(document).ready(function () {
     function myFunction() {
         factoryGame.isPaused = true;
         document.getElementById("myModal").style.display = "block";
+        clock.running = false
     }
     
     function myFunction2() {
         factoryGame.isPaused = false;
         document.getElementById("myModal").style.display = "none";
+        clock.start();
         render();
-
     }
     
     render();
@@ -322,7 +323,7 @@ function render() {
                 spotLight2.target=boat2;
                 //Anclaje de obstaculos al mapa
                 if(scene.getObjectByName("Roca_Decierto_grande_9") !== undefined &&
-                scene.getObjectByName("Barril_4") !== undefined &&
+                scene.getObjectByName("Barril_14") !== undefined &&
                 scene.getObjectByName("yellowTriangle4") !== undefined &&
                 scene.getObjectByName("Glacier_9") !== undefined &&
                 scene.getObjectByName("RocaLevel1_9") !== undefined &&
@@ -330,7 +331,7 @@ function render() {
                 scene.getObjectByName("Roca_Decierto_grande_19") !== undefined &&
                 scene.getObjectByName("Glacier_19") !== undefined &&
                 scene.getObjectByName("RocaLevel1_19") !== undefined &&
-                scene.getObjectByName("Barril_49") !== undefined
+                scene.getObjectByName("Barril_29") !== undefined
                 
                 ){
                         
@@ -445,14 +446,14 @@ function render() {
                                     player.inmunidadCounter = 0;
                                 } 
                             break;
-                            case 4: 
-                                if (player.inmunidadCounter >= 4.5) {
+                            case 6: 
+                                if (player.inmunidadCounter >= 2.5) {
                                     player.inmunidad = false;
                                     player.inmunidadCounter = 0;
                                 }
                             break;
-                            case 3: 
-                                if (player.inmunidadCounter >= 5.5) {
+                            case 7: 
+                                if (player.inmunidadCounter >= 1.5) {
                                     player.inmunidad = false;
                                     player.inmunidadCounter = 0;
                                 }
@@ -465,21 +466,21 @@ function render() {
                         player2.inmunidadCounter += tiempoDelta;
                         switch(speed2.speedMovementMap){
                             case 5:
-                                if (player2.inmunidadCounter >= 3.5) {
-                                    player2.inmunidad = false;
-                                    player2.inmunidadCounter = 0;
+                                if (player.inmunidadCounter >= 3.5) {
+                                    player.inmunidad = false;
+                                    player.inmunidadCounter = 0;
                                 } 
                             break;
-                            case 4: 
-                                if (player2.inmunidadCounter >= 4.5) {
-                                    player2.inmunidad = false;
-                                    player2.inmunidadCounter = 0;
+                            case 6: 
+                                if (player.inmunidadCounter >= 2.5) {
+                                    player.inmunidad = false;
+                                    player.inmunidadCounter = 0;
                                 }
                             break;
-                            case 3: 
-                                if (player2.inmunidadCounter >= 5.5) {
-                                    player2.inmunidad = false;
-                                    player2.inmunidadCounter = 0;
+                            case 7: 
+                                if (player.inmunidadCounter >= 1.5) {
+                                    player.inmunidad = false;
+                                    player.inmunidadCounter = 0;
                                 }
                             break;
                         }
@@ -535,14 +536,16 @@ function render() {
                 localStorage.setItem("score", player.score)
                 localStorage.setItem("score2", player2.score)
                 localStorage.setItem("jugador", 'Jugador 2')
-    
+                window.location.href = "Victory.php";
+
             }else if(playerTwoCrashed){
 
                 localStorage.setItem("score", player.score)
                 localStorage.setItem("jugador", 'Jugador 1')
+                window.location.href = "Victory.php";
+
             }
 
-            window.location.href = "Victory.php";
 
         }
     }else{
@@ -565,6 +568,7 @@ function render() {
         }else{
             localStorage.setItem("score", player.score)
             localStorage.setItem("jugador", 'Jugador 1')
+            window.location.href = "Victory.php";
         }
       
 

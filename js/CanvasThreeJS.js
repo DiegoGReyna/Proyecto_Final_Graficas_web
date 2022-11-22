@@ -186,13 +186,14 @@ $(document).ready(function () {
     function myFunction() {
         factoryGame.isPaused = true;
         document.getElementById("myModal").style.display = "block";
+        clock.running = false
     }
     
     function myFunction2() {
         factoryGame.isPaused = false;
         document.getElementById("myModal").style.display = "none";
+        clock.start();
         render();
-
     }
 
     render();
@@ -224,7 +225,7 @@ function render() {
     
                 //Anclaje de obstaculos al mapa
                 if(scene.getObjectByName("Roca_Decierto_grande_9") !== undefined &&
-                scene.getObjectByName("Barril_4") !== undefined &&
+                scene.getObjectByName("Barril_14") !== undefined &&
                 scene.getObjectByName("yellowTriangle4") !== undefined &&
                 scene.getObjectByName("Glacier_9") !== undefined &&
                 scene.getObjectByName("RocaLevel1_9") !== undefined
@@ -306,14 +307,14 @@ function render() {
                                     player.inmunidadCounter = 0;
                                 } 
                             break;
-                            case 4: 
-                                if (player.inmunidadCounter >= 4.5) {
+                            case 6: 
+                                if (player.inmunidadCounter >= 2.5) {
                                     player.inmunidad = false;
                                     player.inmunidadCounter = 0;
                                 }
                             break;
-                            case 3: 
-                                if (player.inmunidadCounter >= 5.5) {
+                            case 7: 
+                                if (player.inmunidadCounter >= 1.5) {
                                     player.inmunidad = false;
                                     player.inmunidadCounter = 0;
                                 }

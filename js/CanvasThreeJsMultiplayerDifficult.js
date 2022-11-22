@@ -36,8 +36,8 @@ var player2 = new Player(0,0,0,false, false, 0);
 var obst, obst2, barr, barr2, ite, ite2;
 var collisions = new Collision();
 var collisions2 = new Collision();
-var speed = new Terrain(5);
-var speed2 = new Terrain(5);
+var speed = new Terrain(7);
+var speed2 = new Terrain(7);
 var factoryGame = new Game();
 ///Animaciones
 var mixer;
@@ -284,13 +284,14 @@ console.log(spotLight2.position);
     function myFunction() {
         factoryGame.isPaused = true;
         document.getElementById("myModal").style.display = "block";
+        clock.running = false
     }
     
     function myFunction2() {
         factoryGame.isPaused = false;
         document.getElementById("myModal").style.display = "none";
+        clock.start();
         render();
-
     }
     
     render();
@@ -333,7 +334,7 @@ function render() {
                 scene.getObjectByName("Roca_Decierto_grande_19") !== undefined &&
                 scene.getObjectByName("Glacier_19") !== undefined &&
                 scene.getObjectByName("RocaLevel1_19") !== undefined &&
-                scene.getObjectByName("Barril_49") !== undefined
+                scene.getObjectByName("Barril_29") !== undefined
                 
                 ){
                         
@@ -442,20 +443,20 @@ function render() {
                     if (player.inmunidad == true) {
                         player.inmunidadCounter += tiempoDelta;
                         switch(speed.speedMovementMap){
-                            case 5:
-                                if (player.inmunidadCounter >= 3.5) {
+                            case 7:
+                                if (player.inmunidadCounter >= 1.5) {
                                     player.inmunidad = false;
                                     player.inmunidadCounter = 0;
                                 } 
                             break;
-                            case 4: 
-                                if (player.inmunidadCounter >= 4.5) {
+                            case 8: 
+                                if (player.inmunidadCounter >= 0.5) {
                                     player.inmunidad = false;
                                     player.inmunidadCounter = 0;
                                 }
                             break;
-                            case 3: 
-                                if (player.inmunidadCounter >= 5.5) {
+                            case 9: 
+                                if (player.inmunidadCounter >= 0.25) {
                                     player.inmunidad = false;
                                     player.inmunidadCounter = 0;
                                 }
@@ -467,22 +468,22 @@ function render() {
                     if (player2.inmunidad == true) {
                         player2.inmunidadCounter += tiempoDelta;
                         switch(speed2.speedMovementMap){
-                            case 5:
-                                if (player2.inmunidadCounter >= 3.5) {
-                                    player2.inmunidad = false;
-                                    player2.inmunidadCounter = 0;
+                            case 7:
+                                if (player.inmunidadCounter >= 1.5) {
+                                    player.inmunidad = false;
+                                    player.inmunidadCounter = 0;
                                 } 
                             break;
-                            case 4: 
-                                if (player2.inmunidadCounter >= 4.5) {
-                                    player2.inmunidad = false;
-                                    player2.inmunidadCounter = 0;
+                            case 8: 
+                                if (player.inmunidadCounter >= 0.5) {
+                                    player.inmunidad = false;
+                                    player.inmunidadCounter = 0;
                                 }
                             break;
-                            case 3: 
-                                if (player2.inmunidadCounter >= 5.5) {
-                                    player2.inmunidad = false;
-                                    player2.inmunidadCounter = 0;
+                            case 9: 
+                                if (player.inmunidadCounter >= 0.25) {
+                                    player.inmunidad = false;
+                                    player.inmunidadCounter = 0;
                                 }
                             break;
                         }
@@ -538,14 +539,15 @@ function render() {
                 localStorage.setItem("score", player.score)
                 localStorage.setItem("score2", player2.score)
                 localStorage.setItem("jugador", 'Jugador 2')
+                window.location.href = "Victory.php";
     
             }else if(playerTwoCrashed){
 
                 localStorage.setItem("score", player.score)
                 localStorage.setItem("jugador", 'Jugador 1')
+                window.location.href = "Victory.php";
             }
 
-            window.location.href = "Victory.php";
 
         }
     }else{
@@ -568,6 +570,8 @@ function render() {
         }else{
             localStorage.setItem("score", player.score)
             localStorage.setItem("jugador", 'Jugador 1')
+            window.location.href = "Victory.php";
+
         }
       
 

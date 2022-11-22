@@ -109,7 +109,7 @@ export class Obstacles{
             player.inmunidad = true;
             player.strikeCounter++;
             console.log('Bote colisionó con los obstaculos del nivel 1')
-            speed.speedMovementMap = speed.speedMovementMap -1;
+            speed.speedMovementMap = speed.speedMovementMap +1;
             coll = true;
         }else{
         }
@@ -121,7 +121,7 @@ export class Obstacles{
             player.inmunidad = true;
             player.strikeCounter++;
             console.log('Bote colisionó con los obstaculos del nivel 2')
-            speed.speedMovementMap = speed.speedMovementMap -1;
+            speed.speedMovementMap = speed.speedMovementMap +1;
             coll = true;
         }else{
         }
@@ -133,7 +133,7 @@ export class Obstacles{
             player.inmunidad = true;
             player.strikeCounter++;
             console.log('Bote colisionó con los obstaculos del nivel 3')
-            speed.speedMovementMap = speed.speedMovementMap -1;
+            speed.speedMovementMap = speed.speedMovementMap +1;
             coll = true;
         }else{
         }

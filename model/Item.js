@@ -16,6 +16,7 @@ export class Item{
 
     constructor(scene){
         this.scene =scene;
+        this.sound = new Sound();
     }
 
     spawnItems(){
@@ -114,7 +115,6 @@ export class Item{
 
     itemsCollision(boat,player, speed){
         let collision = new Collision();
-        let sound = new Sound();
         let coll = false;
 
         for(let i = 0; i < this.redOrbeList.length; i++){
@@ -127,7 +127,7 @@ export class Item{
                 if(player.score > 0){    
                     player.score = player.score*2;
                 }
-                sound.playGetItem();
+                this.sound.playGetItem();
             }else{
             }
         
@@ -150,7 +150,7 @@ export class Item{
                         player.score = player.score*3;
                     }
                 }
-                sound.playGetItem();
+                this.sound.playGetItem();
             }else{
             }
         
@@ -165,10 +165,10 @@ export class Item{
 
                 if(player.strikeCounter > 0){ 
                     player.strikeCounter--;
-                    speed.speedMovementMap = speed.speedMovementMap + 1;
+                    speed.speedMovementMap = speed.speedMovementMap - 1;
                     coll = true;
                 }
-                sound.playGetItem();
+                this.sound.playGetItem();
             }else{
             }
         

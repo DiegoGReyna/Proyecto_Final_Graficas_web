@@ -25,7 +25,7 @@ var spotLight;
 var player = new Player(0,0,0,false, false, 0);
 var obst, barr, ite;
 var collisions = new Collision();
-var speed = new Terrain(5);
+var speed = new Terrain(7);
 var factoryGame = new Game();
 ///Animaciones
 var mixer;
@@ -186,13 +186,14 @@ $(document).ready(function () {
     function myFunction() {
         factoryGame.isPaused = true;
         document.getElementById("myModal").style.display = "block";
+        clock.running = false
     }
     
     function myFunction2() {
         factoryGame.isPaused = false;
         document.getElementById("myModal").style.display = "none";
         render();
-
+        clock.start();
     }
 
     render();
@@ -216,19 +217,10 @@ function render() {
             requestAnimationFrame(render);
         
             if(isLoaded[0]===true && isLoaded[1]===true && isLoaded[2]===true ){
-                tiempoDelta = clock.getDelta();
-                spotLight.target=boat;
-                if (mixer){
-                    mixer.update(tiempoDelta);
-                }  
-                var ModelMap=scene.getObjectByName("map");
-                var ModelWater=scene.getObjectByName("water");
-                ModelMap.position.z+=speed.speedMovementMap *tiempoDelta;
-                ModelMap.add(ModelWater);
-    
+                
                 //Anclaje de obstaculos al mapa
                 if(scene.getObjectByName("Roca_Decierto_grande_9") !== undefined &&
-                scene.getObjectByName("Barril_4") !== undefined &&
+                scene.getObjectByName("Barril_14") !== undefined &&
                 scene.getObjectByName("yellowTriangle4") !== undefined &&
                 scene.getObjectByName("Glacier_9") !== undefined &&
                 scene.getObjectByName("RocaLevel1_9") !== undefined
@@ -245,16 +237,31 @@ function render() {
                 }
 
                 if(factoryGame.isPlayingRn == true){
+
+                    tiempoDelta = clock.getDelta();
+
+                    spotLight.target=boat;
+                    if (mixer){
+                        mixer.update(tiempoDelta);
+                    }  
+
+                    var ModelMap=scene.getObjectByName("map");
+                    var ModelWater=scene.getObjectByName("water");
+                    ModelMap.position.z+=speed.speedMovementMap *tiempoDelta;
+                    ModelMap.add(ModelWater);
+    
                     //Colision lados
                     collisions.bounderiesCollision(player, boat);
                     //Colision final
                     collisions.finalMapCollision(player, Map);
-                    //Colision barries
-                    barr.barrelCollision(player, boat);
+                       //Colision barries
+                    if(barr.barrelCollision(player, boat))
+                       document.getElementById('barrelCount').innerHTML = player.barrelCounter.toString();
                     //Colision obstaculos
                     if(!player.inmunidad){
 
-                        obst.obstaclesCollisions(boat, player, speed)
+                        if(obst.obstaclesCollisions(boat, player, speed))
+                            document.getElementById('anclaCount').innerHTML = player.strikeCounter.toString();
                         
                         if(player.strikeCounter > 2)
                         {
@@ -283,27 +290,28 @@ function render() {
     
                     }
     
-                    //Colision items
-                    ite.itemsCollision(boat,player, speed)
+                    //Colision items (triangulos amarillos)
+                    if(ite.itemsCollision(boat,player, speed)== 0)
+                        document.getElementById("anclaCount").innerHTML = player.strikeCounter.toString();
 
             
                     if (player.inmunidad == true) {
                         player.inmunidadCounter += tiempoDelta;
-                        switch(speedMovementMap){
-                            case 5:
-                                if (player.inmunidadCounter >= 3.5) {
+                        switch(speed.speedMovementMap){
+                            case 7:
+                                if (player.inmunidadCounter >= 1.5) {
                                     player.inmunidad = false;
                                     player.inmunidadCounter = 0;
                                 } 
                             break;
-                            case 4: 
-                                if (player.inmunidadCounter >= 4.5) {
+                            case 8: 
+                                if (player.inmunidadCounter >= 0.5) {
                                     player.inmunidad = false;
                                     player.inmunidadCounter = 0;
                                 }
                             break;
-                            case 3: 
-                                if (player.inmunidadCounter >= 5.5) {
+                            case 9: 
+                                if (player.inmunidadCounter >= 0.25) {
                                     player.inmunidad = false;
                                     player.inmunidadCounter = 0;
                                 }
@@ -339,20 +347,26 @@ function render() {
         
           
         factoryGame.isPaused = true;
-        localStorage.setItem("score", player.score)
-        window.location.href = "Loser.php";
-      
 
-  
-   
-   
+        if(player.score > player2.score){
+            localStorage.setItem("score", player.score)
+            localStorage.setItem("jugador", 'Jugador 1')
+
+            window.location.href = "Victory.php";
+        }else if(player.score < player2.score){
+            localStorage.setItem("score", player.score)
+            localStorage.setItem("score2", player2.score)
+            localStorage.setItem("jugador", 'Jugador 2')
+
+            window.location.href = "Victory.php";
+           
+        }else{
+            localStorage.setItem("score", player.score)
+            localStorage.setItem("jugador", 'Jugador 1')
+        }
+        
 
     }
 
-    if(player.win == true){
-        factoryGame.isPaused = true;
-        localStorage.setItem("score", player.score)
-        window.location.href = "Victory.php";
-    }
     
 }

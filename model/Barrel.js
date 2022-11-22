@@ -8,11 +8,13 @@ export class Barrel{
 
     constructor(scene){
         this.scene = scene;
+        this.sound = new Sound();
+
     }
 
     spawnBarrels(){
 
-        for(let i = 0; i < 25; i ++){
+        for(let i = 0; i < 15; i ++){
             var z= Math.floor(Math.random() * (35 - 990) + 990);
             var x= Math.floor(Math.random() * (21 - (-21)) + (-21));
             
@@ -23,7 +25,7 @@ export class Barrel{
 
     spawnBarrels2(){
 
-        for(let i = 25; i < 50; i ++){
+        for(let i = 15; i < 30; i ++){
             var z= Math.floor(Math.random() * (35 - 990) + 990);
             var x= Math.floor(Math.random() * (321 - (279)) + (279));
             
@@ -33,7 +35,7 @@ export class Barrel{
     }
 
     anchorBarrels(Map){
-        for(let i=0; i< 25; i++)
+        for(let i=0; i< 15; i++)
         {
             let a = this.scene.getObjectByName("Barril_"+i);
             this.barrelsList.push(a)
@@ -44,7 +46,7 @@ export class Barrel{
 
     
     anchorBarrels2(Map){
-        for(let i=0; i< 50; i++)
+        for(let i=0; i< 30; i++)
         {
             let a = this.scene.getObjectByName("Barril_"+i);
             this.barrelsList.push(a)
@@ -60,8 +62,7 @@ export class Barrel{
         for(let i = 0; i < this.barrelsList.length; i++){
             if(collision.detectCollision(boat, this.barrelsList[i])){
                     //console.log('Bote colisionó barril')
-                    let sound = new Sound();
-                    sound.playGetItem();
+                    this.sound.playGetItem();
     
                     this.barrelsList[i].removeFromParent();
                     this.barrelsList[i].remove();
